@@ -46,7 +46,10 @@
       <div class="section-heading"><div><p class="eyebrow">THE LAB / {{EXAMPLE_COUNT}} EXPERIMENTS</p><h2 id="library-title">Find your next rabbit hole.</h2></div><p>Watch it. Open it. Change something.</p></div>
       <form class="controls" role="search" hidden>
         <div class="filters" role="group" aria-label="Filter examples"><button type="button" data-filter="all" aria-pressed="true">All examples <span>{{EXAMPLE_COUNT}}</span></button><button type="button" data-filter="video" aria-pressed="false">On YouTube <span>{{MATCHED_COUNT}}</span></button><button type="button" data-filter="code" aria-pressed="false">Available soon <span>{{UNMATCHED_COUNT}}</span></button></div>
-        <div class="search"><label for="search">Search the collection</label><input type="search" id="search" placeholder="Search a title, effect, or CSS feature…" autocomplete="off"></div>
+        <div class="search-tools">
+          <div class="search"><label for="search">Search the collection</label><input type="search" id="search" placeholder="Search a title, effect, or CSS feature…" autocomplete="off"></div>
+          <button type="button" id="random-example" class="random-button" title="Open a random example from the matching results"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="4"/><path stroke-linecap="round" stroke-width="3" d="M8 8h0m8 0h0m-4 4h0m-4 4h0m8 0h0"/></svg>Random</button>
+        </div>
       </form>
       <div class="results-bar"><p id="result-count" role="status" aria-live="polite" tabindex="-1">{{EXAMPLE_COUNT}} examples · YouTube videos first</p><label class="page-size" hidden>Per page <select id="page-size" aria-controls="video-gallery"><option value="12">12</option><option value="24">24</option><option value="48">48</option></select></label></div>
       <nav class="pagination pagination-top" aria-label="Video pages, top" hidden></nav>

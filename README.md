@@ -18,6 +18,8 @@ The homepage features a randomly selected published video with its matching code
 
 Browse the collection with numbered pages at the top and bottom, and choose 12, 24, or 48 examples per page. The URL preserves the page, search, and filter so you can share a selection, reload it, or use your browser's Back and Forward buttons.
 
+Use **Random** beside the search field to open a random example from all matching results, including other pages. It respects the current search and filter.
+
 ## Start exploring
 
 | Example | What you'll explore | Links |

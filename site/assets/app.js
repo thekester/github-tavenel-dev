@@ -6,6 +6,7 @@ const paginations = [...document.querySelectorAll('.pagination')];
 const sizeSelect = document.querySelector('#page-size');
 const counter = document.querySelector('#result-count');
 const empty = document.querySelector('#empty-state');
+const randomButton = document.querySelector('#random-example');
 let pageSize = 12;
 let activeFilter = 'all';
 let currentPage = 1;
@@ -79,12 +80,20 @@ function renderPagination(totalPages) {
   });
 }
 
-function render() {
+function matchingCards() {
   const terms = input.value.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
-  const matches = cards.filter(card => {
+  return cards.filter(card => {
     const categoryMatches = activeFilter === 'all' || (card.dataset.video === 'true') === (activeFilter === 'video');
     return categoryMatches && terms.every(term => card.dataset.search.includes(term));
   });
+}
+
+function render() {
+  const matches = matchingCards();
+  randomButton.disabled = matches.length === 0;
+  randomButton.title = matches.length
+    ? `Open a random example from ${matches.length} matching results`
+    : 'No matching example. Change the search or filter to try again.';
   const totalPages = Math.ceil(matches.length / pageSize);
   currentPage = Math.min(currentPage, Math.max(1, totalPages));
   const start = (currentPage - 1) * pageSize;
@@ -101,6 +110,12 @@ function render() {
 form.hidden = false;
 document.querySelector('.page-size').hidden = false;
 form.addEventListener('submit', event => event.preventDefault());
+randomButton.addEventListener('click', () => {
+  const matches = matchingCards();
+  if (!matches.length) return;
+  const selected = matches[Math.floor(Math.random() * matches.length)];
+  location.assign(selected.querySelector('h3 a').href);
+});
 input.addEventListener('input', () => { currentPage = 1; render(); saveLocation(); });
 filters.forEach(button => button.addEventListener('click', () => {
   activeFilter = button.dataset.filter;
