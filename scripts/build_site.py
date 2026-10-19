@@ -38,22 +38,46 @@ def card(example):
     title = escape(example['title'])
     description = escape(example['description'])
     video_id = example['youtubeId']
-    demo = f'videos/css/{slug}/'
+    demo = f'examples/{slug}/'
     youtube = f'https://www.youtube.com/shorts/{video_id}' if video_id else None
-    destination = youtube or demo
+    destination = demo
     if video_id:
-        preview = f'<img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="480" height="360" loading="lazy" decoding="async"><span class="play" aria-hidden="true">▶</span>'
+        preview = f'<img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="480" height="360" loading="lazy" decoding="async"><span class="play" aria-hidden="true">&lt;/&gt;</span>'
     else:
         preview = f'<span class="code-art"><strong aria-hidden="true">&#123; &#125;</strong><span>{slug}/</span></span>'
     video_link = f'<a href="{youtube}">YouTube ↗</a>' if video_id else ''
-    label = '<span class="video-label">ON YOUTUBE</span>' if video_id else '<span>CODE EXAMPLE</span>'
+    label = '<span class="video-label">ON YOUTUBE</span>' if video_id else '<span class="soon-label">AVAILABLE SOON</span>'
     search = escape(f"{slug} {example['title']} {example['description']}".lower(), quote=True)
     return f'''<article class="card" data-video="{str(bool(video_id)).lower()}" data-search="{search}">
-      <a class="card-preview" href="{destination}" aria-label="{'Watch' if video_id else 'Try'} {title}">{preview}</a>
+      <a class="card-preview" href="{destination}" aria-label="Explore {title}">{preview}</a>
       <div class="card-kicker">{label}<span>HTML + CSS</span></div>
       <h3><a href="{demo}">{title}</a></h3><p>{description}</p>
-      <div class="card-actions"><a href="{demo}">Live demo ↗</a><a href="{REPO}/tree/main/videos/css/{slug}">Source code ↗</a>{video_link}</div>
+      <div class="card-actions"><a href="{demo}">Code &amp; demo →</a><a href="{REPO}/tree/main/videos/css/{slug}">GitHub ↗</a>{video_link}</div>
     </article>'''
+
+
+def example_page(example, template):
+    slug = example['slug']
+    folder = ROOT / 'videos/css' / slug
+    html = (folder / 'index.html').read_text(encoding='utf-8')
+    css = (folder / 'style.css').read_text(encoding='utf-8')
+    video_id = example['youtubeId']
+    values = {
+        'TITLE': escape(example['title']),
+        'DESCRIPTION': escape(example['description']),
+        'SLUG': slug,
+        'STATUS': 'ON YOUTUBE' if video_id else 'AVAILABLE SOON',
+        'VIDEO': (
+            f'<a class="text-link" href="https://www.youtube.com/shorts/{video_id}">Watch on YouTube ↗</a>'
+            if video_id else '<p class="upcoming-note">Video available soon. Explore the code and demo below.</p>'
+        ),
+        'HTML_CODE': escape(html),
+        'CSS_CODE': escape(css),
+        'HTML_LINES': str(len(html.splitlines())),
+        'CSS_LINES': str(len(css.splitlines())),
+        'REPO': REPO,
+    }
+    return re.sub(r'\{\{([A-Z_]+)\}\}', lambda match: values[match[1]], template)
 
 
 def build():
@@ -71,6 +95,11 @@ def build():
     (OUTPUT / '.nojekyll').touch()
     video_order = {video['id']: index for index, video in enumerate(catalog['videos'])}
     examples = sorted(catalog['examples'], key=lambda e: (video_order.get(e['youtubeId'], len(video_order)), e['slug']))
+    template = (ROOT / 'site/example.html').read_text(encoding='utf-8')
+    for example in examples:
+        destination = OUTPUT / 'examples' / example['slug']
+        destination.mkdir(parents=True)
+        (destination / 'index.html').write_text(example_page(example, template), encoding='utf-8')
     matched = sum(bool(example['youtubeId']) for example in examples)
     replacements = {
         'EXAMPLE_COUNT': str(len(examples)),

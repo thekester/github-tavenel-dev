@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{DESCRIPTION}} Copy the HTML and CSS, then launch the demo.">
+  <meta name="theme-color" content="#f4f3ed">
+  <title>{{TITLE}} | Tavenel Dev</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="stylesheet" href="../../assets/example.css">
+  <script src="../../assets/example.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#source-code">Skip to source code</a>
+  <header class="header wrap">
+    <a class="brand" href="../../" aria-label="Tavenel Dev home"><span class="brand-mark" aria-hidden="true">t.</span>tavenel<span class="brand-dev">/dev</span></a>
+    <nav aria-label="Main navigation"><a href="../../#library">The collection</a><a href="{{REPO}}">GitHub ↗</a><a class="nav-youtube" href="https://www.youtube.com/@tavenel-dev">YouTube ↗</a></nav>
+  </header>
+  <main class="wrap example-main">
+    <a class="back-link" href="../../#library">← Back to the collection</a>
+    <section class="example-heading" aria-labelledby="example-title">
+      <div class="example-intro">
+        <p class="eyebrow"><span class="status-dot"></span> HTML + CSS <span class="heading-divider">/</span> {{STATUS}}</p>
+        <h1 id="example-title">{{TITLE}}</h1>
+        <p class="example-description">{{DESCRIPTION}}</p>
+        <div class="example-actions"><a class="button primary" href="../../videos/css/{{SLUG}}/" target="_blank" rel="noopener" aria-label="Launch demo (opens in a new tab)">Launch demo <span aria-hidden="true">↗</span></a>{{VIDEO}}</div>
+      </div>
+      <aside class="recipe" aria-label="How to use this example"><span class="recipe-label">MAKE IT YOURS</span><ol><li>Copy the HTML into <code>index.html</code>.</li><li>Copy the CSS into <code>style.css</code>.</li><li>Save both in the same folder and open the HTML.</li></ol><span class="recipe-foot">No install. No dependencies. Just your browser.</span></aside>
+    </section>
+    <section id="source-code" aria-labelledby="source-title">
+      <div class="source-heading"><div><p class="eyebrow">UNDER THE HOOD</p><h2 id="source-title">Two files. Your playground.</h2></div><a class="text-link" href="{{REPO}}/tree/main/videos/css/{{SLUG}}">View on GitHub ↗</a></div>
+      <div class="code-panels">
+        <section class="code-panel" aria-labelledby="html-label">
+          <div class="code-toolbar"><label id="html-label" for="html-code"><span class="file-badge">HTML</span> index.html</label><button type="button" class="copy-button" data-copy="html-code" hidden>Copy HTML</button></div>
+          <textarea id="html-code" class="code-textarea" readonly spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" aria-describedby="code-help">{{HTML_CODE}}</textarea>
+          <div class="code-footer"><span>{{HTML_LINES}} lines</span><span>MARKUP &amp; CONTROLS</span></div>
+        </section>
+        <section class="code-panel" aria-labelledby="css-label">
+          <div class="code-toolbar"><label id="css-label" for="css-code"><span class="file-badge css-badge">CSS</span> style.css</label><button type="button" class="copy-button" data-copy="css-code" hidden>Copy CSS</button></div>
+          <textarea id="css-code" class="code-textarea" readonly spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" aria-describedby="code-help">{{CSS_CODE}}</textarea>
+          <div class="code-footer"><span>{{CSS_LINES}} lines</span><span>STYLING &amp; INTERACTIONS</span></div>
+        </section>
+      </div>
+      <div class="code-notes"><p id="code-help">Copy a file with its button, or select the text to copy it manually.</p><p id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p></div>
+      <noscript><p>Select the code in each field and use your browser's Copy command. The Launch demo button works without JavaScript.</p></noscript>
+    </section>
+    <div class="example-tip"><span aria-hidden="true">↗</span><p><strong>Give it a try.</strong> Hover, click, focus, or type into the demo to explore its interactions. Some effects need a recent browser.</p></div>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="../../">tavenel<span class="brand-dev">/dev</span></a><span>Experiment freely. Shared under <a href="{{REPO}}/blob/main/LICENSE">MIT.</a></span><a href="../../#library">Find another experiment →</a></footer>
+</body>
+</html>

@@ -12,15 +12,15 @@ Explore the code behind the [Tavenel Dev YouTube channel](https://www.youtube.co
 - `style.css` for the styling, animations, and interactions.
 - `README.md` with instructions, a live demo link, and the matching YouTube video when available.
 
-The demos need no dependencies or build tools. The gallery adds search, filters, and direct links to the code and videos.
+The demos need no dependencies or build tools. The gallery adds search, filters, and a page for each example where you can copy the HTML and CSS before launching the demo in a new tab. Upcoming videos appear under **Available soon**, with their code and demos ready to explore.
 
 ## Start exploring
 
 | Example | What you'll explore | Links |
 | --- | --- | --- |
-| Synthwave | Perspective, gradients, and a moving grid | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/synthwave/) · [Code](videos/css/synthwave/) |
-| 3D book | Transforms that open a book on hover | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/3d-book/) · [Code](videos/css/3d-book/) |
-| Retro CRT TV | A television power-off effect | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/crt-tv/) · [Code](videos/css/crt-tv/) |
+| Synthwave | Perspective, gradients, and a moving grid | [Code & demo](https://thekester.github.io/github-tavenel-dev/examples/synthwave/) · [Files](videos/css/synthwave/) |
+| 3D book | Transforms that open a book on hover | [Code & demo](https://thekester.github.io/github-tavenel-dev/examples/3d-book/) · [Files](videos/css/3d-book/) |
+| Retro CRT TV | A television power-off effect | [Code & demo](https://thekester.github.io/github-tavenel-dev/examples/crt-tv/) · [Files](videos/css/crt-tv/) |
 
 Browse the [full gallery](https://thekester.github.io/github-tavenel-dev/) to find a title, effect, or CSS feature.
 
@@ -48,13 +48,13 @@ videos/css/
     README.md               Explanation, demo and YouTube links
   ...                       One folder per example
 data/catalog.json           Titles, descriptions and verified YouTube links
-site/                       Gallery template, styles and JavaScript
+site/                       Gallery and example templates, styles and JavaScript
 scripts/build_site.py       Validates the catalogue and generates _site/
 .github/workflows/pages.yml GitHub Pages build and deployment
 LICENSE                     MIT License
 ```
 
-The HTML and CSS demos were imported unchanged from the original archive. JavaScript is used only for the gallery's search, filters, and pagination.
+The HTML and CSS demos were imported unchanged from the original archive. JavaScript handles gallery search, filters, pagination, and the code copy buttons. The build generates an `examples/<slug>/` page for each demo; the original `videos/css/<slug>/` URLs still launch the demos directly.
 
 ## Preview the website
 
@@ -67,13 +67,13 @@ python -m http.server 8000 --directory _site
 
 Open [localhost:8000](http://localhost:8000). After editing the template, assets, or catalogue, run the build command again and refresh the page. `_site/` is generated and ignored by Git.
 
-The gallery also works without JavaScript, with all examples displayed on one page.
+The gallery also works without JavaScript, with all examples displayed on one page. On an example page, you can select and copy the code manually and launch the demo without JavaScript.
 
 ## YouTube catalogue
 
 As of **October 19, 2026**, the catalogue includes **75 public Shorts**, with **73 linked to example folders**. The remaining two videos appear separately in the gallery because their source code has not been identified in this collection.
 
-Links are maintained in [data/catalog.json](data/catalog.json). An example without a video link has no confirmed match; this does not indicate whether its video has been published. The site loads thumbnails from YouTube and fonts from Google Fonts, with fallback fonts available.
+Links are maintained in [data/catalog.json](data/catalog.json). Examples without a video link are listed as **Available soon** for upcoming videos. Add the YouTube ID when a video is published to move its example into **On YouTube**. The site loads thumbnails from YouTube and fonts from Google Fonts, with fallback fonts available.
 
 ## Add an example or video
 
