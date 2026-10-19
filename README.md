@@ -1,34 +1,50 @@
-# Tavenel Dev — Video Source Code
+# Tavenel Dev
 
-Small experiments. Real code. Source code and examples from the [Tavenel Dev YouTube channel](https://www.youtube.com/@tavenel-dev).
+Explore the code behind the [Tavenel Dev YouTube channel](https://www.youtube.com/@tavenel-dev). Try an animation, inspect the HTML and CSS, and adapt it for your own projects.
 
 **[Explore the live gallery](https://thekester.github.io/github-tavenel-dev/)** · **[Watch the Shorts](https://www.youtube.com/@tavenel-dev/shorts)** · **[Browse the code](videos/css/)**
 
-## The collection
+## What's inside
 
-275 standalone HTML/CSS demos, organized into one folder per example. Each folder includes the original `index.html` and `style.css`, plus a README with a live demo link and the matching YouTube video when confirmed.
+**275 standalone HTML and CSS demos**, from animated scenes and 3D objects to interactive forms and games. Each example has its own folder containing:
 
-The channel catalogue was checked on **October 19, 2026**: 75 public Shorts were found, with 73 matched to example folders. Two videos have no confirmed source match in this archive and are listed separately on the website. An example without a video link is not assumed to be unpublished.
+- `index.html` for the markup and controls.
+- `style.css` for the styling, animations, and interactions.
+- `README.md` with instructions, a live demo link, and the matching YouTube video when available.
 
-## Try an example
+The demos need no dependencies or build tools. The gallery adds search, filters, and direct links to the code and videos.
+
+## Start exploring
+
+| Example | What you'll explore | Links |
+| --- | --- | --- |
+| Synthwave | Perspective, gradients, and a moving grid | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/synthwave/) · [Code](videos/css/synthwave/) |
+| 3D book | Transforms that open a book on hover | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/3d-book/) · [Code](videos/css/3d-book/) |
+| Retro CRT TV | A television power-off effect | [Demo](https://thekester.github.io/github-tavenel-dev/videos/css/crt-tv/) · [Code](videos/css/crt-tv/) |
+
+Browse the [full gallery](https://thekester.github.io/github-tavenel-dev/) to find a title, effect, or CSS feature.
+
+## Run a demo locally
 
 ```bash
 git clone https://github.com/thekester/github-tavenel-dev.git
 cd github-tavenel-dev
 ```
 
-Open `videos/css/index.html` to browse the original collection, or open an example such as `videos/css/synthwave/index.html` directly. No install or build step is needed for the demos.
+Open `videos/css/index.html` in your browser to browse the collection, or open an example's `index.html` directly.
 
-Hover, click, focus, or type into the controls to replay the effects from the videos. Some demos use recent CSS features, including `:has()`, `@property`, `offset-path`, `linear()`, anchor positioning, and `if()`. Use a current Chromium-based browser for the broadest support.
+Hover, click, focus, or type into the controls to try the interactions. Edit the HTML or CSS, then refresh the page to see your changes.
+
+Some examples use recent CSS features such as `:has()`, `@property`, `offset-path`, `linear()`, anchor positioning, and `if()`. A current Chromium-based browser offers the broadest support.
 
 ## Repository layout
 
 ```text
 videos/css/
-  index.html                Original archive index
+  index.html                Browse all demos locally
   synthwave/
-    index.html              Original demo markup
-    style.css               Original demo styling
+    index.html              Demo markup
+    style.css               Demo styling
     README.md               Explanation, demo and YouTube links
   ...                       One folder per example
 data/catalog.json           Titles, descriptions and verified YouTube links
@@ -38,7 +54,7 @@ scripts/build_site.py       Validates the catalogue and generates _site/
 LICENSE                     MIT License
 ```
 
-The original ZIP is retained locally and ignored by Git. Its HTML and CSS files were imported without changes. The gallery uses JavaScript for search and filtering; the demos themselves use HTML and CSS only.
+The HTML and CSS demos were imported unchanged from the original archive. JavaScript is used only for the gallery's search, filters, and pagination.
 
 ## Preview the website
 
@@ -49,7 +65,15 @@ python scripts/build_site.py
 python -m http.server 8000 --directory _site
 ```
 
-Open [localhost:8000](http://localhost:8000). The generated `_site/` directory is ignored by Git and rebuilt on each run. The gallery remains browsable without JavaScript.
+Open [localhost:8000](http://localhost:8000). After editing the template, assets, or catalogue, run the build command again and refresh the page. `_site/` is generated and ignored by Git.
+
+The gallery also works without JavaScript, with all examples displayed on one page.
+
+## YouTube catalogue
+
+As of **October 19, 2026**, the catalogue includes **75 public Shorts**, with **73 linked to example folders**. The remaining two videos appear separately in the gallery because their source code has not been identified in this collection.
+
+Links are maintained in [data/catalog.json](data/catalog.json). An example without a video link has no confirmed match; this does not indicate whether its video has been published. The site loads thumbnails from YouTube and fonts from Google Fonts, with fallback fonts available.
 
 ## Add an example or video
 
@@ -59,14 +83,16 @@ Open [localhost:8000](http://localhost:8000). The generated `_site/` directory i
 4. Add the example to the original `videos/css/index.html` index and update the counts in this README when needed.
 5. Run `python scripts/build_site.py` and preview the result. Commit and push to `main` to deploy.
 
-Video links are curated in the catalogue; the website does not scrape YouTube at runtime. Thumbnails are loaded from YouTube, and the gallery fonts are loaded from Google Fonts with local fallback fonts.
-
 ## GitHub Pages
 
-The [Pages workflow](.github/workflows/pages.yml) validates the catalogue, builds the static website, and publishes `_site/` on pushes to `main`. The repository's **Settings → Pages → Build and deployment → Source** must be set to **GitHub Actions**. See [GitHub's custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+Pushes to `main` trigger the [Pages workflow](.github/workflows/pages.yml), which validates the catalogue, builds the gallery, and deploys it to [GitHub Pages](https://thekester.github.io/github-tavenel-dev/).
 
-## Feedback and license
+To deploy a fork, select **GitHub Actions** under **Settings → Pages → Build and deployment → Source**, then update the repository and website links for your own account.
 
-Found a bug or have a suggestion? [Open an issue](https://github.com/thekester/github-tavenel-dev/issues) with the relevant video or example.
+## Contributing
 
-The code in this repository is licensed under the [MIT License](LICENSE).
+Bug fixes, clearer explanations, and new examples are welcome. [Open an issue](https://github.com/thekester/github-tavenel-dev/issues) or submit a pull request with the relevant example, a description of the change, and how you checked it. For rendering issues, include your browser and version.
+
+## License
+
+The code is available under the [MIT License](LICENSE). You can use, modify, and share it, including in commercial projects, provided you retain the license and copyright notice.
