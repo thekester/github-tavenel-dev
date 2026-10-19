@@ -14,6 +14,8 @@ Explore the code behind the [Tavenel Dev YouTube channel](https://www.youtube.co
 
 The demos need no dependencies or build tools. The gallery adds search, filters, and a page for each example where you can copy the HTML and CSS before launching the demo in a new tab. Upcoming videos appear under **Available soon**, with their code and demos ready to explore.
 
+The homepage features a randomly selected published video with its matching code link. Click the thumbnail to play it, or open it on YouTube. Without JavaScript, the latest matched video remains available as a direct link.
+
 ## Start exploring
 
 | Example | What you'll explore | Links |

@@ -48,7 +48,7 @@ def card(example):
     video_link = f'<a href="{youtube}">YouTube ↗</a>' if video_id else ''
     label = '<span class="video-label">ON YOUTUBE</span>' if video_id else '<span class="soon-label">AVAILABLE SOON</span>'
     search = escape(f"{slug} {example['title']} {example['description']}".lower(), quote=True)
-    return f'''<article class="card" data-video="{str(bool(video_id)).lower()}" data-search="{search}">
+    return f'''<article class="card" data-video="{str(bool(video_id)).lower()}" data-youtube-id="{video_id or ''}" data-slug="{slug}" data-search="{search}">
       <a class="card-preview" href="{destination}" aria-label="Explore {title}">{preview}</a>
       <div class="card-kicker">{label}<span>HTML + CSS</span></div>
       <h3><a href="{demo}">{title}</a></h3><p>{description}</p>
@@ -101,7 +101,11 @@ def build():
         destination.mkdir(parents=True)
         (destination / 'index.html').write_text(example_page(example, template), encoding='utf-8')
     matched = sum(bool(example['youtubeId']) for example in examples)
+    featured = next(example for example in examples if example['youtubeId'])
     replacements = {
+        'FEATURED_ID': featured['youtubeId'],
+        'FEATURED_SLUG': featured['slug'],
+        'FEATURED_TITLE': escape(featured['title']),
         'EXAMPLE_COUNT': str(len(examples)),
         'VIDEO_COUNT': str(len(catalog['videos'])),
         'MATCHED_COUNT': str(matched),

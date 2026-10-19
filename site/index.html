@@ -30,9 +30,15 @@
         <div class="stats"><span><strong>{{EXAMPLE_COUNT}}</strong> live demos</span><span><strong>{{VIDEO_COUNT}}</strong> videos</span><span><strong>100%</strong> open source</span></div>
       </div>
       <div class="hero-demo">
-        <div class="window-bar"><span><i></i><i></i><i></i></span><span>synthwave / index.html</span><span>CSS</span></div>
-        <div class="demo-stage"><iframe title="Interactive synthwave CSS demo — click the scene to start driving" src="videos/css/synthwave/index.html" sandbox="" loading="lazy"></iframe></div>
-        <div class="demo-caption"><span><span class="status-dot"></span> REAL CODE. CLICK TO PLAY.</span><a href="examples/synthwave/">Code &amp; demo <span aria-hidden="true">→</span></a></div>
+        <div class="window-bar"><span><i></i><i></i><i></i></span><span id="featured-name">{{FEATURED_SLUG}}</span><span>YOUTUBE</span></div>
+        <div class="featured-stage" id="featured-stage">
+          <a class="featured-poster" id="featured-play" href="https://www.youtube.com/shorts/{{FEATURED_ID}}" aria-label="Play {{FEATURED_TITLE}} on YouTube">
+            <img id="featured-image" src="https://i.ytimg.com/vi/{{FEATURED_ID}}/hqdefault.jpg" alt="{{FEATURED_TITLE}}" width="480" height="360" fetchpriority="high">
+            <span class="featured-play-icon" aria-hidden="true"></span>
+            <span class="featured-title" id="featured-title">{{FEATURED_TITLE}}</span>
+          </a>
+        </div>
+        <div class="demo-caption"><a id="featured-youtube" href="https://www.youtube.com/shorts/{{FEATURED_ID}}">Watch on YouTube ↗</a><a id="featured-code" href="examples/{{FEATURED_SLUG}}/">Code &amp; demo →</a></div>
       </div>
     </section>
     <div class="ticker" aria-label="Collection topics"><div class="wrap"><span>HTML + CSS</span><span aria-hidden="true">✳</span><span>CREATIVE CODING</span><span aria-hidden="true">✳</span><span>NO DEPENDENCIES</span><span aria-hidden="true">✳</span><span>YOURS TO EXPLORE</span></div></div>

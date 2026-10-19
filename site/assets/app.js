@@ -56,3 +56,35 @@ document.querySelectorAll('.card-preview img').forEach(img => {
   }, { once: true });
 });
 render();
+
+// Choose only published videos with a matching example. Keep every link in sync.
+const publishedCards = cards.filter(card => card.dataset.youtubeId);
+const featuredPlay = document.querySelector('#featured-play');
+if (publishedCards.length && featuredPlay) {
+  const selected = publishedCards[Math.floor(Math.random() * publishedCards.length)];
+  const videoId = selected.dataset.youtubeId;
+  const title = selected.querySelector('h3').textContent;
+  const videoUrl = `https://www.youtube.com/shorts/${videoId}`;
+  document.querySelector('#featured-name').textContent = selected.dataset.slug;
+  document.querySelector('#featured-title').textContent = title;
+  const poster = document.querySelector('#featured-image');
+  poster.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  poster.alt = title;
+  featuredPlay.href = videoUrl;
+  featuredPlay.setAttribute('aria-label', `Play ${title} on YouTube`);
+  document.querySelector('#featured-youtube').href = videoUrl;
+  document.querySelector('#featured-code').href = `examples/${selected.dataset.slug}/`;
+  featuredPlay.addEventListener('click', event => {
+    // Preserve open-in-new-tab and modified-click behavior.
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const player = document.createElement('iframe');
+    player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`;
+    player.title = title;
+    player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    player.allowFullscreen = true;
+    player.referrerPolicy = 'strict-origin-when-cross-origin';
+    document.querySelector('#featured-stage').replaceChildren(player);
+    player.focus();
+  });
+}
