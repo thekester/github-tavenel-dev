@@ -16,6 +16,8 @@ The demos need no dependencies or build tools. The gallery adds search, filters,
 
 The homepage features a randomly selected published video with its matching code link. Click the thumbnail to play it, or open it on YouTube. Without JavaScript, the latest matched video remains available as a direct link.
 
+Browse the collection with numbered pages at the top and bottom, and choose 12, 24, or 48 examples per page. The URL preserves the page, search, and filter so you can share a selection, reload it, or use your browser's Back and Forward buttons.
+
 ## Start exploring
 
 | Example | What you'll explore | Links |

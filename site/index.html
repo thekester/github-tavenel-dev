@@ -48,10 +48,11 @@
         <div class="filters" role="group" aria-label="Filter examples"><button type="button" data-filter="all" aria-pressed="true">All examples <span>{{EXAMPLE_COUNT}}</span></button><button type="button" data-filter="video" aria-pressed="false">On YouTube <span>{{MATCHED_COUNT}}</span></button><button type="button" data-filter="code" aria-pressed="false">Available soon <span>{{UNMATCHED_COUNT}}</span></button></div>
         <div class="search"><label for="search">Search the collection</label><input type="search" id="search" placeholder="Search a title, effect, or CSS feature…" autocomplete="off"></div>
       </form>
-      <div class="results-bar"><p id="result-count" role="status" aria-live="polite">{{EXAMPLE_COUNT}} examples · YouTube videos first</p><span>HTML / CSS / A LITTLE CURIOSITY</span></div>
-      <div class="gallery">{{CARDS}}</div>
+      <div class="results-bar"><p id="result-count" role="status" aria-live="polite" tabindex="-1">{{EXAMPLE_COUNT}} examples · YouTube videos first</p><label class="page-size" hidden>Per page <select id="page-size" aria-controls="video-gallery"><option value="12">12</option><option value="24">24</option><option value="48">48</option></select></label></div>
+      <nav class="pagination pagination-top" aria-label="Video pages, top" hidden></nav>
+      <div class="gallery" id="video-gallery">{{CARDS}}</div>
       <div id="empty-state" class="empty-state" hidden><h3>No experiments found.</h3><p>Try a different title or CSS feature.</p><button type="button" class="button" id="reset-search">Reset filters</button></div>
-      <div class="load-more"><button type="button" id="load-more" class="button" hidden>Show more experiments <span aria-hidden="true">↓</span></button></div>
+      <nav class="pagination pagination-bottom" aria-label="Video pages, bottom" hidden></nav>
       <p class="catalog-note">Available soon: upcoming YouTube videos. Their code and demos are already here to explore.</p>
       <noscript><p>All examples are shown below the heading. Use your browser's Find command to search this page.</p></noscript>
     </section>
