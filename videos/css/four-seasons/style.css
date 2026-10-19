@@ -1,0 +1,155 @@
+body:has(#s0:checked) {
+  --sky: #dbeafe; --leaf: #f9a8d4;
+  --p: #fbcfe8; --fall: 1;
+  --ground: #86efac; --sun: 0;
+}
+
+body:has(#s1:checked) {
+  --sky: #7dd3fc; --leaf: #16a34a;
+  --p: #16a34a; --fall: 0;
+  --ground: #4ade80; --sun: 1;
+}
+
+body:has(#s2:checked) {
+  --sky: #fed7aa; --leaf: #ea580c;
+  --p: #f97316; --fall: 1;
+  --ground: #a16207; --sun: 0;
+}
+
+body:has(#s3:checked) {
+  --sky: #94a3b8; --leaf: #f1f5f9;
+  --p: #ffffff; --fall: 1;
+  --ground: #f8fafc; --sun: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+.scene {
+  position: relative;
+  width: 460px;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--sky);
+  transition: background-color .8s;
+}
+
+/* ground */
+.scene::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 70px;
+  background: var(--ground);
+  transition: background-color .8s;
+}
+
+.scene i { position: absolute; }
+
+.sun {
+  top: 34px;
+  right: 50px;
+  width: 64px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 40px #fde047;
+  opacity: var(--sun);
+  transition: opacity .8s;
+}
+
+.trunk {
+  z-index: 1;
+  bottom: 60px;
+  left: 50%;
+  width: 34px;
+  height: 140px;
+  translate: -50%;
+  border-radius: 6px;
+  background: #78350f;
+}
+
+/* the canopy follows `color` */
+.leaves {
+  z-index: 2;
+  top: 70px;
+  left: 50%;
+  width: 130px;
+  aspect-ratio: 1;
+  translate: -50%;
+  border-radius: 50%;
+  color: var(--leaf);
+  background: currentColor;
+  box-shadow:
+    -70px 45px 0 -10px currentColor,
+    70px 45px 0 -10px currentColor,
+    0 60px 0 0 currentColor;
+  transition: color .8s;
+}
+
+/* petals, leaves or snow */
+.fall {
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  color: var(--p);
+  box-shadow:
+    130px 155px currentColor,
+    130px -265px currentColor,
+    62px 369px currentColor,
+    62px -51px currentColor,
+    212px 245px currentColor,
+    212px -175px currentColor,
+    89px 46px currentColor,
+    89px -374px currentColor,
+    44px 10px currentColor,
+    44px -410px currentColor,
+    215px 281px currentColor,
+    215px -139px currentColor,
+    158px 409px currentColor,
+    158px -11px currentColor,
+    401px 30px currentColor,
+    401px -390px currentColor,
+    123px 266px currentColor,
+    123px -154px currentColor,
+    284px 184px currentColor,
+    284px -236px currentColor;
+  opacity: var(--fall);
+  animation: fall 4s linear infinite;
+  transition: color .8s, opacity .8s;
+}
+
+@keyframes fall {
+  to { translate: 0 420px; }
+}
+
+nav { display: flex; gap: 8px; }
+
+label {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+label:has(:checked) {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+input { display: none; }

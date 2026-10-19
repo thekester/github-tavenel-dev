@@ -1,0 +1,151 @@
+@keyframes shake {
+  25% { rotate: -7deg; translate: -4px; }
+  75% { rotate: 7deg; translate: 4px; }
+}
+@keyframes hit { 50% { rotate: 28deg; } }
+@keyframes blink { 50% { scale: 1.15; } }
+@keyframes zz {
+  from { opacity: 0; translate: 0 30px; }
+  to { opacity: 1; translate: 30px -40px; }
+}
+
+body {
+  display: grid;
+  grid-template-columns: auto auto;
+  place-content: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e3a8a, #020617);
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  grid-column: span 2;
+  position: relative;
+  width: 340px;
+  height: 380px;
+}
+
+.scene * { position: absolute; margin: 0; }
+
+.clock {
+  left: 50px;
+  top: 60px;
+  width: 240px;
+  height: 300px;
+  transform-origin: 50% 90%;
+}
+
+/* two bells */
+.clock::before, .clock::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  width: 90px;
+  height: 46px;
+  border-radius: 90px 90px 8px 8px;
+  background: #fbbf24;
+}
+.clock::before { left: -8px; rotate: -35deg; }
+.clock::after { right: -8px; rotate: 35deg; }
+
+/* the hammer swings between them */
+b {
+  left: 112px;
+  top: -6px;
+  width: 16px;
+  height: 46px;
+  transform-origin: bottom;
+  background: radial-gradient(circle at 50% 8px,
+    #94a3b8 7px, #0000 8px), linear-gradient(
+    #94a3b8 0 0) 50% / 4px 100% no-repeat;
+}
+
+i {
+  top: 250px;
+  width: 14px;
+  height: 44px;
+  border-radius: 7px;
+  background: #7f1d1d;
+}
+.l { left: 44px; rotate: 30deg; }
+.r { right: 44px; rotate: -30deg; }
+
+/* ticks with a repeating conic gradient */
+.face {
+  top: 36px;
+  width: 240px;
+  height: 240px;
+  box-sizing: border-box;
+  border: 14px solid #dc2626;
+  border-radius: 50%;
+  background: radial-gradient(#1e293b 7px,
+    #fff 8px 90px, #0000 91px),
+    repeating-conic-gradient(from -1deg,
+    #1e293b 0 2deg, #fff 0 30deg);
+}
+
+.face::before, .face::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 4px);
+  width: 8px;
+  border-radius: 4px;
+  background: #1e293b;
+  transform-origin: bottom;
+  transition: rotate .35s cubic-bezier(.3,2,.6,1);
+}
+.face::before { top: 50px; height: 56px;
+  rotate: 209deg; }
+.face::after { top: 22px; height: 84px;
+  width: 5px; rotate: 354deg; }
+
+span { bottom: 44px; width: 100%;
+  text-align: center; font-weight: 700; }
+span::after { content: '6:59'; }
+
+#wait:checked ~ .scene span::after {
+  content: '7:00';
+  color: #dc2626;
+}
+#wait:checked ~ .scene .face::after {
+  rotate: 360deg;
+}
+
+/* ring until snoozed */
+#wait:checked + #snz:not(:checked) ~ .scene {
+  .clock { animation: shake .13s .5s infinite; }
+  b { animation: hit .17s .5s infinite; }
+  .ring { animation: blink .23s .5s infinite;
+    opacity: 1; }
+}
+
+.ring, .zzz {
+  width: 100%;
+  text-align: center;
+  color: #facc15;
+  font-size: 40px;
+  font-weight: 900;
+  opacity: 0;
+}
+
+.zzz { top: 20px; left: 80px; color: #bfdbfe; }
+.zzz * { position: static; }
+
+#snz:checked ~ .scene .zzz {
+  animation: zz 2s forwards;
+}
+
+label {
+  padding: 12px 30px;
+  border-radius: 99px;
+  background: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[for=snz] { background: #facc15; }

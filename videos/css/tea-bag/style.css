@@ -1,0 +1,147 @@
+@property --c {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #7dd3fc33;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3f2a1d, #1c1210);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 400px;
+}
+
+.scene > * { position: absolute; }
+
+/* glass mug + handle */
+.mug {
+  left: 50px;
+  top: 150px;
+  width: 200px;
+  height: 230px;
+  border: 5px solid #e0f2fe66;
+  border-top: 0;
+  border-radius: 8px 8px 40px 40px;
+  background: #e0f2fe14;
+}
+
+.mug::after {
+  content: '';
+  position: absolute;
+  left: 200px;
+  top: 40px;
+  width: 50px;
+  height: 110px;
+  border: 12px solid #e0f2fe55;
+  border-radius: 0 50px 50px 0;
+}
+
+/* water colour is a typed, animatable color */
+.water {
+  position: absolute;
+  inset: 40px 0 0;
+  overflow: hidden;
+  border-radius: 0 0 36px 36px;
+  border-top: 3px solid #fff4;
+  background: var(--c);
+  transition: --c 5s 1.5s;
+}
+
+/* amber cloud diffusing from the bag */
+.tea {
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(#b45309, #0000 70%);
+  filter: blur(12px);
+  scale: 0;
+  transition: scale 5s 1s;
+}
+
+/* bag on a string with a paper tag */
+.bag {
+  left: 122px;
+  top: 96px;
+  width: 56px;
+  height: 64px;
+  border-radius: 6px;
+  background: radial-gradient(#7c2d12 30%,
+    #0000 70%), #fde7c7;
+}
+
+.bag::before {
+  content: '';
+  position: absolute;
+  left: 27px;
+  bottom: 64px;
+  width: 2px;
+  height: 70px;
+  background: #f5f5f4;
+}
+
+.bag::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  bottom: 130px;
+  width: 30px;
+  height: 26px;
+  background: #fbbf24;
+}
+
+.steam {
+  left: var(--x);
+  top: 70px;
+  width: 16px;
+  height: 70px;
+  border-radius: 50%;
+  background: #fff8;
+  filter: blur(6px);
+  opacity: 0;
+}
+
+#go:checked + .scene .bag {
+  animation: dunk 3s forwards;
+}
+
+@keyframes dunk {
+  20%, 50% { translate: 0 130px; }
+  35%, 65% { translate: 0 60px; }
+  to { translate: 0 140px; }
+}
+
+#go:checked + .scene .water { --c: #b45309dd; }
+#go:checked + .scene .tea { scale: 3; }
+
+#go:checked + .scene .steam {
+  animation: rise 2.4s var(--d) infinite;
+}
+
+@keyframes rise {
+  30% { opacity: 1; }
+  to { translate: 10px -90px; opacity: 0; }
+}
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #b45309;
+  color: #fff7ed;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}

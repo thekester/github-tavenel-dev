@@ -1,0 +1,141 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(#1e1b4b 75%, #3730a3 0);
+}
+
+#open { display: none; }
+
+.fridge {
+  position: relative;
+  width: 220px;
+  height: 380px;
+  margin-left: 140px;
+  border-radius: 28px;
+  background: #5eead4;
+  perspective: 800px;
+}
+
+.fridge > * { position: absolute; }
+
+/* dark inside with two shelves */
+.inside {
+  inset: 12px;
+  border-radius: 18px;
+  background: repeating-linear-gradient(
+    #0000 0 118px, #94a3b8 0 124px), #0f172a;
+  transition: background-color .4s .3s;
+}
+
+.inside i {
+  position: absolute;
+  bottom: var(--b);
+  scale: 0;
+  transition: scale .4s .5s;
+}
+
+.milk {
+  --b: 114px;
+  left: 30px;
+  width: 40px;
+  height: 64px;
+  background:
+    linear-gradient(#3b82f6 30%, #fff 0);
+}
+
+.apple {
+  --b: 114px;
+  left: 110px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+.cheese {
+  --b: 238px;
+  left: 30px;
+  width: 70px;
+  height: 46px;
+  background: #facc15;
+  clip-path: polygon(0 100%, 100% 100%, 100% 0);
+}
+
+.jar {
+  --b: 238px;
+  left: 120px;
+  width: 44px;
+  height: 56px;
+  border-radius: 8px;
+  border-top: 12px solid #b91c1c;
+  background: #fb923c;
+}
+
+/* the door swings around its hinge */
+.door {
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(#0f766e 0 0)
+    0 30% / 100% 6px no-repeat, #5eead4;
+  transform-origin: left;
+  transition: transform 1s ease-in-out;
+}
+
+/* chrome handle drawn on the door */
+.door::after {
+  content: '';
+  position: absolute;
+  top: 130px;
+  right: 18px;
+  width: 14px;
+  height: 90px;
+  border-radius: 7px;
+  background: #e2e8f0;
+}
+
+.handle {
+  top: 130px;
+  right: 10px;
+  width: 30px;
+  height: 90px;
+  cursor: pointer;
+}
+
+#open:checked + .fridge .door {
+  transform: rotateY(-105deg);
+}
+
+/* the light turns on */
+#open:checked + .fridge .inside {
+  background-color: #fef3c7;
+  box-shadow: inset 0 0 50px #f59e0b;
+}
+
+#open:checked + .fridge .inside i {
+  scale: 1;
+}
+
+/* cold mist drifts out */
+s {
+  bottom: 30px;
+  left: 60px;
+  width: 90px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  filter: blur(14px);
+  opacity: 0;
+}
+
+#open:checked + .fridge s {
+  animation: mist 2.4s var(--d) infinite;
+}
+
+@keyframes mist {
+  20% { opacity: 1; }
+  to { opacity: 0; scale: 2;
+    translate: -60px 60px; }
+}

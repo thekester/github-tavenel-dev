@@ -1,0 +1,135 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+
+#zoom { display: none; }
+
+.sky {
+  position: relative;
+  width: 400px;
+  height: 460px;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(320px 60px at 40% 100%,
+      #020617 97%, #0000),
+    radial-gradient(1.5px at 30% 20%, #fff 60%,
+      #0000) 0 0 / 83px 71px,
+    radial-gradient(1px at 60% 70%, #fffc 60%,
+      #0000) 0 0 / 53px 67px,
+    radial-gradient(2px at 80% 40%, #fff8 60%,
+      #0000) 0 0 / 127px 109px,
+    linear-gradient(#0b1033, #312e81);
+}
+
+.sky * { position: absolute; }
+
+.moon {
+  left: 308px;
+  top: 38px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  box-shadow: 0 0 24px #fff8;
+}
+
+/* three legs from one element */
+.tripod,
+.tripod::before,
+.tripod::after {
+  left: 110px;
+  top: 340px;
+  width: 6px;
+  height: 110px;
+  background: #475569;
+  transform-origin: top;
+}
+
+.tripod::before,
+.tripod::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.tripod::before { rotate: 22deg; }
+.tripod::after { rotate: -22deg; }
+
+/* the tube aims at the small moon */
+.scope {
+  left: 75px;
+  top: 368px;
+  width: 210px;
+  height: 36px;
+  rotate: -52deg;
+  transform-origin: 0 50%;
+  background: linear-gradient(#cbd5e1, #64748b);
+  clip-path: polygon(0 22%, 100% 0,
+    100% 100%, 0 78%);
+}
+
+.eye {
+  left: 0;
+  top: 9px;
+  width: 22px;
+  height: 18px;
+  background: #1e293b;
+  cursor: pointer;
+}
+
+.eye:hover { background: #facc15; }
+
+/* the eyepiece view grows from the scope */
+.view {
+  inset: 0;
+  background: #020617;
+  clip-path: circle(0% at 15% 82%);
+  transition: clip-path 1s;
+  pointer-events: none;
+}
+
+.view::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 36%,
+    #0000 125px, #000c 155px);
+}
+
+.big {
+  left: 70px;
+  top: 36px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 35%, #94a3b8
+      20px, #64748b 21px 25px, #0000 26px),
+    radial-gradient(circle at 66% 28%, #94a3b8
+      12px, #64748b 13px 16px, #0000 17px),
+    radial-gradient(circle at 58% 66%, #94a3b8
+      28px, #64748b 29px 34px, #0000 35px),
+    radial-gradient(circle at 25% 70%, #94a3b8
+      9px, #64748b 10px 12px, #0000 13px),
+    radial-gradient(circle at 35% 30%,
+      #f8fafc, #cbd5e1 50%, #64748b);
+  scale: .2;
+  transition: scale 1.2s;
+  animation: drift 3s infinite alternate
+    ease-in-out;
+}
+
+:has(#zoom:checked) .view {
+  clip-path: circle(36% at 50% 36%);
+}
+
+:has(#zoom:checked) .big { scale: 1; }
+
+@keyframes drift {
+  to { translate: 16px 10px; rotate: 6deg; }
+}

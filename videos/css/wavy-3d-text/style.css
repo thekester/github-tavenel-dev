@@ -1,0 +1,50 @@
+@property --amp {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 12px;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg,
+    #4c1d95, #be185d);
+}
+
+.wave {
+  margin: 0;
+  text-align: center;
+  font: 900 88px/1.1 system-ui;
+  color: #fef3c7;
+  cursor: pointer;
+  transition: --amp .6s ease-out;
+}
+
+.wave span {
+  display: inline-block;
+  margin: 0 -.1em;
+  /* the 3D side follows the letter color */
+  --side: color-mix(in oklch,
+    currentColor, #000 45%);
+  text-shadow:
+    1px 1px var(--side), 2px 2px var(--side),
+    3px 3px var(--side), 4px 4px var(--side),
+    5px 5px var(--side), 6px 6px var(--side),
+    7px 7px var(--side), 8px 8px var(--side);
+  animation: bob 1.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -.14s);
+  transition: color .5s;
+}
+
+@keyframes bob {
+  50% { translate: 0 calc(var(--amp) * -1); }
+}
+
+/* hover: bigger wave, rainbow letters */
+.wave:hover { --amp: 46px; }
+
+.wave:hover span {
+  color: hsl(calc(var(--i) * 36) 90% 70%);
+}

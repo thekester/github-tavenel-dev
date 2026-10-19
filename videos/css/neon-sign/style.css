@@ -1,0 +1,93 @@
+body {
+  /* staggered bricks: 2 conic corners */
+  --m: conic-gradient(at 5px 40px,
+    #0000 75%, #1a0a0a 0);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(#0000 30%, #000c),
+    linear-gradient(#1a0a0a 5px, #0000 0)
+      0 0 / 80px 40px,
+    var(--m) 0 0 / 80px 80px,
+    var(--m) 40px 40px / 80px 80px,
+    #4a1d1d;
+}
+
+input { position: fixed; opacity: 0; }
+
+/* 0 = glass tube off, 1 = glowing */
+@property --g {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.sign {
+  display: flex;
+  gap: 6px;
+  padding: 18px 30px;
+  border: 4px solid #0006;
+  border-radius: 18px;
+  background: #0005;
+}
+
+span {
+  font: 900 96px/1 system-ui;
+  color: color-mix(in srgb,
+    #fff0f7 calc(var(--g) * 100%), #4a2a38);
+  text-shadow:
+    0 0 calc(var(--g) * 8px) #ff2d95,
+    0 0 calc(var(--g) * 30px) #ff2d95,
+    0 0 calc(var(--g) * 70px) #ff2d95;
+}
+
+/* each letter: own keyframes + delay */
+:checked + .sign span {
+  animation:
+    var(--k) 1.4s var(--d) step-end forwards,
+    hum 1.2s calc(var(--d) + 1.4s)
+      infinite alternate;
+}
+
+@keyframes f1 {
+  8%, 30%, 52%, 75%, to { --g: 1; }
+  12%, 36%, 60% { --g: 0; }
+}
+@keyframes f2 {
+  20%, 26%, 64%, to { --g: 1; }
+  23%, 40% { --g: .2; }
+}
+@keyframes f3 {
+  5%, 45%, 80%, to { --g: 1; }
+  9%, 50%, 84% { --g: 0; }
+}
+@keyframes hum { to { --g: .82; } }
+
+/* the switch */
+label {
+  position: relative;
+  width: 84px;
+  height: 44px;
+  border-radius: 22px;
+  background: #333;
+  border: 3px solid #555;
+  cursor: pointer;
+  transition: background .3s;
+}
+
+label::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  width: 36px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: translate .3s;
+}
+
+:checked ~ label { background: #ff2d95; }
+:checked ~ label::before { translate: 40px; }

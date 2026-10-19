@@ -1,0 +1,156 @@
+@keyframes shot {
+  to { offset-distance: 100%; }
+}
+@keyframes dive {
+  to { translate: -70px 30px; rotate: -75deg; }
+}
+@keyframes bulge {
+  40% { scale: 1.3; }
+  to { scale: 1; }
+}
+/* scale on the child: depth without moving */
+@keyframes spin {
+  to { rotate: 3turn; scale: .4; }
+}
+@keyframes pop {
+  60% { scale: 1.3; }
+  to { scale: 1; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 430px;
+  background: linear-gradient(#1e293b 210px,
+    #0000 0), repeating-linear-gradient(
+    #15803d 0 40px, #16a34a 0 80px);
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+/* posts + net drawn with gradients */
+.goal {
+  left: 20px;
+  top: 80px;
+  width: 308px;
+  height: 130px;
+  border: 6px solid #fff;
+  border-bottom: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      #fff4 0 1px, #0000 0 14px),
+    repeating-linear-gradient(
+      #fff4 0 1px, #0000 0 14px);
+}
+
+.bulge {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(#0008, #fff6 70%,
+    #0000 71%);
+  scale: 0;
+}
+
+.keeper {
+  left: 160px;
+  top: 112px;
+  width: 40px;
+  height: 98px;
+  border-radius: 14px 14px 4px 4px;
+  background: radial-gradient(circle at 50% 12px,
+    #fcd9b6 10px, #0000 11px),
+    linear-gradient(#0000 24px, #f97316 0 62px,
+    #111827 0);
+  transform-origin: 50% 100%;
+}
+
+/* arms up, gloves on the ends */
+.keeper::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: 28px;
+  width: 112px;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #fde047 14px,
+    #f97316 0 98px, #fde047 0);
+}
+
+.spot {
+  left: 165px;
+  top: 392px;
+  width: 30px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* curved shot: offset-path + scale */
+.ball {
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  offset-path: path('M180 372 Q 380 300 300 102');
+  offset-rotate: 0deg;
+}
+
+.ball::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(#111 25%, #0000 27%),
+    repeating-conic-gradient(#fff 0 30deg,
+    #e5e7eb 0 60deg);
+  box-shadow: inset -6px -6px 10px #0005;
+}
+
+.msg {
+  top: 250px;
+  width: 100%;
+  text-align: center;
+  color: #facc15;
+  font: 900 italic 72px system-ui;
+  text-shadow: 0 4px 0 #a16207;
+  scale: 0;
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #fff;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked + .scene {
+  .ball { animation: shot .8s ease-in forwards; }
+  .ball::before {
+    animation: spin .8s linear forwards;
+  }
+  .keeper { animation: dive .5s .2s forwards; }
+  .bulge { animation: bulge .6s .75s forwards; }
+  .msg { animation: pop .5s 1s forwards; }
+}

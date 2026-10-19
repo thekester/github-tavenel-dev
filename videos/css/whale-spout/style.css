@@ -1,0 +1,109 @@
+@keyframes spout {
+  50% { opacity: 1;
+    translate: var(--x) calc(var(--h) * -1);
+    animation-timing-function: ease-in; }
+  to { opacity: 0;
+    translate: calc(var(--x) * 2) 40px; }
+}
+@keyframes sink { to { translate: -20px 150px; } }
+@keyframes dive {
+  40% { translate: 0 0; rotate: -12deg; }
+  to { translate: 0 170px; rotate: 8deg; }
+}
+@keyframes ring { to { scale: 4; opacity: 0; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #082f49;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(#7dd3fc, #e0f2fe);
+}
+
+.scene > * { position: absolute; }
+
+.back {
+  left: 50px;
+  top: 165px;
+  width: 230px;
+  height: 140px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 18% 42%,
+      #0f172a 5px, #0000 6px),
+    radial-gradient(at 45% 15%,
+      #64748b, #1e293b 70%);
+}
+
+/* fluke: a clipped gradient */
+.tail {
+  left: 245px;
+  top: 90px;
+  width: 140px;
+  height: 190px;
+  background: linear-gradient(#475569, #1e293b);
+  clip-path: polygon(0 5%, 30% 8%, 50% 22%,
+    70% 8%, 100% 5%, 62% 38%, 58% 100%,
+    42% 100%, 38% 38%);
+  translate: 0 125px;
+}
+
+.sea {
+  inset: 240px 0 0;
+  background:
+    radial-gradient(14px 8px at 50% 0,
+      #0000 98%, #0369a1) 0 -2px / 28px 10px
+      repeat-x,
+    linear-gradient(#0369a1, #0c4a6e);
+}
+
+/* droplets fly from the blowhole */
+.scene i {
+  top: 166px;
+  left: 140px;
+  width: 11px;
+  height: 14px;
+  border-radius: 50% / 60% 60% 40% 40%;
+  background: #f0f9ff;
+  opacity: 0;
+}
+
+.scene u {
+  top: 240px;
+  left: 250px;
+  width: 50px;
+  height: 14px;
+  border: 3px solid #e0f2fe;
+  border-radius: 50%;
+  scale: 0;
+}
+
+label {
+  inset: 160px 100px 180px 50px;
+  cursor: pointer;
+}
+
+:checked + .scene i {
+  animation: spout 1.1s var(--d) ease-out 3;
+}
+:checked + .scene .back {
+  animation: sink 1.4s 3s ease-in forwards;
+}
+:checked + .scene .tail {
+  animation: dive 2s 3.4s ease-in-out forwards;
+}
+:checked + .scene u {
+  animation: ring 1.6s calc(4.7s + var(--d))
+    ease-out forwards;
+}

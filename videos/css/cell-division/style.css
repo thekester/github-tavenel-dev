@@ -1,0 +1,102 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#334155, #0f172a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+/* the eyepiece: metal ring + dark vignette */
+.scope {
+  position: relative;
+  width: 330px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 14px solid #64748b;
+  box-shadow: 0 0 0 6px #1e293b,
+    0 20px 40px #0008;
+}
+
+/* warm lamp tint + a few specks of debris */
+.scope::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(3px at 22% 30%,
+      #a8a29e 90%, #0000),
+    radial-gradient(2px at 74% 18%,
+      #a8a29e 90%, #0000),
+    radial-gradient(4px at 81% 71%,
+      #a8a29e 90%, #0000),
+    radial-gradient(2px at 35% 84%,
+      #a8a29e 90%, #0000),
+    radial-gradient(#fefce8, #fde68a);
+  mix-blend-mode: multiply;
+  box-shadow: inset 0 0 50px 10px #0009;
+}
+
+/* gooey trick: blur, then crank contrast */
+.goo {
+  position: absolute;
+  inset: -30px;
+  background: #fff;
+  filter: blur(9px) contrast(30)
+    saturate(.45) hue-rotate(-20deg);
+}
+
+.goo i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+/* magenta cytoplasm, blue nucleus */
+.cell { width: 140px; height: 140px;
+  background: #f0f; }
+.nuc { width: 52px; height: 52px;
+  background: #00f; }
+
+:checked + .scope i {
+  animation: split 3s ease-in-out forwards;
+}
+
+:checked + .scope .nuc {
+  animation-duration: 2.4s;
+}
+
+.a { --x: -1; }
+.b { --x: 1; }
+
+@keyframes split {
+  25% { translate: -50% -50%;
+    scale: 1.05 .95; }
+  to {
+    translate: calc(-50% + var(--x) * 82px)
+      -50%;
+    scale: .8;
+  }
+}
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 999px;
+  background: #a855f7;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn::after { content: 'Divide'; }
+:checked ~ .btn { background: #475569; }
+:checked ~ .btn::after { content: '2 cells'; }

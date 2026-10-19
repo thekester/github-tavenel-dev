@@ -1,0 +1,152 @@
+/* a typed number can be transitioned */
+@property --cm {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #1e293b;
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 440px;
+  height: 150px;
+}
+
+.case {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 150px;
+  box-sizing: border-box;
+  border: 9px solid #111827;
+  border-radius: 30px 30px 30px 8px;
+  background: radial-gradient(#cbd5e1 0 13px,
+    #374151 0 21px, #0000 0), #facc15;
+  box-shadow: inset -10px -10px #eab308;
+}
+
+.tape {
+  position: absolute;
+  left: 140px;
+  bottom: 12px;
+  width: 0;
+  height: 32px;
+  background: #fde047;
+  /* clip the left side only */
+  clip-path: inset(-9px -9px -9px 0);
+  transition: width .3s;
+}
+
+/* the metal hook at the tip */
+.tape::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 8px;
+  height: 44px;
+  border-radius: 2px;
+  background: #64748b;
+}
+
+/* ruler anchored to the tip: 10px = 1 cm */
+.ruler {
+  position: absolute;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  background:
+    linear-gradient(90deg, #b91c1c 2px, #0000 0)
+      0 0 / 50px 60%,
+    linear-gradient(90deg, #111 1px, #0000 0)
+      0 0 / 10px 30%;
+  background-repeat: repeat-x;
+}
+
+.ruler span {
+  flex: none;
+  width: 50px;
+  padding: 15px 4px 0;
+  box-sizing: border-box;
+  font: 800 12px system-ui;
+}
+
+.read {
+  --cm: 0;
+  margin: 0;
+  color: #fde047;
+  font: 900 52px monospace;
+  counter-reset: c var(--cm);
+}
+
+.read::after { content: counter(c) ' cm'; }
+
+:has(#pull:checked) .tape { width: 300px; }
+:has(#pull:checked) .read { --cm: 30; }
+
+:has(#pull:checked) :is(.tape, .read) {
+  --e: 2.4s cubic-bezier(.2, .6, .3, 1);
+  transition: width var(--e), --cm var(--e);
+}
+
+/* release: snap back with a bounce */
+:has(#rel:checked) .tape {
+  width: 0;
+  animation: snap .5s ease-in;
+}
+
+:has(#rel:checked) .read {
+  --cm: 0;
+  transition: --cm .4s;
+}
+
+:has(#rel:checked) .case {
+  animation: kick .3s .35s;
+}
+
+@keyframes snap {
+  from { width: 300px; }
+  70% { width: 0; }
+  85% { width: 16px; }
+  to { width: 0; }
+}
+
+@keyframes kick {
+  40% { translate: -8px; rotate: -5deg; }
+}
+
+.btns { display: grid; }
+
+label {
+  grid-area: 1 / 1;
+  padding: 12px 34px;
+  border-radius: 10px;
+  background: #facc15;
+  color: #111827;
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+  cursor: pointer;
+}
+
+[for=rel],
+:has(#pull:checked) [for=pull] {
+  visibility: hidden;
+}
+
+:has(#pull:checked) [for=rel] {
+  visibility: visible;
+}

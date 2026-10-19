@@ -1,0 +1,156 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(#0c1445, #3b5bdb);
+}
+
+.scene *, .body::before, .body::after {
+  position: absolute;
+}
+
+.ice {
+  inset: 0;
+  background: linear-gradient(#f0f9ff, #93c5fd);
+  clip-path: polygon(0 120px, 130px 120px,
+    330px 320px, 330px 100%, 0 100%);
+}
+
+.sea {
+  inset: 320px 0 0 330px;
+  background: linear-gradient(#38bdf8, #075985);
+}
+
+/* walk the flat top, then down the slope */
+.peng {
+  offset-path:
+    path('M40 120H130L330 320L380 400');
+  offset-anchor: 50% 100%;
+  offset-rotate: auto;
+  width: 54px;
+  height: 74px;
+}
+
+.body {
+  inset: 0;
+  border-radius: 50% 50% 45% 45% /
+    60% 60% 40% 40%;
+  background:
+    radial-gradient(circle at 36% 26%, #fff 4px,
+      #0000 5px),
+    radial-gradient(circle at 64% 26%, #fff 4px,
+      #0000 5px),
+    radial-gradient(17px 25px at 50% 66%,
+      #fff 95%, #0000), #1e293b;
+  transform-origin: 50% 63%;
+}
+
+.body::before {
+  content: '';
+  left: 20px;
+  top: 23px;
+  border: 7px solid #0000;
+  border-top-color: #fb923c;
+}
+
+.body::after {
+  content: '';
+  left: 8px;
+  bottom: -4px;
+  width: 38px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fb923c;
+}
+
+.spray {
+  left: -18px;
+  bottom: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: -10px -8px #fff, -6px -18px #fffa,
+    -22px -4px #fffc, -18px -16px #fff8;
+  opacity: 0;
+}
+
+.ring {
+  left: 335px;
+  top: 310px;
+  width: 70px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  scale: 0;
+}
+
+:checked + .scene .peng {
+  animation: slide 5s forwards;
+}
+
+@keyframes slide {
+  40%, 50% { offset-distance: 90px; }
+  0%, 50% { animation-timing-function: ease-in; }
+  85%, to { offset-distance: 100%; }
+}
+
+/* waddle, then belly-flop */
+:checked + .scene .body {
+  animation: waddle .25s 8 alternate,
+    flop 5s forwards;
+}
+
+@keyframes waddle {
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(10deg); }
+}
+
+@keyframes flop {
+  40% { rotate: 0deg; }
+  50%, to { rotate: 90deg; }
+}
+
+:checked + .scene .spray {
+  animation: puff 5s;
+}
+
+@keyframes puff {
+  50%, 84% { opacity: 0; }
+  52%, 80% { opacity: 1; }
+  66% { opacity: 1; scale: 1.5; }
+}
+
+:checked + .scene .ring {
+  animation: splash 5s forwards;
+}
+
+@keyframes splash {
+  76% { scale: 0; opacity: 1; }
+  to { scale: 2; opacity: 0; }
+}
+
+label {
+  right: 20px;
+  top: 20px;
+  padding: 8px 26px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #451a03;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+}

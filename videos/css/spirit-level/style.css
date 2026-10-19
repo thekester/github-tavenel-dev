@@ -1,0 +1,107 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #1e293b;
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 250px;
+}
+
+.plank {
+  position: absolute;
+  inset: 140px 10px auto;
+  height: 24px;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(#0000 0 5px,
+      #78350f55 0 7px), #d97706;
+  transition: rotate .9s
+    cubic-bezier(.3, 1.4, .5, 1);
+}
+
+.level {
+  position: absolute;
+  bottom: 100%;
+  left: 80px;
+  width: 220px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(#e2e8f0, #94a3b8);
+}
+
+/* liquid + two center marks */
+.vial {
+  position: relative;
+  width: 120px;
+  height: 24px;
+  border: 3px solid #fff9;
+  border-radius: 14px;
+  background: linear-gradient(90deg,
+    #0000 38%, #0008 0 40%, #0000 0 60%,
+    #0008 0 62%, #0000 0) #facc15;
+  box-shadow: inset 0 4px 6px #0004;
+  transition: background-color .5s;
+}
+
+.vial b {
+  position: absolute;
+  top: 5px;
+  left: 42px;
+  width: 36px;
+  height: 14px;
+  border-radius: 9px;
+  background: #fffe;
+  transition: translate .9s
+    cubic-bezier(.3, 1.3, .5, 1);
+}
+
+.stand {
+  position: absolute;
+  top: 164px;
+  left: 165px;
+  width: 70px;
+  height: 80px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: #64748b;
+}
+
+/* tilt the plank, the bubble rises */
+:has(#tl:checked) .plank { rotate: -9deg; }
+:has(#tr:checked) .plank { rotate: 9deg; }
+:has(#tl:checked) .vial b { translate: 38px; }
+:has(#tr:checked) .vial b { translate: -38px; }
+
+:has(#lv:checked) .vial {
+  background-color: #22c55e;
+  box-shadow: 0 0 20px #4ade80;
+}
+
+.btns { display: flex; gap: 12px; }
+
+label {
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: #334155;
+  color: #e2e8f0;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+#tl:checked ~ .btns [for=tl],
+#lv:checked ~ .btns [for=lv],
+#tr:checked ~ .btns [for=tr] {
+  background: #facc15;
+  color: #1e293b;
+}

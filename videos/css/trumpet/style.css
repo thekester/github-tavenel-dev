@@ -1,0 +1,128 @@
+@keyframes press {
+  15%, 30% { translate: 0 14px; }
+}
+@keyframes buzz { to { scale: 1.06; } }
+@keyframes blow {
+  10%, 70% { opacity: 1; }
+  to { offset-distance: 100%; }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#4c1d95, #1e1b4b);
+}
+
+#go { display: none; }
+
+.tr {
+  --gold: linear-gradient(#fef3c7, #eab308 45%,
+    #a16207);
+  position: relative;
+  width: 300px;
+  height: 260px;
+  translate: -90px;
+}
+
+.tr > * { position: absolute; }
+
+.tube {
+  top: 120px;
+  left: 30px;
+  width: 240px;
+  height: 14px;
+  background: var(--gold);
+}
+
+/* the lower loop: just a thick border */
+.loop {
+  top: 120px;
+  left: 90px;
+  width: 170px;
+  height: 64px;
+  border: 12px solid #ca8a04;
+  border-radius: 40px;
+}
+
+.v {
+  top: 90px;
+  width: 26px;
+  height: 80px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #a16207,
+    #fde68a, #ca8a04);
+}
+
+/* valve button on a stem */
+.v::before {
+  content: '';
+  position: absolute;
+  top: -34px;
+  left: 2px;
+  width: 22px;
+  height: 36px;
+  background:
+    linear-gradient(#e5e7eb 0 0) 50% 0 / 6px 100%
+      no-repeat,
+    linear-gradient(#f5f5f4 0 0) 0 0 / 100% 9px
+      no-repeat;
+  border-radius: 4px;
+}
+
+.bell {
+  top: 72px;
+  left: 250px;
+  width: 90px;
+  height: 110px;
+  background: var(--gold);
+  clip-path: polygon(0 44%, 50% 38%, 80% 22%,
+    100% 0, 100% 100%, 80% 78%, 50% 62%, 0 56%);
+  transform-origin: left;
+}
+
+.mp {
+  top: 116px;
+  left: 0;
+  width: 34px;
+  height: 22px;
+  background: radial-gradient(at 0 50%,
+    #78350f 5px, #d1d5db 6px);
+  clip-path: polygon(0 0, 30% 0, 100% 35%,
+    100% 65%, 30% 100%, 0 100%);
+  cursor: pointer;
+}
+
+/* notes ride a wavy offset-path */
+.tr b {
+  top: 112px;
+  left: 330px;
+  offset-path: path('M0 0q35-45 70 0t70 0t70 0');
+  offset-rotate: 0deg;
+  width: 20px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--c);
+  opacity: 0;
+}
+
+.tr b::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  width: 3px;
+  height: 30px;
+  background: inherit;
+}
+
+:has(#go:checked) .v::before {
+  animation: press 1.2s var(--d) infinite;
+}
+:has(#go:checked) .bell {
+  animation: buzz .08s infinite alternate;
+}
+:has(#go:checked) .tr b {
+  animation: blow 2s var(--d) linear infinite;
+}

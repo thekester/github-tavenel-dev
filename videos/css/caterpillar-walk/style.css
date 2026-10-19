@@ -1,0 +1,107 @@
+@property --b {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#365314, #1a2e05);
+}
+
+#munch { display: none; }
+
+.scene {
+  position: relative;
+  width: 440px;
+  height: 380px;
+}
+
+/* a "0 100%" square, turned into a leaf */
+.leaf {
+  position: absolute;
+  left: 75px;
+  top: 45px;
+  width: 290px;
+  height: 290px;
+  border-radius: 0 100%;
+  rotate: -45deg;
+  background: linear-gradient(45deg, #0000 49%,
+    #bbf7d0 0 51%, #0000 0), #22c55e;
+  cursor: pointer;
+  /* three bites that grow from the edge */
+  mask:
+    radial-gradient(circle at 96% 72%,
+      #0000 calc(var(--b) * .8), #000 0),
+    radial-gradient(circle at 90% 56%,
+      #0000 var(--b), #000 0),
+    radial-gradient(circle at 81% 41%,
+      #0000 calc(var(--b) * .7), #000 0);
+  mask-composite: intersect;
+}
+
+.cat {
+  position: absolute;
+  left: 40px;
+  top: 166px;
+  display: flex;
+  pointer-events: none;
+}
+
+/* segments arch up in a travelling wave */
+.cat i {
+  width: 34px;
+  height: 34px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    #ecfccb 3px, #0000 4px), #a3e635;
+  box-shadow: inset 0 -5px #65a30d;
+  animation: arch .8s var(--d) ease-in-out
+    infinite;
+}
+
+@keyframes arch { 50% { translate: 0 -14px; } }
+
+/* the head: eyes and antennae */
+.cat i:last-child {
+  width: 42px;
+  height: 42px;
+  background:
+    radial-gradient(circle at 70% 35%, #111 4px,
+      #fff 5px 8px, #0000 9px),
+    radial-gradient(circle at 40% 35%, #111 4px,
+      #fff 5px 8px, #0000 9px), #84cc16;
+  position: relative;
+}
+
+.cat i:last-child::before {
+  content: '';
+  position: absolute;
+  inset: -14px 6px 34px;
+  --c: #365314;
+  background:
+    radial-gradient(circle 4px at 4px 4px,
+      var(--c) 98%, #0000),
+    radial-gradient(circle 4px at 100% 4px,
+      var(--c) 98%, #0000),
+    linear-gradient(90deg, var(--c) 0 2px,
+      #0000 0 calc(100% - 2px), var(--c) 0)
+      0 4px / 100% no-repeat;
+}
+
+/* click: inch over to the edge, then bite */
+:checked + .scene .cat {
+  animation: crawl 3s linear forwards;
+}
+
+@keyframes crawl { to { translate: 80px; } }
+
+:checked + .scene .leaf {
+  animation: bite 1.6s 3s steps(4) forwards;
+}
+
+@keyframes bite { to { --b: 36px; } }

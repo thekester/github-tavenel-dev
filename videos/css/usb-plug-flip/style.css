@@ -1,0 +1,153 @@
+/* 3 tries, 2 flips, 1 success */
+@keyframes try {
+  9%, 41%, 74%, 79% { translate: 68px 0; }
+  16%, 32%, 48%, 64% { translate: 8px 0; }
+  20% { rotate: x 0deg; }
+  30%, 52% { rotate: x 180deg; }
+  62%, 100% { rotate: x 360deg; }
+  86%, 100% { translate: 118px 0; }
+}
+
+@keyframes nope {
+  0%, 9%, 26%, 41%, 58%, 100% { opacity: 0; }
+  10%, 24%, 42%, 56% { opacity: 1; }
+}
+
+@keyframes ok {
+  from { opacity: 0; scale: .3; }
+  to { opacity: 1; scale: 1; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#334155, #0f172a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+  perspective: 600px;
+}
+
+.scene * { position: absolute; }
+
+.laptop {
+  top: 60px;
+  left: 250px;
+  width: 160px;
+  height: 200px;
+  border-radius: 18px 0 0 18px;
+  background: linear-gradient(90deg,
+    #94a3b8, #64748b);
+}
+
+/* the port has its plastic on top */
+.slot {
+  top: 80px;
+  width: 62px;
+  height: 44px;
+  background: linear-gradient(#2563eb 0 0)
+    4px 4px / 54px 14px no-repeat, #020617;
+}
+
+.led {
+  top: 40px;
+  left: 40px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #475569;
+}
+
+.plug {
+  top: 134px;
+  left: 40px;
+  width: 90px;
+  height: 56px;
+  border-radius: 10px;
+  background: #f1f5f9;
+}
+
+.plug::before {
+  content: '';
+  position: absolute;
+  top: 21px;
+  right: 90px;
+  width: 300px;
+  height: 14px;
+  background: #cbd5e1;
+}
+
+/* the plug: plastic on top too... */
+.head {
+  top: 10px;
+  left: 90px;
+  width: 52px;
+  height: 36px;
+  background: linear-gradient(#2563eb 0 0)
+    4px 4px / 44px 13px no-repeat, #94a3b8;
+}
+
+.nope, .ok {
+  top: 30px;
+  left: 120px;
+  width: 64px;
+  height: 64px;
+  opacity: 0;
+}
+
+/* CSS-drawn red X */
+.nope {
+  background:
+    linear-gradient(45deg, #0000 42%,
+      #ef4444 0 58%, #0000 0),
+    linear-gradient(-45deg, #0000 42%,
+      #ef4444 0 58%, #0000 0);
+}
+
+.ok {
+  left: 300px;
+  width: 54px;
+  height: 28px;
+  border: 10px solid #22c55e;
+  border-top: 0;
+  border-right: 0;
+  rotate: -45deg;
+}
+
+#go:checked + .scene .plug {
+  animation: try 6.5s forwards;
+}
+
+#go:checked + .scene .nope {
+  animation: nope 6.5s;
+}
+
+#go:checked + .scene .ok {
+  animation: ok .4s 5.6s both;
+}
+
+#go:checked + .scene .led {
+  background: #4ade80;
+  box-shadow: 0 0 14px 4px #4ade80;
+  transition: .3s 5.6s;
+}
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 12px;
+  background: #3b82f6;
+  color: #fff;
+  font: 700 24px system-ui;
+  cursor: pointer;
+}

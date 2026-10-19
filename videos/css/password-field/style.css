@@ -1,0 +1,111 @@
+body {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#show { display: none; }
+
+.field {
+  position: relative;
+  width: 360px;
+}
+
+#pw {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 18px 64px 18px 20px;
+  border: 2px solid #334155;
+  border-radius: 14px;
+  outline: none;
+  background: #1e293b;
+  color: #f1f5f9;
+  font-size: 22px;
+  /* dots without type="password" */
+  -webkit-text-security: disc;
+}
+
+#show:checked + .field #pw {
+  -webkit-text-security: none;
+}
+
+/* a drawn eye */
+.eye {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 30px;
+  height: 18px;
+  translate: 0 -50%;
+  border: 3px solid #94a3b8;
+  border-radius: 75% 15%;
+  rotate: 45deg;
+  cursor: pointer;
+}
+
+.eye::before {
+  content: '';
+  position: absolute;
+  inset: 3px 8px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+/* closed lid while hidden */
+.eye::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: -8px;
+  width: 44px;
+  height: 3px;
+  background: #94a3b8;
+  rotate: -90deg;
+  transition: scale .25s;
+}
+
+#show:checked + .field .eye::after {
+  scale: 0 1;
+}
+
+#show:checked + .field .eye {
+  border-color: #38bdf8;
+}
+
+/* strength from the pattern attribute */
+.bar {
+  display: block;
+  height: 6px;
+  margin-top: 12px;
+  border-radius: 3px;
+  background: #ef4444;
+  width: 35%;
+  transition: .4s;
+}
+
+#pw:placeholder-shown ~ .bar { width: 0; }
+
+#pw:valid ~ .bar {
+  width: 100%;
+  background: #22c55e;
+}
+
+.meter {
+  margin: 10px 0 0;
+  color: #f87171;
+  font-weight: 700;
+}
+
+.meter::after { content: 'Weak'; }
+
+body:has(#pw:valid) .meter { color: #4ade80; }
+body:has(#pw:valid) .meter::after {
+  content: 'Strong password';
+}
+
+body:has(#pw:placeholder-shown) .meter::after {
+  content: '';
+}

@@ -1,0 +1,128 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #312e81;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 300px;
+  height: 460px;
+}
+
+.scene > * { position: absolute; }
+
+.shutter {
+  top: 0;
+  left: 36px;
+  width: 56px;
+  height: 26px;
+  border-radius: 10px 10px 0 0;
+  background: #ef4444;
+  cursor: pointer;
+}
+
+.cam {
+  z-index: 2;
+  top: 20px;
+  width: 300px;
+  height: 190px;
+  border-radius: 26px;
+  background: linear-gradient(#0000 62%,
+    #0f172a 0 67%, #0000 0), #f5f5f4;
+  box-shadow: 0 12px 0 #a8a29e;
+}
+
+/* flash window */
+.cam::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 54px;
+  height: 30px;
+  border-radius: 6px;
+  background: #e2e8f0;
+}
+
+.lens {
+  position: absolute;
+  inset: 34px 95px 46px;
+  border-radius: 50%;
+  background: radial-gradient(#60a5fa 8%,
+    #020617 12% 48%, #44403c 52%);
+}
+
+/* the photo hides inside the slot */
+.slot {
+  top: 196px;
+  left: 45px;
+  width: 210px;
+  height: 260px;
+  overflow: hidden;
+}
+
+.photo {
+  height: 236px;
+  padding: 12px 12px 44px;
+  box-sizing: border-box;
+  background: #fafaf9;
+  translate: 0 -100%;
+}
+
+/* CSS landscape: sun, sky, lake */
+.pic {
+  position: relative;
+  height: 100%;
+  background:
+    radial-gradient(circle at 70% 30%,
+      #fde047 16px, #0000 17px),
+    linear-gradient(#38bdf8, #fed7aa);
+  filter: brightness(.2) sepia(1);
+}
+
+.pic::before, .pic::after {
+  content: '';
+  position: absolute;
+  inset: 30% 0 0;
+  background: #166534;
+  clip-path: polygon(0 100%, 30% 10%,
+    55% 60%, 78% 25%, 100% 100%);
+}
+
+.pic::after {
+  inset: 72% 0 0;
+  background: linear-gradient(#0284c7,
+    #7dd3fc);
+  clip-path: none;
+}
+
+.flash {
+  inset: -400px;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:has(#go:checked) .flash {
+  animation: flash .7s;
+}
+
+:has(#go:checked) .photo {
+  animation: out 2s .4s ease-out forwards;
+}
+
+/* the picture slowly develops */
+:has(#go:checked) .pic {
+  animation: dev 4s 2s forwards;
+}
+
+@keyframes flash { 10% { opacity: 1; } }
+@keyframes out { to { translate: 0; } }
+@keyframes dev {
+  to { filter: brightness(1) sepia(0); }
+}

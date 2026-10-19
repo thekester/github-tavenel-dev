@@ -1,0 +1,115 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #312e81;
+  font-family: system-ui;
+}
+
+#flip { display: none; }
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 390px;
+  perspective: 800px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.air {
+  left: 70px;
+  bottom: 40px;
+  width: 180px;
+  height: 180px;
+}
+
+/* starts on tails */
+.coin {
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 10px solid #b45309;
+  background: radial-gradient(#fde68a, #f59e0b);
+  color: #92400e;
+  font-size: 90px;
+  /* hide the face turned away */
+  backface-visibility: hidden;
+}
+
+.tails { transform: rotateX(180deg); }
+
+#flip:checked + .scene .air {
+  animation: hop 2s cubic-bezier(.3, 0, .7, 1);
+}
+
+@keyframes hop {
+  50% { translate: 0 -190px; scale: .8; }
+}
+
+/* 4.5 turns: tails -> heads */
+#flip:checked + .scene .coin {
+  animation: spin 2s ease-out forwards;
+}
+
+@keyframes spin {
+  50% { transform: rotateX(1300deg)
+    rotateY(35deg); }
+  to { transform: rotateX(1800deg)
+    rotateY(0deg); }
+}
+
+.shadow {
+  left: 90px;
+  bottom: 16px;
+  width: 140px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0006;
+}
+
+#flip:checked + .scene .shadow {
+  animation: shrink 2s cubic-bezier(.3, 0, .7, 1);
+}
+
+@keyframes shrink {
+  50% { scale: .4; opacity: .4; }
+}
+
+.result {
+  inset: 20px 0 auto;
+  text-align: center;
+  color: #fde047;
+  font-size: 56px;
+  font-weight: 900;
+  scale: 0;
+}
+
+#flip:checked + .scene .result {
+  animation: pop .5s 2s forwards
+    cubic-bezier(.3, 1.8, .5, 1);
+}
+
+@keyframes pop { to { scale: 1; } }
+
+label {
+  padding: 12px 44px;
+  border-radius: 12px;
+  background: #fde047;
+  color: #713f12;
+  font-size: 26px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #a16207;
+}

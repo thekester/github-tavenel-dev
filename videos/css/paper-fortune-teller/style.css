@@ -1,0 +1,95 @@
+/* A = top/bottom apart, B = left/right apart */
+@keyframes chomp {
+  12%, 62% {
+    translate: 0 calc(var(--sy) * 26px);
+  }
+  25%, 50%, 75%, to { translate: 0; }
+  37%, 87% {
+    translate: calc(var(--sx) * 26px) 0;
+  }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 50px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#7c3aed, #2e1065);
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.teller {
+  display: grid;
+  grid-template-columns: 130px 130px;
+  gap: 4px;
+  position: relative;
+  perspective: 700px;
+}
+
+/* the dark inside, seen through the gaps */
+.teller::before {
+  content: '';
+  position: absolute;
+  inset: 24px;
+  background: #1e1b4b;
+}
+
+/* each flap: two shades split along the crease */
+.teller i {
+  position: relative;
+  height: 130px;
+  border-radius: 6px;
+  background: linear-gradient(var(--g),
+    #0002 50%, #fff3 0), var(--c);
+  box-shadow: 0 6px 12px #0005;
+}
+
+.fortune {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 130px;
+  height: 130px;
+  margin: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #fffbeb;
+  color: #7c2d12;
+  font: 800 18px/1.2 system-ui;
+  text-align: center;
+  opacity: 0;
+}
+
+#go:checked + .teller i {
+  animation: chomp 2.6s ease-in-out;
+}
+
+/* then one flap swings open on its hinge */
+.tr { transform-origin: 0 50%; z-index: 1; }
+
+#go:checked + .teller .tr {
+  rotate: y -165deg;
+  transition: rotate .9s 2.8s;
+}
+
+#go:checked + .teller .fortune {
+  opacity: 1;
+  transition: opacity .2s 2.7s;
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #fde047;
+  color: #4c1d95;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}

@@ -1,0 +1,130 @@
+@keyframes pop { from { scale: .2; } }
+@keyframes flip { to { rotate: y -180deg; } }
+@keyframes slide { from { translate: -70px; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: Georgia, serif;
+}
+
+#go { display: none; }
+
+/* wood frame, books sit on the bottom */
+.shelf {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  padding: 0 14px;
+  height: 210px;
+  border: 16px solid #92400e;
+  border-bottom-width: 22px;
+  border-radius: 6px;
+  background: linear-gradient(#451a03, #292524);
+}
+
+/* the hover box stays still, the <i> moves */
+.shelf > * {
+  width: 30px;
+  height: var(--h);
+  cursor: pointer;
+}
+
+.shelf > :nth-child(3n) { width: 24px; }
+
+.shelf i {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border-radius: 3px;
+  background:
+    linear-gradient(#fde68a 0 0) 0 12px / 100% 4px
+      no-repeat,
+    linear-gradient(#fde68a 0 0) 0 100% /
+      100% 14px no-repeat,
+    var(--c);
+  font-size: 15px;
+  writing-mode: vertical-rl;
+  transform-origin: bottom;
+  transition: .35s;
+  color: #0000;
+}
+
+/* slide out and tip forward */
+.shelf > :hover i {
+  translate: 0 -30px;
+  scale: 1.15;
+  transform: perspective(300px) rotateX(-25deg);
+  color: #fff;
+  box-shadow: 0 16px 16px #0009;
+}
+
+.reader {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 280px;
+  height: 190px;
+  perspective: 900px;
+  visibility: hidden;
+  --page: repeating-linear-gradient(#0000 0 14px,
+      #a8a29e 0 16px) 20px 24px / 100px 140px
+      no-repeat, #fef3c7;
+  /* right page */
+  background: var(--page);
+  background-position-x: 160px;
+  background-clip: content-box;
+  padding-left: 140px;
+  box-sizing: border-box;
+}
+
+/* cover hinged on the spine, two faces */
+.cover {
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left;
+  transform-style: preserve-3d;
+}
+
+.cover::before,
+.cover::after {
+  content: 'Orbit';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 0 8px 8px 0;
+  background: #b15;
+  box-shadow: inset 0 0 0 8px #9d174d;
+  color: #fde68a;
+  font-size: 30px;
+  backface-visibility: hidden;
+}
+
+/* the back of the cover is the left page */
+.cover::after {
+  content: '';
+  rotate: y 180deg;
+  border-radius: 0;
+  background: var(--page);
+  box-shadow: inset -6px 0 8px #0002;
+}
+
+#go:checked ~ .shelf {
+  filter: brightness(.35);
+  transition: .4s;
+}
+
+#go:checked ~ .reader {
+  visibility: visible;
+  animation: pop .4s, slide 1.2s .7s backwards;
+}
+
+#go:checked ~ .reader .cover {
+  animation: flip 1.2s .7s forwards;
+}

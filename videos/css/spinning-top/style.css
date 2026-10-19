@@ -1,0 +1,122 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(#312e81 60%, #1e1b4b 0);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 340px;
+}
+
+.scene i { position: absolute; }
+
+.shadow {
+  bottom: 0;
+  left: 110px;
+  width: 120px;
+  height: 22px;
+  border-radius: 50%;
+  background: #0006;
+}
+
+/* rotates around its tip */
+.top {
+  position: absolute;
+  bottom: 10px;
+  left: 80px;
+  width: 180px;
+  height: 230px;
+  transform-origin: 50% 100%;
+}
+
+.body {
+  top: 70px;
+  width: 180px;
+  height: 160px;
+  background: linear-gradient(90deg,
+    #7f1d1d, #ef4444 40%, #7f1d1d);
+  clip-path: polygon(0 0, 100% 0, 90% 30%,
+    52% 97%, 50% 100%, 48% 97%, 10% 30%);
+}
+
+/* the stripes are a conic gradient */
+.disc {
+  top: 40px;
+  width: 180px;
+  height: 60px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from var(--a), #ef4444 0 40deg,
+    #facc15 0 80deg, #3b82f6 0 120deg);
+  box-shadow: inset 0 -6px #0004;
+}
+
+.stem {
+  left: 80px;
+  width: 20px;
+  height: 72px;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(90deg,
+    #92400e, #fbbf24, #92400e);
+}
+
+/* fast first, then slower and slower */
+#go:checked + .scene .disc {
+  animation: spin 6s forwards
+    linear(0, .45 15%, .75 35%, .93 65%, 1);
+}
+
+@keyframes spin { to { --a: 3000deg; } }
+
+#go:checked + .scene .top {
+  animation: wobble 6.6s ease-in-out forwards;
+}
+
+/* wider and wider wobble, then it falls */
+@keyframes wobble {
+  20% { rotate: 2deg; translate: 3px; }
+  32% { rotate: -3deg; translate: -4px; }
+  44% { rotate: 5deg; translate: 5px; }
+  56% { rotate: -7deg; translate: -6px; }
+  68% { rotate: 10deg; translate: 8px; }
+  80% { rotate: -13deg; translate: -9px; }
+  88% { rotate: 16deg; translate: 6px; }
+  96% { rotate: 66deg; translate: 12px 0; }
+  to { rotate: 61deg; translate: 12px 0; }
+}
+
+/* the shadow follows the fall */
+#go:checked + .scene .shadow {
+  animation: lie 6.6s ease-in forwards;
+}
+
+@keyframes lie {
+  88% { translate: 0; scale: 1; }
+  to { translate: 105px; scale: 1.9 1; }
+}
+
+label {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #facc15;
+  color: #422006;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

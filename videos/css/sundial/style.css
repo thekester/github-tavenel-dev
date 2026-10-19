@@ -1,0 +1,134 @@
+@property --sky { syntax: '<color>';
+  inherits: true; initial-value: #38bdf8; }
+@property --hz { syntax: '<color>';
+  inherits: true; initial-value: #bae6fd; }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a09;
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+/* each hour = one set of variables */
+body:has(#t9:checked) { --p: 27%; --a: -50deg;
+  --len: .9; }
+body:has(#t12:checked) { --p: 50%; --a: 0deg;
+  --len: .35; --sky: #0284c7; --hz: #7dd3fc; }
+body:has(#t3:checked) { --p: 73%; --a: 50deg;
+  --len: .9; --sky: #3b82f6; --hz: #fde68a; }
+body:has(#t6:checked) { --p: 88%; --a: 80deg;
+  --len: 1.5; --sky: #6d28d9; --hz: #fb923c;
+  --sun: #f97316; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 440px;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--sky), var(--hz));
+  transition: --sky 1.2s, --hz 1.2s;
+}
+
+.scene > * { position: absolute; }
+
+/* the sun rides an elliptical arc */
+.sun {
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sun, #fde047);
+  box-shadow: 0 0 40px 10px #fde04799;
+  offset-path:
+    path('M0 360A190 290 0 0 1 380 360');
+  offset-distance: var(--p);
+  transition: 1.2s;
+}
+
+.ground {
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background: #4d7c0f;
+  box-shadow: 0 -12px 0 #65a30d;
+}
+
+.post {
+  top: 300px;
+  left: 162px;
+  width: 56px;
+  height: 120px;
+  background: linear-gradient(90deg,
+    #78716c, #e7e5e4 40%, #57534e);
+}
+
+/* a flat disc squashed into perspective */
+.dial {
+  top: 150px;
+  left: 70px;
+  width: 240px;
+  height: 240px;
+  border: 10px solid #d6d3d1;
+  box-sizing: border-box;
+  border-radius: 50%;
+  overflow: hidden;
+  background: repeating-conic-gradient(
+    #78716c 0 1.5deg, #f5f5f4 0 30deg);
+  box-shadow: 0 26px #78716c;
+  transform: scaleY(.38);
+}
+
+/* rotates and stretches inside the disc */
+.shadow {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 16px);
+  width: 32px;
+  height: 115px;
+  background: linear-gradient(#1c1917, #1c191755);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transform: rotate(calc(var(--a) * 1.2))
+    scaleY(var(--len));
+  transition: transform 1.2s;
+}
+
+.gnomon {
+  top: 214px;
+  left: 185px;
+  width: 12px;
+  height: 56px;
+  background: linear-gradient(90deg,
+    #fbbf24, #92400e);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+nav { display: flex; gap: 10px; }
+
+label {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #292524;
+  color: #e7e5e4;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#t9:checked ~ nav [for=t9],
+#t12:checked ~ nav [for=t12],
+#t3:checked ~ nav [for=t3],
+#t6:checked ~ nav [for=t6] {
+  background: #f59e0b;
+  color: #1c1917;
+}

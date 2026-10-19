@@ -1,0 +1,95 @@
+body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(#fff 1px, #0000 2px)
+      0 0 / 70px 70px,
+    radial-gradient(#fff8 1px, #0000 2px)
+      35px 20px / 110px 110px,
+    radial-gradient(#fff6 1px, #0000 2px)
+      17px 51px / 53px 97px,
+    #05060f;
+}
+
+.sun, .orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+
+.sun {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    #fff6c4, #ffc93c 45%, #ff7a00);
+  box-shadow: 0 0 60px 10px #ff9d00aa;
+  cursor: pointer;
+  transition: box-shadow .4s, scale .4s;
+}
+
+.orbit {
+  width: calc(var(--r) * 2px);
+  aspect-ratio: 1;
+  border: 1px solid #ffffff18;
+  pointer-events: none;
+  animation: spin calc(var(--t) * 1s)
+    linear infinite;
+}
+
+.orbit i {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(var(--s) * 1px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 100%,
+    #fffc, var(--c) 45%, #111);
+}
+
+/* the moon orbits the earth */
+.orbit b {
+  position: absolute;
+  inset: -15px;
+  animation: spin 1.4s linear infinite;
+}
+
+.orbit b::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  translate: -50%;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+/* saturn's ring */
+.orbit:last-child i::after {
+  content: '';
+  position: absolute;
+  inset: 8px -12px;
+  border: 3px solid #d9c08acc;
+  border-radius: 50%;
+  rotate: -25deg;
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+/* hover the sun: time stops */
+body:has(.sun:hover) :is(.orbit, b) {
+  animation-play-state: paused;
+}
+
+body:has(.sun:hover) .sun {
+  scale: 1.15;
+  box-shadow: 0 0 90px 30px #ff9d00cc;
+}

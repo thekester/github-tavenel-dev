@@ -1,0 +1,116 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: system-ui;
+}
+
+.guitar {
+  position: relative;
+  width: 420px;
+  height: 320px;
+  border-radius: 40px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(95deg,
+      #0000 0 13px, #78350f22 0 15px),
+    radial-gradient(circle at 30% 20%,
+      #fbbf24, #b45309 70%, #78350f);
+  box-shadow: 0 20px 50px #000a;
+}
+
+.guitar * { position: absolute; }
+
+.hole {
+  top: 75px;
+  left: 125px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(#000 50%, #292524);
+  box-shadow: 0 0 0 6px #451a03,
+    0 0 0 11px #fde68a, 0 0 0 16px #451a03;
+}
+
+.neck {
+  top: 92px;
+  left: -10px;
+  width: 140px;
+  height: 136px;
+  border-radius: 0 10px 10px 0;
+  background:
+    linear-gradient(90deg, #0000 40px,
+      #d6d3d1 0 45px, #0000 0) ,
+    #292524;
+}
+
+.bridge {
+  top: 84px;
+  left: 350px;
+  width: 34px;
+  height: 152px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,
+    #0000 8px, #fef3c7 0 12px, #0000 0),
+    #1c1917;
+}
+
+.strings {
+  top: 102px;
+  left: 0;
+  width: 362px;
+  height: 116px;
+}
+
+/* each string = a tall hover strip */
+.strings i {
+  position: relative;
+  display: block;
+  height: 19px;
+}
+
+.strings i::before,
+.strings i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto 0;
+  height: var(--w);
+  background: var(--c);
+  box-shadow: 0 2px 2px #0006;
+}
+
+/* the vibration: a blurred, squashing ghost */
+.strings i::after {
+  height: 13px;
+  background: none;
+  border-block: 3px solid var(--c);
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 1.5s ease-out;
+  animation: buzz .1s linear infinite;
+}
+
+@keyframes buzz { 50% { scale: 1 .2; } }
+
+/* the note floats off after you leave */
+.strings b {
+  left: var(--x);
+  top: -16px;
+  color: #fef3c7;
+  font-size: 38px;
+  text-shadow: 0 2px 4px #0008;
+  opacity: 0;
+  translate: 0 -80px;
+  transition: 1.2s ease-out;
+}
+
+/* touched: show instantly, settle slowly */
+.strings i:hover::after,
+.strings i:hover b {
+  opacity: 1;
+  translate: 0;
+  transition: 0s;
+}

@@ -1,0 +1,170 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#4c1d95, #1e1b4b);
+  font: 900 24px system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 330px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.cake {
+  bottom: 20px;
+  left: 50px;
+  width: 260px;
+  height: 140px;
+  border-radius: 14px 14px 6px 6px;
+  background: linear-gradient(#f9a8d4 0 26px,
+    #92400e 0 72px, #fef3c7 0 84px, #92400e 0);
+  box-shadow: 0 20px 0 -6px #e2e8f0;
+}
+
+.cake::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  inset-inline: 0;
+  height: 22px;
+  background: radial-gradient(circle at 50% 0,
+    #f9a8d4 11px, #0000 12px) 0 0 / 26px 22px;
+}
+
+.candles {
+  bottom: 160px;
+  left: 70px;
+  display: flex;
+  gap: 30px;
+}
+
+.candles i {
+  position: relative;
+  width: 14px;
+  height: 54px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(-45deg,
+    #fff 0 6px, #38bdf8 0 12px);
+}
+
+.candles i::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: -2px;
+  width: 18px;
+  height: 26px;
+  border-radius: 50% / 65% 65% 35% 35%;
+  background: radial-gradient(at 50% 75%,
+    #fff 0 18%, #fde047 30%, #f97316 75%);
+  box-shadow: 0 0 22px 6px #facc1588;
+  transform-origin: 50% 90%;
+  animation: flick .18s infinite alternate;
+}
+
+/* a smoke curl, hidden for now */
+.candles i::after {
+  content: '';
+  position: absolute;
+  top: -26px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border: 3px solid;
+  border-color: #cbd5e1 #cbd5e1 #0000 #0000;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@keyframes flick {
+  to { scale: .9 1.12; rotate: 4deg; }
+}
+
+.wind { top: 70px; left: -80px; }
+
+.wind i {
+  display: block;
+  width: 90px;
+  height: 4px;
+  margin: 14px 0 0 30px;
+  border-radius: 2px;
+  background: #e0f2fe;
+  opacity: 0;
+}
+
+.msg {
+  inset-inline: 0;
+  text-align: center;
+  color: #fde047;
+  font-size: 36px;
+  white-space: nowrap;
+  scale: 0;
+}
+
+/* confetti = one dot, many box-shadows */
+.msg::after {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  rotate: 30deg;
+  box-shadow: -150px -10px #f472b6,
+    -100px 40px #38bdf8, -60px -30px #a3e635,
+    40px -34px #f472b6, 90px 44px #fde047,
+    150px -16px #38bdf8, -170px 34px #a3e635;
+}
+
+label {
+  padding: 10px 36px;
+  border-radius: 99px;
+  background: #f472b6;
+  color: #fff;
+  cursor: pointer;
+}
+
+#go:checked + .scene .wind i {
+  animation: gust .9s ease-in forwards;
+}
+
+/* each flame waits for its own --d */
+#go:checked + .scene .candles i::before {
+  animation: flick .18s infinite alternate,
+    out .3s var(--d) forwards;
+}
+
+#go:checked + .scene .candles i::after {
+  animation: smoke 1.6s var(--d) forwards;
+}
+
+#go:checked + .scene .msg {
+  animation: pop .5s 1.5s forwards
+    cubic-bezier(.3, 1.8, .6, 1);
+}
+
+@keyframes gust {
+  30% { opacity: .8; }
+  to { translate: 520px; opacity: 0; }
+}
+
+@keyframes out {
+  to { transform: translateX(8px) scale(.1);
+    opacity: 0; }
+}
+
+@keyframes smoke {
+  20% { opacity: .9; }
+  to { translate: 10px -70px; rotate: 1turn;
+    scale: 2; opacity: 0; }
+}
+
+@keyframes pop { to { scale: 1; } }

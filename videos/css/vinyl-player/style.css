@@ -1,0 +1,107 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fde68a;
+  font-family: system-ui;
+}
+
+#play { display: none; }
+
+.player {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: 300px;
+  padding: 28px 24px 24px;
+  border-radius: 28px;
+  background: #18181b;
+  color: #fafafa;
+  box-shadow: 0 24px 50px #0004;
+}
+
+.deck { position: relative; margin-bottom: 14px; }
+
+/* grooves + label + a moving shine */
+.vinyl {
+  display: block;
+  width: 220px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #18181b 0 3%,
+      #f43f5e 3.5% 22%, #0000 22.5%),
+    conic-gradient(#0000, #fff2 8%, #0000 16%
+      50%, #fff2 58%, #0000 66%),
+    repeating-radial-gradient(circle,
+      #111 0 2px, #2a2a2e 2px 4px);
+  animation: spin 1.8s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes spin { to { rotate: 1turn; } }
+
+.arm {
+  position: absolute;
+  top: -12px;
+  right: -6px;
+  width: 10px;
+  height: 140px;
+  border-radius: 5px;
+  background: linear-gradient(#e4e4e7, #a1a1aa);
+  transform-origin: 50% 8px;
+  rotate: -28deg;
+  transition: rotate .6s ease-in-out;
+}
+
+span { color: #a1a1aa; }
+
+.eq {
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  height: 34px;
+  margin: 8px 0;
+}
+
+.eq i {
+  width: 8px;
+  height: 100%;
+  border-radius: 4px;
+  background: #f43f5e;
+  transform-origin: bottom;
+  scale: 1 .2;
+  animation: bar var(--d) ease-in-out
+    infinite alternate paused;
+}
+
+@keyframes bar {
+  from { scale: 1 .2; }
+  to { scale: 1 1; }
+}
+
+label {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f43f5e;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+label::after { content: '\25B6'; }
+
+/* play: needle down, everything runs */
+#play:checked + .player .arm { rotate: 12deg; }
+
+#play:checked + .player :is(.vinyl, .eq i) {
+  animation-play-state: running;
+}
+
+#play:checked + .player label::after {
+  content: '\275A\275A';
+  font-size: 18px;
+}

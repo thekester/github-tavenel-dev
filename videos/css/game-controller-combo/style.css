@@ -1,0 +1,144 @@
+@keyframes pop { from { scale: 0; } }
+@keyframes boom {
+  0% { scale: 0; rotate: -20deg; }
+  60% { scale: 1.3; }
+  100% { scale: 1; rotate: -6deg; }
+}
+@keyframes shake {
+  25%, 75% { translate: -10px 6px; }
+  50% { translate: 10px -6px; }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#4c1d95, #0f0a1e);
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 380px;
+}
+
+[for=b1], i:nth-child(1) { --c: #facc15;
+  --a: 0deg; --x: 250px; --y: 30px; }
+[for=b2], i:nth-child(2) { --c: #ef4444;
+  --a: 90deg; --x: 290px; --y: 70px; }
+[for=b3], i:nth-child(3) { --c: #22c55e;
+  --a: 180deg; --x: 250px; --y: 110px; }
+[for=b4], i:nth-child(4) { --c: #3b82f6;
+  --a: 270deg; --x: 210px; --y: 70px; }
+
+.bar {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 20px;
+}
+
+.bar i {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 3px dashed #a78bfa66;
+}
+
+/* a CSS chevron, turned by --a */
+i::after, label::after {
+  content: '';
+  position: absolute;
+  inset: 34% 30% 26%;
+  border: solid #fff;
+  border-width: 6px 6px 0 0;
+  rotate: calc(var(--a) - 45deg);
+  translate: 0 4px;
+  opacity: 0;
+}
+
+/* body + d-pad + grips */
+.pad, .pad::before, .pad::after {
+  position: absolute;
+  top: 170px;
+  left: 20px;
+  width: 360px;
+  height: 160px;
+  border-radius: 70px;
+  background:
+    linear-gradient(#1e293b 0 0) 74px 30px
+      / 26px 80px no-repeat,
+    linear-gradient(#1e293b 0 0) 47px 57px
+      / 80px 26px no-repeat,
+    linear-gradient(#64748b, #334155);
+}
+
+.pad::before, .pad::after {
+  content: '';
+  z-index: -1;
+  top: 70px;
+  width: 110px;
+  height: 140px;
+  border-radius: 50%;
+  background: #334155;
+  rotate: 25deg;
+}
+
+.pad::after { left: 230px; rotate: -25deg; }
+
+label {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--c);
+  filter: brightness(.55);
+  &::after { opacity: 1;
+    border-width: 4px 4px 0 0; }
+}
+
+/* pressed = lit + one glyph in the bar */
+#b1:checked ~ * :is([for=b1], i:nth-child(1)),
+#b2:checked ~ * :is([for=b2], i:nth-child(2)),
+#b3:checked ~ * :is([for=b3], i:nth-child(3)),
+#b4:checked ~ * :is([for=b4], i:nth-child(4)) {
+  filter: brightness(1.2);
+  box-shadow: 0 0 22px var(--c);
+  border: 0;
+  background: var(--c);
+  animation: pop .3s;
+  &::after { opacity: 1; }
+}
+
+.combo {
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  width: 100%;
+  text-align: center;
+  color: #fde047;
+  font: italic 900 56px system-ui;
+  -webkit-text-stroke: 3px #9a3412;
+  scale: 0;
+}
+
+.combo::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -50px 70px;
+  background: repeating-conic-gradient(
+    #f97316 0 8deg, #0000 0 20deg);
+  mask: radial-gradient(#000 40%, #0000 70%);
+}
+
+#b4:checked ~ .scene {
+  animation: shake .2s .3s 3;
+  .combo { animation: boom .6s .3s forwards; }
+}

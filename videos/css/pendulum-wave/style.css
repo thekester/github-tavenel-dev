@@ -1,0 +1,84 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e1b4b, #020617);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+/* the bar */
+.rig {
+  display: flex;
+  justify-content: space-between;
+  width: 380px;
+  height: 290px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-top: 10px solid #94a3b8;
+  border-radius: 6px;
+  /* seen from slightly above */
+  transform: perspective(700px) rotateX(-40deg);
+  transform-style: preserve-3d;
+}
+
+/* string, hinged at the top */
+.rig i {
+  width: 2px;
+  height: var(--l);
+  background: #cbd5e1aa;
+  transform-origin: top;
+  /* swing toward / away from you */
+  rotate: x -40deg;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* the ball */
+.rig i::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: -10px;
+  width: 22px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  --c: hsl(calc(var(--h) * 1deg) 90% 60%);
+  background: radial-gradient(circle at 35% 30%,
+    #fff, var(--c) 40%);
+  box-shadow: 0 0 14px var(--c);
+  rotate: x 80deg;
+}
+
+/* each period is a bit shorter */
+#go:checked + .rig i,
+#go:checked + .rig i::after {
+  animation: swing var(--t) ease-in-out
+    infinite alternate;
+}
+
+/* the ball counter-turns to face you */
+#go:checked + .rig i::after {
+  animation-name: face;
+}
+
+@keyframes face { to { rotate: x 0deg; } }
+
+@keyframes swing {
+  to { rotate: x 40deg; }
+}
+
+.btn {
+  padding: 12px 36px;
+  border-radius: 99px;
+  background: linear-gradient(90deg,
+    #f43f5e, #a855f7, #3b82f6);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}

@@ -1,0 +1,128 @@
+@property --size {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a09;
+  font-family: system-ui;
+}
+
+#wood { display: none; }
+
+.camp {
+  position: relative;
+  width: 360px;
+  height: 340px;
+  transition: --size 1s .5s ease-out;
+}
+
+#wood:checked + .camp { --size: 1.45; }
+
+.camp i { position: absolute; left: 50%; }
+
+.glow {
+  bottom: -40px;
+  width: calc(var(--size) * 340px);
+  height: 140px;
+  translate: -50%;
+  border-radius: 50%;
+  background: radial-gradient(#f9731655, #0000 70%);
+}
+
+.flame {
+  bottom: 40px;
+  width: 90px;
+  height: 150px;
+  margin-left: -45px;
+  border-radius: 50% 50% 45% 45% /
+    65% 65% 35% 35%;
+  background: radial-gradient(
+    ellipse at 50% 80%, #fef9c3 10%,
+    #fbbf24 35%, #f97316 60%, #dc2626 85%);
+  transform-origin: bottom;
+  scale: var(--size);
+  mix-blend-mode: screen;
+  animation: flick .6s ease-in-out
+    infinite alternate;
+}
+
+.flame:nth-of-type(3) {
+  translate: -34px 6px;
+  rotate: -16deg;
+  height: 110px;
+  animation-duration: .45s;
+}
+
+.flame:nth-of-type(4) {
+  translate: 34px 6px;
+  rotate: 16deg;
+  height: 120px;
+  animation-duration: .7s;
+}
+
+@keyframes flick {
+  to { scale: calc(var(--size) * .92)
+    calc(var(--size) * 1.12); }
+}
+
+.sparks {
+  bottom: 120px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: -30px 20px #fb923c,
+    25px 40px #fde047, -12px 70px #f97316,
+    40px 90px #fde047, -45px 110px #fb923c;
+  scale: var(--size);
+  animation: rise 2s linear infinite;
+}
+
+@keyframes rise {
+  to { translate: 10px -180px; opacity: 0; }
+}
+
+.log {
+  bottom: 30px;
+  width: 190px;
+  height: 30px;
+  margin-left: -95px;
+  border-radius: 15px;
+  background: linear-gradient(#92400e, #451a03);
+  rotate: 16deg;
+}
+
+.log + .log { rotate: -16deg; }
+
+/* the new log drops in */
+.log.new {
+  bottom: 42px;
+  rotate: 4deg;
+  translate: 0 -300px;
+  opacity: 0;
+  transition: .5s cubic-bezier(.5, 0, .7, 1.4);
+}
+
+#wood:checked + .camp .new {
+  translate: 0;
+  opacity: 1;
+}
+
+label {
+  padding: 12px 34px;
+  border-radius: 999px;
+  background: #ea580c;
+  color: #fff;
+  font-weight: 800;
+  font-size: 19px;
+  cursor: pointer;
+}

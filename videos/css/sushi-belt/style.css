@@ -1,0 +1,52 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #7c2d12;
+}
+
+.belt {
+  position: relative;
+  width: 440px;
+  height: 260px;
+  border-radius: 100px;
+  background: #334155;
+}
+
+/* the counter in the middle */
+.belt::before {
+  content: '';
+  position: absolute;
+  inset: 84px;
+  border-radius: 30px;
+  background: #fde68a;
+}
+
+.belt i {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 6px solid var(--c);
+  border-radius: 50%;
+  /* salmon on rice */
+  background:
+    linear-gradient(#fb923c 0 0)
+      50% 38% / 38px 12px no-repeat,
+    linear-gradient(#fff 0 0)
+      50% 60% / 34px 16px no-repeat,
+    #e2e8f0;
+  /* follow the belt itself */
+  offset-path: inset(40px round 60px);
+  offset-rotate: 0deg;
+  animation: ride 9s linear infinite;
+  animation-delay: calc(var(--i) * -1.5s);
+  transition: scale .2s;
+}
+
+@keyframes ride { to { offset-distance: 100%; } }
+
+/* hover the belt: everything stops */
+.belt:hover i { animation-play-state: paused; }
+
+.belt i:hover { scale: 1.25; }

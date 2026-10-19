@@ -1,0 +1,76 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  height: 100vh;
+  margin: 0;
+  background: #0b1120;
+  font-family: monospace;
+}
+
+#go { display: none; }
+
+.board {
+  padding: 14px 18px 18px;
+  border-radius: 14px;
+  background: #111;
+  box-shadow: 0 0 0 6px #333,
+    0 20px 40px #000;
+}
+
+h2 {
+  margin: 0 0 10px;
+  color: #fbbf24;
+  font: 700 18px sans-serif;
+  letter-spacing: 6px;
+}
+
+/* each row only shows one line */
+p {
+  display: flex;
+  align-items: start;
+  gap: 4px;
+  height: 46px;
+  margin: 6px 0 0;
+  overflow: hidden;
+}
+
+/* each cell is a vertical strip of letters */
+i {
+  --n: 1;
+  width: 1ch;
+  min-height: 46px;
+  padding: 0 5px;
+  word-break: break-all;
+  font: 700 34px/46px monospace;
+  font-style: normal;
+  color: #fde047;
+  background:
+    linear-gradient(#0000 22px, #000 0 24px,
+      #0000 0) 0 0 / 100% 46px,
+    linear-gradient(#2a2a2a 50%, #222 0)
+      0 0 / 100% 46px;
+}
+
+/* jump one letter per step,
+   until the last one is on top */
+#go:checked + .board i {
+  animation: flip calc(var(--n) * .16s)
+    steps(var(--n)) forwards;
+}
+
+@keyframes flip {
+  to { translate: 0 calc(46px - 100%); }
+}
+
+label {
+  padding: 12px 36px;
+  border-radius: 10px;
+  background: #fbbf24;
+  color: #111;
+  font: 700 22px sans-serif;
+  cursor: pointer;
+}
+
+#go:checked ~ label { background: #4ade80; }

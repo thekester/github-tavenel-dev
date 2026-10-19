@@ -1,0 +1,142 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#fb923c, #7c2d12);
+  font-family: system-ui;
+}
+
+#fire { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  background: linear-gradient(#0000 260px,
+    #3f6212 0);
+}
+
+.scene > * { position: absolute; }
+
+.frame {
+  left: 40px;
+  bottom: 52px;
+  width: 140px;
+  height: 14px;
+  background: #78350f;
+}
+
+.frame::before, .frame::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 12px;
+  width: 22px;
+  aspect-ratio: 1;
+  border: 4px solid #a16207;
+  border-radius: 50%;
+  background: #451a03;
+}
+
+.frame::after { left: 100px; }
+
+/* the crossbar that stops the arm */
+.post {
+  left: 132px;
+  bottom: 66px;
+  width: 12px;
+  height: 104px;
+  background: #92400e;
+}
+
+.arm {
+  left: 95px;
+  bottom: 70px;
+  width: 10px;
+  height: 130px;
+  background: #b45309;
+  transform-origin: 50% 100%;
+  rotate: -75deg;
+}
+
+.rock {
+  position: absolute;
+  top: -22px;
+  left: -6px;
+  width: 22px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(at 30% 30%,
+    #d6d3d1, #57534e);
+}
+
+.fly { left: 130px; top: 106px; opacity: 0; }
+
+/* the tower */
+.scene i {
+  left: 290px;
+  bottom: calc(40px + var(--i) * 30px);
+  width: 34px;
+  height: 30px;
+  background: hsl(calc(var(--i) * 80deg + 10deg)
+    80% 62%);
+  box-shadow: inset 0 0 0 3px #0003;
+}
+
+#fire:checked + .scene .arm {
+  animation: swing .3s ease-in forwards;
+}
+
+#fire:checked + .scene .arm .rock {
+  animation: hide 0s .3s forwards;
+}
+
+/* x is linear, y eases: a parabola */
+#fire:checked + .scene .fly {
+  animation: fx 1.1s .3s linear forwards,
+    show 0s .3s forwards;
+}
+
+#fire:checked + .scene .fly .rock {
+  animation: fy 1.1s .3s ease-out forwards;
+}
+
+#fire:checked + .scene i {
+  animation: fall .8s 1.2s ease-in forwards;
+}
+
+@keyframes swing { to { rotate: 17deg; } }
+@keyframes hide { to { opacity: 0; } }
+@keyframes show { to { opacity: 1; } }
+
+@keyframes fx {
+  85% { translate: 175px; }
+  to { translate: 190px; }
+}
+
+@keyframes fy {
+  40% { translate: 0 -80px;
+    animation-timing-function: ease-in; }
+  85% { translate: 0 110px; }
+  to { translate: 0 132px; }
+}
+
+@keyframes fall {
+  to {
+    translate: var(--x) calc(var(--i) * 30px);
+    rotate: var(--r);
+  }
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 12px;
+  background: #fef3c7;
+  color: #7c2d12;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}

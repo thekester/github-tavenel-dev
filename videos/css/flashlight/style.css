@@ -1,0 +1,85 @@
+@property --x {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 3.5;
+}
+
+@property --y {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 2;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(#fff3 1px, #0000 2px)
+      0 0 / 26px 26px,
+    #241a3d;
+  transition: --x .45s, --y .45s;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font: 900 150px/1 system-ui;
+  background: linear-gradient(90deg,
+    #f472b6, #facc15, #34d399, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+h1 small {
+  display: block;
+  color: #e9e3ff;
+  font: italic 20px Georgia, serif;
+}
+
+b {
+  position: fixed;
+  translate: -50% -50%;
+  color: #fde68a;
+  font: 700 22px system-ui;
+  white-space: nowrap;
+}
+
+/* the darkness, with a hole in it */
+.dark {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at
+      calc(var(--x) * 12.5% + 6.25%)
+      calc(var(--y) * 20% + 10%),
+    #0000 0 90px, #000 160px);
+}
+
+/* invisible 8x5 grid tracks the mouse */
+.zones {
+  position: fixed;
+  inset: 0;
+  display: grid;
+}
+
+.row { display: flex; }
+.row i { flex: 1; }
+
+body:has(i:nth-child(1):hover) { --x: 0; }
+body:has(i:nth-child(2):hover) { --x: 1; }
+body:has(i:nth-child(3):hover) { --x: 2; }
+body:has(i:nth-child(4):hover) { --x: 3; }
+body:has(i:nth-child(5):hover) { --x: 4; }
+body:has(i:nth-child(6):hover) { --x: 5; }
+body:has(i:nth-child(7):hover) { --x: 6; }
+body:has(i:nth-child(8):hover) { --x: 7; }
+
+body:has(.row:nth-child(1) :hover) { --y: 0; }
+body:has(.row:nth-child(2) :hover) { --y: 1; }
+body:has(.row:nth-child(3) :hover) { --y: 2; }
+body:has(.row:nth-child(4) :hover) { --y: 3; }
+body:has(.row:nth-child(5) :hover) { --y: 4; }

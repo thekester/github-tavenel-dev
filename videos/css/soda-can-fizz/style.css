@@ -1,0 +1,158 @@
+@keyframes lift { to { transform:
+  perspective(120px) rotateX(-55deg); } }
+@keyframes spray {
+  from { translate: 0; opacity: 1; scale: 1; }
+  to { translate: var(--x) var(--y);
+    opacity: 0; scale: .4; }
+}
+@keyframes rise {
+  from { opacity: 1; }
+  to { translate: var(--x) -150px; opacity: 0; }
+}
+@keyframes foam {
+  25%, 60% { scale: 1; }
+  to { scale: .3 0; }
+}
+@keyframes pop {
+  30%, 70% { opacity: 1; scale: 1; }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#be123c, #4c0519);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 300px;
+  height: 440px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+/* cylinder = horizontal light/shadow bands */
+.can {
+  left: 70px;
+  top: 150px;
+  width: 160px;
+  height: 270px;
+  border-radius: 14px / 10px;
+  background: linear-gradient(90deg,
+    #0007, #fff6 22%, #0000 40%,
+    #0004 75%, #000a),
+    linear-gradient(#cbd5e1 0 8%, #dc2626 0 92%,
+    #cbd5e1 0);
+  display: grid;
+  place-items: center;
+}
+
+.can p {
+  margin: 0;
+  writing-mode: vertical-rl;
+  color: #fff;
+  font: 900 italic 64px system-ui;
+}
+
+.top {
+  left: 70px;
+  top: 132px;
+  width: 160px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(#0000 55%,
+    #94a3b8 58%, #f8fafc 70%, #64748b),
+    radial-gradient(18px 8px at 50% 40%,
+    #1e293b 95%, #e2e8f0);
+}
+
+.tab {
+  left: 128px;
+  top: 128px;
+  width: 44px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* the tab itself is a pseudo: label stays put */
+.tab::before {
+  content: '';
+  position: absolute;
+  inset: 4px 6px 6px;
+  border-radius: 10px;
+  background: radial-gradient(5px 4px,
+    #475569 90%, #0000), #e2e8f0;
+  box-shadow: 0 2px 3px #0006;
+  transform-origin: 50% 100%;
+}
+
+.scene i, .scene b {
+  left: 144px;
+  top: 136px;
+  width: 14px;
+  height: 18px;
+  border-radius: 50% / 60% 60% 40% 40%;
+  background: #fda4af;
+  box-shadow: 0 0 6px #fff8;
+  opacity: 0;
+}
+
+.scene b {
+  width: 16px;
+  height: 16px;
+  background: #fff3;
+  border: 3px solid #fff;
+}
+
+.foam {
+  left: 80px;
+  top: 104px;
+  width: 140px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 40%,
+    #fff 30%, #0000 31%) 0 0 / 30px 30px,
+    #f1f5f9;
+  box-shadow: -34px -10px 0 -10px #f8fafc,
+    30px -16px 0 -8px #fff,
+    0 -22px 0 -14px #f8fafc;
+  scale: 0;
+  transform-origin: 50% 100%;
+}
+
+/* foam drips over the rim */
+.foam::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 36px;
+  width: 16px;
+  height: 70px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  box-shadow: 104px -20px #f1f5f9;
+}
+
+.psst {
+  left: 0;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font: 900 italic 48px system-ui;
+  opacity: 0;
+  scale: .3;
+}
+
+#go:checked + .scene {
+  .tab::before { animation: lift .3s forwards; }
+  i { animation: spray 1s .3s ease-out; }
+  b { animation: rise 1.4s var(--d) infinite; }
+  .foam { animation: foam 3s 1s forwards; }
+  .psst { animation: pop 1.6s .3s; }
+}

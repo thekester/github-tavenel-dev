@@ -1,0 +1,158 @@
+@keyframes lift {
+  from { translate: 230px -320px; }
+  30%, 45% { translate: 0 0; }
+  80%, to { translate: 0 -165px; }
+}
+@keyframes pull {
+  0%, 45% { height: 10px; }
+  80%, to { height: 190px; }
+}
+@keyframes drop {
+  from { top: 110px; opacity: 1; }
+  to { top: 250px; opacity: 1; }
+}
+@keyframes steam {
+  from { translate: 0 0; opacity: 0; }
+  40% { opacity: .8; }
+  to { translate: 14px -130px; rotate: 30deg;
+    opacity: 0; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#334155, #0f172a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 420px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+/* two arcs per tile = one wavy noodle */
+.broth, .noodles {
+  --w: radial-gradient(circle at 0 25%,
+    #0000 3.5px, #fde047 4px 8px, #0000 8.5px),
+    radial-gradient(circle at 100% 75%,
+    #0000 3.5px, #fde047 4px 8px, #0000 8.5px);
+  background: var(--w);
+  background-size: 18px 24px;
+  background-position: 9px 100%;
+}
+
+.broth {
+  left: 20px;
+  top: 196px;
+  width: 300px;
+  height: 90px;
+  border: 10px solid #f1f5f9;
+  border-radius: 50%;
+  background-color: #c2410c;
+}
+
+.nori {
+  left: 70px;
+  top: 130px;
+  width: 54px;
+  height: 100px;
+  background: #14532d;
+  rotate: -12deg;
+}
+
+.egg {
+  left: 210px;
+  top: 222px;
+  width: 70px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(#f97316 35%,
+    #fbbf24 45%, #fff 50%);
+}
+
+/* noodle bundle, bottom fixed in the broth */
+.noodles {
+  left: 160px;
+  bottom: 170px;
+  width: 54px;
+  height: 10px;
+}
+
+.sticks {
+  left: 172px;
+  top: -10px;
+  width: 30px;
+  height: 260px;
+  translate: 230px -320px;
+}
+
+.sticks::before, .sticks::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 7px;
+  height: 260px;
+  border-radius: 4px;
+  background: #a16207;
+  transform-origin: 50% 100%;
+  rotate: 24deg;
+}
+
+.sticks::after { left: 22px; rotate: 30deg; }
+
+.bowl {
+  left: 20px;
+  top: 250px;
+  width: 320px;
+  height: 150px;
+  border-radius: 0 0 160px 160px;
+  background: repeating-linear-gradient(90deg,
+    #0000 0 20px, #fff3 0 26px) 0 20px / 100% 18px
+    no-repeat, #b91c1c;
+}
+
+.scene b {
+  left: var(--x);
+  top: 170px;
+  width: 26px;
+  height: 60px;
+  border-left: 5px solid #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: steam 2.4s var(--d) infinite;
+}
+
+.scene i {
+  left: calc(180px + var(--x, 0px));
+  width: 9px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fb923c;
+  opacity: 0;
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #b91c1c;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked + .scene {
+  .sticks { animation: lift 3.5s forwards; }
+  .noodles { animation: pull 3.5s forwards; }
+  i { animation: drop .6s var(--d) 3; }
+}

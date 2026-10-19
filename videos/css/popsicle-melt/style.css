@@ -1,0 +1,106 @@
+@keyframes melt {
+  to { height: 0; width: 60px;
+    border-radius: 50%; }
+}
+@keyframes drip {
+  from { top: 260px; opacity: 1; }
+  80% { opacity: 1; }
+  to { top: 395px; opacity: 0; scale: 1.4 .5; }
+}
+@keyframes grow { to { scale: 1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#fb923c, #fde68a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 420px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.sun {
+  top: 0;
+  right: 0;
+  width: 70px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fef08a;
+  box-shadow: 0 0 0 14px #fde04788,
+    0 0 50px 30px #facc15;
+}
+
+/* the hidden message is on the stick */
+.stick {
+  left: 145px;
+  top: 140px;
+  width: 30px;
+  height: 200px;
+  padding-top: 18px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background: #d6a76c;
+  color: #7c2d12;
+  font: 900 18px/30px system-ui;
+  writing-mode: vertical-rl;
+}
+
+/* bottom stays, top melts down */
+.ice {
+  bottom: 160px;
+  left: 50%;
+  translate: -50%;
+  width: 120px;
+  height: 210px;
+  border-radius: 60px 60px 18px 18px;
+  background: linear-gradient(90deg,
+    #fff6 10%, #0000 30% 75%, #0002),
+    linear-gradient(#ec4899 50%, #22d3ee 0);
+}
+
+.scene i {
+  left: calc(154px + var(--x));
+  width: 12px;
+  height: 16px;
+  border-radius: 50% / 40% 40% 60% 60%;
+  background: var(--c, #22d3ee);
+  opacity: 0;
+}
+
+.puddle {
+  bottom: 10px;
+  left: 50px;
+  width: 220px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(#ec4899 30%,
+    #22d3ee 60%);
+  scale: 0;
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #7c2d12;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked + .scene {
+  .ice { animation: melt 6s ease-in forwards; }
+  i { animation: drip .9s var(--d) 6; }
+  .puddle { animation: grow 6.5s .4s forwards; }
+}

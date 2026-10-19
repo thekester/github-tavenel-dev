@@ -1,0 +1,129 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #050507;
+  font-family: system-ui;
+}
+
+#on { display: none; }
+
+.room {
+  position: relative;
+  width: 600px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #0d0d12;
+}
+
+/* the light, faded in on top */
+.room::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 38%, #fff8dc,
+    #f6c56f 30%, #4a3520 78%);
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+.room > * { position: absolute; }
+
+.wire {
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 112px;
+  translate: -50%;
+  background: #27272a;
+}
+
+.bulb {
+  top: 104px;
+  left: 50%;
+  width: 72px;
+  height: 92px;
+  translate: -50%;
+  border-radius: 50% 50% 46% 46% /
+    58% 58% 42% 42%;
+  background: #3f3f46;
+  transition: .35s;
+}
+
+/* screw base */
+.bulb::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 22px;
+  width: 28px;
+  height: 18px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    #a1a1aa 0 3px, #71717a 3px 6px);
+}
+
+/* pull cord */
+.cord {
+  top: 112px;
+  left: calc(50% + 50px);
+  width: 4px;
+  height: 160px;
+  border-radius: 2px;
+  background: #d6c19a;
+  transform-origin: top;
+  cursor: pointer;
+  animation: pullB .7s;
+}
+
+.cord::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: -7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #b45309;
+}
+
+/* two identical animations: swapping
+   the name replays it on every click */
+@keyframes pullA {
+  25% { scale: 1 1.18; }
+  55% { rotate: 6deg; }
+  80% { rotate: -3deg; }
+}
+
+@keyframes pullB {
+  25% { scale: 1 1.18; }
+  55% { rotate: 6deg; }
+  80% { rotate: -3deg; }
+}
+
+p {
+  bottom: 50px;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #3b2a14;
+  font-size: 46px;
+  font-weight: 900;
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+/* lights on */
+#on:checked + .room::before { opacity: 1; }
+#on:checked + .room p { opacity: 1; }
+#on:checked + .room .cord {
+  animation-name: pullA;
+}
+
+#on:checked + .room .bulb {
+  background: #fff6c9;
+  box-shadow: 0 0 60px 24px #ffe08a;
+}

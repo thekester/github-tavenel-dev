@@ -1,0 +1,136 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#38bdf8, #bbf7d0);
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 360px;
+  /* the branch */
+  background: linear-gradient(#78350f 0 0)
+    0 18px / 100% 16px no-repeat;
+}
+
+.scene > * { position: absolute; }
+
+/* stacked rounded bands */
+.hive {
+  top: 30px;
+  left: 90px;
+  display: grid;
+  justify-items: center;
+  width: 200px;
+  cursor: pointer;
+}
+
+.hive b {
+  height: 44px;
+  margin-top: -6px;
+  border-radius: 40px;
+  background: linear-gradient(#fcd34d, #d97706);
+}
+
+.hive b:nth-child(1) { width: 80px; }
+.hive b:nth-child(2) { width: 150px; }
+.hive b:nth-child(3) { width: 200px; }
+.hive b:nth-child(4) { width: 180px; }
+.hive b:nth-child(5) { width: 120px; }
+
+/* the entrance */
+.hive b:nth-child(4)::after {
+  content: '';
+  display: block;
+  width: 34px;
+  height: 20px;
+  margin: 12px auto;
+  border-radius: 50%;
+  background: #451a03;
+}
+
+/* honey drips */
+u {
+  top: 212px;
+  left: calc(190px + var(--x));
+  width: 12px;
+  height: 0;
+  border-radius: 0 0 6px 6px;
+  background: #f59e0b;
+}
+
+#go:checked ~ .scene u {
+  animation: drip 1.6s var(--d) infinite;
+}
+
+@keyframes drip {
+  60%, to { height: 30px; }
+}
+
+u::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -3px;
+  width: 18px;
+  height: 22px;
+  border-radius: 50% / 60% 60% 40% 40%;
+  background: #f59e0b;
+  scale: 0;
+}
+
+#go:checked ~ .scene u::after {
+  animation: drop 1.6s var(--d) infinite;
+}
+
+@keyframes drop {
+  60% { scale: 1; translate: 0; opacity: 1; }
+  to { scale: 1; translate: 0 120px;
+    opacity: 0; }
+}
+
+/* bees ride a figure-8 path */
+.swarm { top: 168px; left: 190px; }
+
+.swarm i {
+  position: absolute;
+  offset-path:
+    path('M0 0Q70-90 150 0T0 0T-150 0T0 0');
+  animation: fly 3s var(--d) linear infinite;
+}
+
+@keyframes fly { to { offset-distance: 100%; } }
+
+/* striped body + wings */
+.swarm i::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 18px;
+  border-radius: 50%;
+  background: repeating-linear-gradient(90deg,
+    #facc15 0 5px, #1c1917 0 9px);
+}
+
+.swarm i::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fffc;
+  animation: buzz .08s infinite alternate;
+}
+
+@keyframes buzz { to { scale: 1 .4; } }
+
+.new { display: none; }
+
+/* more bees leave the hive */
+#go:checked ~ .scene .new { display: block; }

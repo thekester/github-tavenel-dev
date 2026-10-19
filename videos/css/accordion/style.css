@@ -1,0 +1,131 @@
+@keyframes squeeze {
+  25% { scale: 1.3 1; } 75% { scale: .7 1; }
+}
+@keyframes follow {
+  25% { translate: calc(var(--k) * 24px); }
+  75% { translate: calc(var(--k) * -24px); }
+}
+@keyframes press {
+  12% { translate: -6px; background: #d6d3d1; }
+  24% { translate: 0; }
+}
+@keyframes fly {
+  20% { opacity: 1; }
+  to { translate: var(--x) -150px;
+    rotate: 25deg; opacity: 0; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e3a8a, #0f172a);
+}
+
+#go { display: none; }
+
+.acc {
+  position: relative;
+  width: 380px;
+  height: 330px;
+}
+
+.acc > * { position: absolute; bottom: 30px; }
+
+/* folds: light + dark stripes */
+.bel {
+  left: 110px;
+  width: 160px;
+  height: 200px;
+  box-sizing: border-box;
+  border-block: 6px solid #fbbf24;
+  /* zigzag edges over shaded folds */
+  background:
+    conic-gradient(from -45deg at 50% 100%,
+      #fbbf24 90deg, #0000 0)
+      0 0 / 16px 10px repeat-x,
+    conic-gradient(from 135deg at 50% 0,
+      #fbbf24 90deg, #0000 0)
+      0 100% / 16px 10px repeat-x,
+    repeating-linear-gradient(90deg,
+      #7f1d1d, #ef4444 8px, #7f1d1d 16px);
+}
+
+.bass, .keys {
+  height: 230px;
+  bottom: 15px;
+  border-radius: 12px;
+  border: 4px solid #fbbf24;
+  box-sizing: border-box;
+}
+
+.bass {
+  --k: -1;
+  left: 50px;
+  width: 64px;
+  background: radial-gradient(#f5f5f4 5px,
+    #0000 6px) 0 2px / 18px 18px, #b91c1c;
+}
+
+.keys {
+  --k: 1;
+  left: 266px;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 8px 12px 18px;
+  background: #1c1917;
+}
+
+.keys i {
+  flex: 1;
+  border-radius: 4px;
+  background: #fafaf9;
+}
+
+/* music notes */
+.acc b {
+  left: 180px;
+  bottom: 230px;
+  width: 20px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--c);
+  opacity: 0;
+}
+
+.acc b::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  width: 3px;
+  height: 32px;
+  background: inherit;
+}
+
+:has(#go:checked) .bel {
+  animation: squeeze 2s ease-in-out infinite;
+}
+:has(#go:checked) :is(.bass, .keys) {
+  animation: follow 2s ease-in-out infinite;
+}
+:has(#go:checked) .keys i {
+  animation: press 1.4s var(--d) infinite;
+}
+:has(#go:checked) .acc b {
+  animation: fly 2.4s var(--d) infinite;
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 10px;
+  background: #fbbf24;
+  color: #7f1d1d;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

@@ -1,0 +1,78 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #134e4a;
+  font-family: system-ui;
+}
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 8px;
+  background: #5eead4;
+}
+
+label {
+  display: grid;
+  place-items: center;
+  height: 100px;
+  background: #134e4a;
+  font: 900 64px system-ui;
+  cursor: pointer;
+}
+
+input { display: none; }
+
+/* each cell already knows its mark */
+.x:has(:checked)::before {
+  content: 'X';
+  color: #fb7185;
+  animation: pop .3s;
+}
+
+.o:has(:checked)::before {
+  content: 'O';
+  color: #fde047;
+  animation: pop .3s;
+}
+
+@keyframes pop { from { scale: 0; } }
+
+.line {
+  position: absolute;
+  top: calc(50% - 5px);
+  left: -15%;
+  width: 130%;
+  height: 10px;
+  border-radius: 5px;
+  background: #fff;
+  rotate: var(--r);
+  translate: var(--x, 0);
+  scale: 0 1;
+  transition: scale .5s;
+}
+
+/* :has() checks the winning combos */
+.board:has(#c1:checked):has(#c5:checked
+  ):has(#c9:checked) { --r: 45deg; --win: 1; }
+
+.board:has(#c1:checked):has(#c4:checked
+  ):has(#c7:checked) {
+  --r: 90deg; --x: -108px; --win: 1;
+}
+
+.board .line { scale: var(--win, 0) 1; }
+
+p {
+  position: absolute;
+  inset: auto 0 -80px;
+  margin: 0;
+  color: #fff;
+  font: 900 40px system-ui;
+  text-align: center;
+  scale: var(--win, 0);
+  transition: scale .4s .4s;
+}

@@ -1,0 +1,85 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #78716c;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.paper {
+  position: relative;
+  width: 340px;
+  height: 400px;
+  margin-top: 180px;
+  border-radius: 6px;
+  background: #fff repeating-linear-gradient(
+    #0000 0 30px, #e5e7eb 0 32px);
+  box-shadow: 0 12px 30px #0005;
+}
+
+.mark {
+  position: absolute;
+  top: 150px;
+  left: 40px;
+  margin: 0;
+  padding: 12px 0;
+  width: 248px;
+  border: 6px solid;
+  border-radius: 12px;
+  color: #dc2626;
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  rotate: -12deg;
+  opacity: 0;
+  /* ink texture: a grid of tiny holes */
+  mask: radial-gradient(circle at 30% 40%,
+    #0000 3px, #000 4px) 0 0 / 23px 17px;
+}
+
+.stamp {
+  position: absolute;
+  top: -120px;
+  left: 34px;
+  width: 272px;
+  height: 100px;
+  border-radius: 10px;
+  background: #7f1d1d;
+  rotate: -12deg;
+  cursor: pointer;
+}
+
+/* the wooden handle */
+.stamp::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 116px;
+  width: 40px;
+  height: 70px;
+  border-radius: 20px 20px 4px 4px;
+  background: #a16207;
+}
+
+#go:checked + .paper .stamp {
+  animation: press 1.4s forwards;
+}
+
+#go:checked + .paper .mark {
+  animation: ink 1.4s forwards;
+}
+
+@keyframes press {
+  40% { translate: 0 258px; }
+  50% { translate: 0 258px; scale: 1.04 .94; }
+  to { translate: 200px -40px; rotate: 14deg; }
+}
+
+@keyframes ink {
+  0%, 50% { opacity: 0; }
+  51% { opacity: 1; scale: 1.08; }
+  to { opacity: .9; scale: 1; }
+}

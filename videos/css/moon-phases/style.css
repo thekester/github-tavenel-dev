@@ -1,0 +1,90 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e1b4b, #020617);
+  font-family: system-ui;
+}
+
+/* a typed property can be transitioned */
+@property --x {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+/* lit disc, clipped by overflow */
+.moon {
+  position: relative;
+  width: 240px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 35%,
+      #cbd5e1 18px, #0000 19px),
+    radial-gradient(circle at 65% 65%,
+      #cbd5e1 26px, #0000 27px),
+    radial-gradient(circle at 70% 25%,
+      #cbd5e1 10px, #0000 11px),
+    #f1f5f9;
+  box-shadow: 0 0 60px #f1f5f933;
+  transition: --x 1s ease-in-out;
+}
+
+/* the shadow disc slides across */
+.moon::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #0b1026f0;
+  translate: var(--x);
+}
+
+:has(#p0:checked) .moon { --x: 0%; }
+:has(#p1:checked) .moon { --x: -22%; }
+:has(#p2:checked) .moon { --x: -55%; }
+:has(#p3:checked) .moon { --x: -80%; }
+:has(#p4:checked) .moon { --x: -110%; }
+:has(#p5:checked) .moon { --x: 80%; }
+:has(#p6:checked) .moon { --x: 55%; }
+:has(#p7:checked) .moon { --x: 22%; }
+
+.dots {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 50px;
+}
+
+input { display: none; }
+
+label {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #94a3b8;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+:checked + label {
+  background: #fde047;
+  border-color: #fde047;
+}
+
+/* phase name comes from the label */
+:checked + label::after {
+  content: attr(data-n);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #fde047;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+}

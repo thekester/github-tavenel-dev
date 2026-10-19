@@ -1,0 +1,122 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #2e1065;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 330px;
+}
+
+.scene > * { position: absolute; }
+
+/* the fabric is wide and slides left */
+.table {
+  inset: 238px 0 30px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #a78bfa;
+}
+
+.cloth {
+  top: 10px;
+  width: 1000px;
+  height: 42px;
+  position: absolute;
+  background:
+    linear-gradient(90deg, #fb718566 50%, #0000 0)
+      0 0 / 24px,
+    linear-gradient(#fb718566 50%, #0000 0)
+      0 0 / 24px 24px,
+    #fff1f2;
+}
+
+/* the stitch starts under the needle */
+.stitch {
+  position: absolute;
+  top: 19px;
+  left: 302px;
+  width: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg,
+    #1e3a8a 0 7px, #0000 0 12px);
+}
+
+.pillar {
+  top: 60px;
+  left: 20px;
+  width: 80px;
+  height: 180px;
+  background: #5eead4;
+}
+
+.arm {
+  top: 56px;
+  left: 20px;
+  width: 316px;
+  height: 92px;
+  border-radius: 40px 24px 24px 0;
+  background: linear-gradient(#0000 60%,
+    #0f766e 0 70%, #0000 0), #99f6e4;
+}
+
+.needle {
+  top: 120px;
+  left: 298px;
+  width: 8px;
+  height: 94px;
+  background: linear-gradient(90deg,
+    #0000 2px, #cbd5e1 0 6px, #0000 0),
+    linear-gradient(#64748b 0 0) 0 0 / 8px 60px
+      no-repeat;
+}
+
+.spool {
+  top: 8px;
+  left: 120px;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(#fef3c7 0 5px,
+    #0000 6px), repeating-conic-gradient(
+    #f43f5e 0 20deg, #be123c 0 40deg);
+  box-shadow: 0 0 0 5px #fde68a;
+}
+
+/* 6s of sewing, all in sync */
+#go:checked + .scene .cloth {
+  animation: slide 6s linear forwards;
+}
+#go:checked + .scene .stitch {
+  animation: grow 6s linear forwards;
+}
+#go:checked + .scene .needle {
+  animation: bob .12s ease-in-out 50 alternate;
+}
+#go:checked + .scene .spool {
+  animation: spin .6s linear 10;
+}
+
+@keyframes slide { to { translate: -300px; } }
+@keyframes grow { to { width: 300px; } }
+@keyframes bob { to { translate: 0 40px; } }
+@keyframes spin { to { rotate: -1turn; } }
+
+.sew {
+  padding: 12px 48px;
+  border-radius: 12px;
+  background: #5eead4;
+  color: #134e4a;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

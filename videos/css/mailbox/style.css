@@ -1,0 +1,164 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#38bdf8, #e0f2fe);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 380px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.post {
+  inset: 230px 145px 0;
+  background: #78350f;
+}
+
+/* grass */
+.scene::before {
+  content: '';
+  position: absolute;
+  inset: auto -40px -12px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+
+.box {
+  top: 60px;
+  left: 60px;
+  width: 200px;
+  height: 180px;
+  border-radius: 100px 100px 12px 12px;
+  background: #1e293b;
+}
+
+.door {
+  position: absolute;
+  inset: 14px;
+  border-radius: 90px 90px 8px 8px;
+  background: #475569;
+  transform-origin: bottom;
+}
+
+/* the slot */
+.door::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 31px;
+  width: 110px;
+  height: 12px;
+  border-radius: 6px;
+  background: #020617;
+}
+
+/* pivots at the bottom of the pole */
+.flag {
+  top: 120px;
+  left: 262px;
+  width: 10px;
+  height: 80px;
+  background: #94a3b8;
+  transform-origin: 50% 100%;
+  rotate: 90deg;
+}
+
+.flag::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  width: 42px;
+  height: 28px;
+  background: #dc2626;
+}
+
+/* clipped right at the slot line */
+.air {
+  inset: 0 0 auto;
+  height: 130px;
+  overflow: hidden;
+}
+
+.letter {
+  position: absolute;
+  top: 70px;
+  left: 115px;
+  width: 90px;
+  height: 60px;
+  background:
+    linear-gradient(to top right, #0000 49%,
+      #cbd5e1 50% 52%, #0000 53%) 100% 0 /
+      50% 60% no-repeat,
+    linear-gradient(to top left, #0000 49%,
+      #cbd5e1 50% 52%, #0000 53%) 0 0 /
+      50% 60% no-repeat,
+    #fff;
+  opacity: 0;
+}
+
+.badge {
+  top: 0;
+  right: -10px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: #dc2626;
+  color: #fff;
+  font-weight: 800;
+  scale: 0;
+}
+
+:has(#go:checked) .letter {
+  animation: fly 1.6s ease-in-out forwards;
+}
+
+:has(#go:checked) .door {
+  animation: bump .5s 1.6s;
+}
+
+:has(#go:checked) .flag {
+  transition: rotate .6s 2s
+    cubic-bezier(.3, 1.8, .6, 1);
+  rotate: 0deg;
+}
+
+:has(#go:checked) .badge {
+  transition: scale .4s 2.6s
+    cubic-bezier(.3, 1.8, .6, 1);
+  scale: 1;
+}
+
+@keyframes fly {
+  from {
+    opacity: 1;
+    translate: -260px -90px;
+    rotate: -40deg;
+  }
+  60% { translate: 0; rotate: 0deg; opacity: 1; }
+  to { translate: 0 80px; opacity: 1; }
+}
+
+@keyframes bump {
+  30% { scale: 1.06 .94; }
+  65% { scale: .97 1.03; }
+}
+
+.btn {
+  padding: 12px 36px;
+  border-radius: 12px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

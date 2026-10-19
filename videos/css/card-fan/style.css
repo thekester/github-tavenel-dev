@@ -1,0 +1,62 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(
+    #1f7a4a, #0b3320);
+}
+
+.hand {
+  position: relative;
+  width: 130px;
+  height: 190px;
+  margin-top: 60px;
+}
+
+.hand i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #fffdf7;
+  color: #1b1b24;
+  font: normal 66px serif;
+  box-shadow: 0 6px 18px #0006;
+  transform-origin: 50% 130%;
+  rotate: calc(var(--i) * 2deg);
+  translate: calc(var(--i) * 2px) 0;
+  cursor: pointer;
+  transition: .45s
+    cubic-bezier(.3, 1.4, .5, 1);
+}
+
+.hand i.r { color: #e11d48; }
+
+.hand i::before,
+.hand i::after {
+  content: attr(data-v);
+  position: absolute;
+  font: 700 20px system-ui;
+}
+
+.hand i::before { top: 10px; left: 12px; }
+
+.hand i::after {
+  right: 12px;
+  bottom: 10px;
+  rotate: 180deg;
+}
+
+/* fan out */
+.hand:hover i {
+  rotate: calc(var(--i) * 13deg);
+  translate: calc(var(--i) * 36px) 0;
+}
+
+/* lift the hovered card */
+.hand i:hover {
+  z-index: 5;
+  translate: calc(var(--i) * 36px) -45px;
+}

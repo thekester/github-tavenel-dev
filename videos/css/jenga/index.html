@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Jenga</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type=checkbox id=p1>
+<input type=checkbox id=p2>
+<input type=checkbox id=p3>
+<div class="scene">
+  <div class="tower">
+    <i class=a style="--i:0;--x:0;--r:0"></i>
+    <i class=e style="--i:1;--x:-30;--r:-4"></i>
+    <i class=a style="--i:2;--x:60;--r:6"></i>
+    <i class=e style="--i:3;--x:-80;--r:-10"></i>
+    <i class=g style="--i:4;--x:110;--r:14"></i>
+    <i class=e style="--i:5;--x:-120;--r:-18"></i>
+    <i class=g style="--i:6;--x:90;--r:24"></i>
+    <i class=e style="--i:7;--x:-60;--r:-12"></i>
+    <i class=g style="--i:8;--x:150;--r:30"></i>
+    <i class=e style="--i:9;--x:-150;--r:-28"></i>
+    <i class=a style="--i:10;--x:40;--r:9"></i>
+    <i class=e style="--i:11;--x:-99;--r:-22"></i>
+  </div>
+  <b class=p1 style="--i:4;--o:150;--y:104"></b>
+  <b class=p2 style="--i:6;--o:150;--y:130"></b>
+  <b class=p3 style="--i:8;--o:-150;--y:208"></b>
+  <label for=p1 style="--i:4"></label>
+  <label for=p2 style="--i:6"></label>
+  <label for=p3 style="--i:8"></label>
+  <p class="msg"></p>
+</div>
+</body>
+</html>

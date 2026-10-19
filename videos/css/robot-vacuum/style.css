@@ -1,0 +1,121 @@
+@keyframes drive { to { offset-distance: 100%; } }
+@keyframes suck { to { opacity: 0; scale: .1; } }
+@keyframes wipe { to { scale: 1 1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+/* wooden planks */
+.floor {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: repeating-linear-gradient(90deg,
+    #a16207 0 54px, #854d0e 0 57px,
+    #b45309 0 111px, #854d0e 0 114px);
+}
+
+.floor > * { position: absolute; }
+
+/* clean stripes grow behind the robot */
+.floor b {
+  left: 5px;
+  width: 330px;
+  height: 65px;
+  background: #fff2;
+  scale: 0 1;
+  transform-origin: left;
+}
+
+.floor b:nth-of-type(even) {
+  transform-origin: right;
+}
+
+.floor i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #3f3f46;
+}
+
+.floor i:nth-of-type(3n) {
+  width: 15px;
+  height: 10px;
+  border-radius: 40%;
+  background: #fcd34d;
+}
+
+/* the robot follows a zigzag route */
+.bot {
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  offset-path:
+    path('M40 40h260v65H40v65h260v65H40v65h260');
+  offset-rotate: auto;
+  background: radial-gradient(#64748b 13px,
+    #1e293b 14px 17px, #0000 18px), #e5e7eb;
+  box-shadow: 0 6px 14px #000a;
+}
+
+/* front bumper + status light */
+.bot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border-right: 7px solid #334155;
+}
+
+.bot::after {
+  content: '';
+  position: absolute;
+  top: 31px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f87171;
+}
+
+#go:checked ~ .floor .bot {
+  animation: drive 6.5s linear forwards;
+}
+
+#go:checked ~ .floor .bot::after {
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+}
+
+/* each speck vanishes when the robot arrives */
+#go:checked ~ .floor i {
+  animation: suck .3s var(--d) forwards;
+}
+
+#go:checked ~ .floor b {
+  animation: wipe 1.08s var(--d) linear forwards;
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #22c55e;
+  color: #052e16;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

@@ -1,0 +1,81 @@
+@property --gap {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e1b4b, #020617);
+  font-family: system-ui;
+}
+
+#unzip { display: none; }
+
+.helix {
+  display: grid;
+  gap: 8px;
+  perspective: 600px;
+  transform-style: preserve-3d;
+}
+
+/* one row = dot + bar + dot */
+.helix i {
+  position: relative;
+  width: 180px;
+  height: 14px;
+  background:
+    linear-gradient(90deg, #f472b6, #a78bfa)
+      0 50% / calc(50% - var(--gap)) 4px
+      no-repeat,
+    linear-gradient(90deg, #a78bfa, #22d3ee)
+      100% 50% / calc(50% - var(--gap)) 4px
+      no-repeat;
+  /* staggered delay = twisted helix */
+  animation: spin 4s calc(var(--i) * -.25s)
+    linear infinite;
+  transition: --gap .6s calc(var(--i) * .07s);
+}
+
+.helix i::before,
+.helix i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f472b6;
+  box-shadow: 0 0 12px #f472b6;
+  left: calc(-7px - var(--gap));
+}
+
+.helix i::after {
+  left: auto;
+  right: calc(-7px - var(--gap));
+  background: #22d3ee;
+  box-shadow: 0 0 12px #22d3ee;
+}
+
+@keyframes spin {
+  to { transform: rotateY(1turn); }
+}
+
+#unzip:checked + .helix i { --gap: 60px; }
+
+label {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #a78bfa;
+  color: #1e1b4b;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#unzip:checked ~ label { background: #22d3ee; }

@@ -1,0 +1,5 @@
+.local/
+_site/
+__pycache__/
+*.pyc
+/css-shorts-code.zip

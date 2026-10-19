@@ -1,0 +1,125 @@
+@property --h {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@property --n {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --d {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: Georgia, serif;
+}
+body:has(#e:checked) { --t: 90deg; --v: 90; }
+body:has(#s:checked) { --t: 180deg; --v: 180; }
+body:has(#w:checked) { --t: 270deg; --v: 270; }
+
+input { display: none; }
+
+/* brass case, with a mark for "ahead" */
+.compass {
+  position: relative;
+  width: 280px;
+  aspect-ratio: 1;
+  padding: 18px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: conic-gradient(#fde68a, #b45309,
+    #fbbf24, #92400e, #fde68a);
+  box-shadow: 0 14px 30px #0008;
+}
+.compass::before {
+  content: '';
+  position: absolute;
+  left: 132px;
+  top: -6px;
+  border: 8px solid #0000;
+  border-top: 14px solid #fef3c7;
+}
+
+/* the housing turns with you... */
+.dial {
+  position: relative;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, #fffbeb 84%,
+      #fde68a 85% 88%, #0000 89%),
+    repeating-conic-gradient(#78350f 0 1deg,
+      #0000 0 15deg), #fde68a;
+  rotate: calc(-1 * var(--h));
+  --h: var(--t, 0deg);
+  transition: --h .5s ease-in-out;
+}
+
+.dial b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  transform: rotate(var(--a)) translateY(-88px);
+  color: #78350f;
+  font-size: 26px;
+}
+.dial b:first-child { color: #dc2626; }
+
+/* ...the needle swings back, damped */
+.needle {
+  position: absolute;
+  inset: 50px 100px;
+  background: linear-gradient(#dc2626 50%,
+    #f1f5f9 0);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%,
+    0 50%);
+  /* lags behind the dial, then lines up with N */
+  rotate: calc(var(--h) - var(--n));
+  --n: var(--t, 0deg);
+  transition: --n 2.2s linear(0, 1.4 22%,
+    .8 40%, 1.12 56%, .95 72%, 1.02 86%, 1);
+}
+
+.deg {
+  margin: 0;
+  color: #fde68a;
+  font-size: 30px;
+  --d: var(--v, 0);
+  transition: --d .5s;
+  counter-reset: d var(--d);
+}
+.deg::after {
+  content: 'Heading ' counter(d) '\b0';
+}
+
+.bar { display: flex; gap: 12px; }
+
+label {
+  width: 50px;
+  padding: 8px 0;
+  border: 2px solid #b45309;
+  border-radius: 10px;
+  color: #fde68a;
+  font-size: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#n:checked ~ .bar [for=n],
+#e:checked ~ .bar [for=e],
+#s:checked ~ .bar [for=s],
+#w:checked ~ .bar [for=w] {
+  background: #b45309;
+}

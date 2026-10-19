@@ -1,0 +1,97 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3b0764, #0f0420);
+}
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 460px;
+}
+
+.wand {
+  position: absolute;
+  left: 115px;
+  top: 190px;
+  width: 64px;
+  height: 250px;
+  rotate: 18deg;
+}
+
+/* ring + handle */
+.wand::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 64px;
+  border: 7px solid #f472b6;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: #f0f2;
+}
+
+.wand::after {
+  content: '';
+  position: absolute;
+  inset: 62px 26px 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg,
+    #be185d, #f9a8d4, #be185d);
+}
+
+/* thin shiny bubble */
+i {
+  position: absolute;
+  left: calc(170px - var(--s) / 2);
+  top: calc(212px - var(--s) / 2);
+  width: var(--s);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 28%, #fffd 0 7%, #0000 16%);
+  opacity: 0;
+}
+
+/* iridescent rim: conic masked to a ring */
+i::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(#f0fa,
+    #0ffa, #ff0a, #f80a, #a0fa, #f0fa);
+  mask: radial-gradient(#0000 58%, #000 70%);
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin { to { rotate: 1turn; } }
+
+/* blow only while hovering the wand */
+.wand:hover ~ i {
+  animation: blow var(--t) var(--d)
+    ease-out infinite;
+}
+
+@keyframes blow {
+  0% { scale: .1; opacity: 0; }
+  10% { opacity: 1; }
+  50% {
+    translate: calc(var(--x) / 2 + var(--w))
+      calc(var(--y) / 2);
+    scale: 1;
+  }
+  85% {
+    translate: var(--x) var(--y);
+    scale: 1;
+    opacity: 1;
+  }
+  /* pop! */
+  100% {
+    translate: var(--x) var(--y);
+    scale: 1.6;
+    opacity: 0;
+  }
+}

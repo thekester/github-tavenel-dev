@@ -1,0 +1,137 @@
+@keyframes march {
+  to { offset-distance: 100%; }
+}
+@keyframes carry {
+  from { offset-distance: 30%; }
+  8% { translate: 0 0; }
+  to { offset-distance: 100%;
+    translate: 0 0; }
+}
+@keyframes lift {
+  to { translate: -30px -11px; }
+}
+@keyframes legs { to { skew: 30deg; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #14532d;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(2px 6px, #86efac, #0000)
+      0 0 / 37px 29px,
+    radial-gradient(3px 7px, #15803d, #0000)
+      5px 3px / 23px 67px,
+    radial-gradient(#16653488 4px, #0000 5px)
+      9px 7px / 53px 41px,
+    #22c55e;
+}
+
+/* picnic blanket */
+.scene::before {
+  content: '';
+  position: absolute;
+  inset: -60px auto auto -50px;
+  width: 230px;
+  height: 180px;
+  rotate: -10deg;
+  background:
+    linear-gradient(90deg, #dc262699 50%,
+      #0000 0) 0 0 / 32px 32px,
+    linear-gradient(#dc262699 50%, #fff 0)
+      0 0 / 32px 32px;
+  box-shadow: 0 6px 12px #0003;
+}
+
+/* dirt trail */
+svg path {
+  fill: none;
+  stroke: #a16207;
+  stroke-width: 34;
+  stroke-linecap: round;
+  opacity: .5;
+}
+
+/* head, thorax, abdomen */
+.ant {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 16px;
+  background:
+    radial-gradient(circle at 88% 50%,
+      #1c1917 5px, #0000 6px),
+    radial-gradient(circle at 56% 50%,
+      #292524 4px, #0000 5px),
+    radial-gradient(11px 7px at 24% 50%,
+      #1c1917 95%, #0000);
+  offset-path:
+    path('M-30 340C60 -40 330 520 430 80');
+  animation: march 9s var(--d) linear
+    infinite;
+}
+
+/* six legs that swing */
+.ant::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: -6px;
+  width: 15px;
+  height: 28px;
+  z-index: -1;
+  background: repeating-linear-gradient(90deg,
+    #292524 0 2px, #0000 0 6.5px);
+  animation: legs .2s linear infinite
+    alternate;
+}
+
+.lead {
+  offset-distance: 30%;
+  translate: 0 -40px;
+  animation: none;
+  z-index: 1;
+}
+
+/* the crumb */
+.lead i {
+  position: absolute;
+  left: 44px;
+  top: -2px;
+  width: 22px;
+  height: 19px;
+  border-radius: 40% 60% 50% 30%;
+  background: radial-gradient(circle at 60% 40%,
+    #78350f 2px, #0000 3px), #fbbf24;
+  box-shadow: inset -3px -3px #d97706;
+}
+
+label {
+  position: absolute;
+  left: 95px;
+  top: 134px;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#go:checked + .scene .lead {
+  animation: carry 6.3s .6s linear forwards;
+}
+
+#go:checked + .scene .lead i {
+  animation: lift .5s forwards;
+}

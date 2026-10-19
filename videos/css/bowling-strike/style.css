@@ -1,0 +1,103 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #111827;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.lane {
+  position: relative;
+  width: 360px;
+  height: 480px;
+}
+
+/* perspective by trapezoid */
+.lane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(38% 0, 62% 0,
+    100% 100%, 0 100%);
+  background: linear-gradient(#92400e, #f59e0b);
+}
+
+.lane > * { position: absolute; margin: 0; }
+
+.pins i {
+  position: absolute;
+  left: calc(var(--px) - 8px);
+  top: var(--py);
+  width: 16px;
+  height: 30px;
+  border-radius: 8px 8px 5px 5px;
+  background: linear-gradient(#fff 30%,
+    #dc2626 0 42%, #fff 0);
+}
+
+.ball {
+  bottom: 24px;
+  left: 145px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 30%,
+      #000 4px, #0000 5px),
+    radial-gradient(circle at 58% 30%,
+      #000 4px, #0000 5px),
+    radial-gradient(circle at 49% 46%,
+      #000 5px, #0000 6px),
+    radial-gradient(circle at 35% 30%,
+      #60a5fa, #1e3a8a);
+  cursor: pointer;
+}
+
+/* roll away: smaller as it gets far */
+#go:checked + .lane .ball {
+  animation: roll 1s ease-in forwards;
+}
+
+@keyframes roll {
+  90% { opacity: 1; }
+  to { translate: 0 -330px; scale: .3;
+    opacity: 0; }
+}
+
+/* each pin flies away from the center */
+#go:checked + .lane .pins i {
+  animation: hit .7s calc(.85s + var(--d))
+    ease-out forwards;
+}
+
+@keyframes hit {
+  to {
+    translate: calc((var(--px) - 180px) * 7)
+      calc((var(--py) - 150px) * 2);
+    rotate: 1turn;
+    opacity: 0;
+    scale: 1.6;
+  }
+}
+
+.strike {
+  top: 180px;
+  width: 100%;
+  text-align: center;
+  color: #fde047;
+  font-size: 52px;
+  font-weight: 900;
+  opacity: 0;
+}
+
+#go:checked + .lane .strike {
+  animation: pop .5s 1.3s forwards;
+}
+
+@keyframes pop {
+  from { opacity: 1; scale: 0; }
+  to { opacity: 1; scale: 1; }
+}

@@ -1,0 +1,127 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #3b0764;
+}
+
+#go { display: none; }
+
+/* cooling rack wires */
+.rack {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border: 6px solid #94a3b8;
+  border-radius: 14px;
+  background: repeating-linear-gradient(90deg,
+    #0000 0 26px, #94a3b866 0 30px);
+}
+
+.rack > * { position: absolute; }
+
+/* the hole is just a transparent stop */
+.donut, .sprinkles {
+  inset: 40px;
+  border-radius: 50%;
+}
+
+.donut {
+  background: radial-gradient(closest-side,
+    #8a4a16 31%, #e3a35e 45%, #eab06b 72%,
+    #b8692a 99%);
+  mask: radial-gradient(closest-side,
+    #0000 30%, #000 31% 99%, #0000);
+}
+
+@property --h {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* a growing box + a row of round drips */
+.glaze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(closest-side,
+    #f9a8d4 40%, #ec4899 92%);
+  mask:
+    linear-gradient(#000 0 0)
+      0 0 / 100% var(--h) no-repeat,
+    radial-gradient(15px at 50% 0,
+      #000 96%, #0000)
+      0 var(--h) / 34px 30px repeat-x,
+    radial-gradient(8px 26px at 50% 0,
+      #000 96%, #0000)
+      17px var(--h) / 34px 30px repeat-x;
+  opacity: 0;
+}
+
+#go:checked + .rack .glaze {
+  opacity: 1;
+  animation: glaze 1.8s .2s ease-out forwards;
+}
+
+@keyframes glaze { to { --h: 160px; } }
+
+.pour {
+  top: -70px;
+  left: 147px;
+  width: 26px;
+  height: 130px;
+  border-radius: 13px;
+  background: #f472b6;
+  transform-origin: top;
+  scale: 1 0;
+}
+
+#go:checked + .rack .pour {
+  animation: pour 1.8s;
+}
+
+@keyframes pour {
+  15%, 70% { scale: 1; }
+  to { scale: 1; opacity: 0; }
+}
+
+.sprinkles i {
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px);
+  position: absolute;
+  width: 6px;
+  height: 16px;
+  border-radius: 3px;
+  background: #fde047;
+  rotate: calc(var(--r) * 1deg);
+  opacity: 0;
+}
+
+i:nth-child(3n) { background: #fff; }
+i:nth-child(3n+1) { background: #38bdf8; }
+
+/* each one lands at its own angle */
+#go:checked + .rack .sprinkles i {
+  opacity: 1;
+  animation: rain .6s calc(2s + var(--d))
+    ease-in both;
+}
+
+@keyframes rain {
+  from {
+    translate: 0 -260px;
+    rotate: calc(var(--r) * 1deg - 300deg);
+    opacity: 0;
+  }
+}
+
+.btn {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #f472b6;
+  color: #fff;
+  font: 800 24px system-ui;
+}

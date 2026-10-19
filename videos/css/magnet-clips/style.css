@@ -1,0 +1,89 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#334155, #0f172a);
+}
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 440px;
+}
+
+.scene > * { position: absolute; }
+
+.table {
+  inset: 250px 0 0;
+  border-radius: 16px;
+  background: repeating-linear-gradient(
+    #0000 0 44px, #0002 0 47px),
+    linear-gradient(#b45309, #78350f);
+}
+
+/* a U upside down: border without bottom */
+.magnet {
+  left: 140px;
+  top: 20px;
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  border: 30px solid #dc2626;
+  border-bottom: 0;
+  border-radius: 60px 60px 0 0;
+}
+
+.magnet::before {
+  content: '';
+  position: absolute;
+  inset: 100% -30px auto;
+  height: 18px;
+  background: linear-gradient(90deg,
+    #ccc 30px, #0000 0 calc(100% - 30px),
+    #ccc 0);
+}
+
+/* the paperclip */
+.scene i {
+  left: var(--x);
+  top: var(--y);
+  width: 14px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 3px solid var(--c);
+  border-radius: 7px;
+  rotate: var(--r);
+  transform-origin: top;
+  transition: .45s ease-in;
+}
+
+.scene i::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 7px;
+  width: 6px;
+  height: 22px;
+  box-sizing: border-box;
+  border: 3px solid var(--c);
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+/* ease-in = speeds up as it gets closer */
+.scene:hover i {
+  left: var(--tx);
+  top: var(--ty);
+  rotate: 0deg;
+  transition: .6s cubic-bezier(.7, 0, 1, .5)
+    var(--d);
+  animation: swing 1.4s
+    calc(var(--d) + .6s);
+}
+
+@keyframes swing {
+  25% { rotate: 14deg; }
+  50% { rotate: -9deg; }
+  75% { rotate: 4deg; }
+}

@@ -1,0 +1,157 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: #0c4a6e;
+}
+
+#pull { display: none; }
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  overflow: hidden;
+  /* grass bank, moat water, sky */
+  background:
+    linear-gradient(#65a30d 0 0)
+      0 288px / 80px 100% no-repeat,
+    linear-gradient(#0369a1 0 0)
+      0 304px / 100% 100% no-repeat,
+    linear-gradient(#7dd3fc, #e0f2fe);
+}
+
+.scene > * { position: absolute; }
+
+/* stone wall with battlements */
+.castle {
+  left: 200px;
+  top: 120px;
+  width: 140px;
+  height: 220px;
+  background: repeating-linear-gradient(
+    #0000 0 22px, #78716c 0 24px), #a8a29e;
+}
+
+.castle::before {
+  content: '';
+  position: absolute;
+  inset: -18px 0 100%;
+  background: repeating-linear-gradient(90deg,
+    #a8a29e 0 20px, #0000 0 32px);
+}
+
+.gate {
+  position: absolute;
+  left: 24px;
+  top: 88px;
+  width: 64px;
+  height: 80px;
+  border-radius: 32px 32px 0 0;
+  overflow: hidden;
+  background: #1c1917;
+}
+
+/* the portcullis: a grid of bars */
+.gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      #0000 0 8px, #44403c 0 12px),
+    repeating-linear-gradient(
+      #0000 0 12px, #44403c 0 16px);
+  transition: translate 1.5s .6s;
+}
+
+/* hinge at the bottom right */
+.bridge {
+  left: 80px;
+  top: 288px;
+  width: 120px;
+  height: 12px;
+  background: repeating-linear-gradient(90deg,
+    #92400e 0 18px, #78350f 0 20px);
+  transform-origin: 100% 100%;
+  rotate: 90deg;
+  transition: 2s ease-in-out;
+}
+
+.chain {
+  left: 198px;
+  top: 180px;
+  width: 170px;
+  border-top: 3px dotted #292524;
+  transform-origin: 0 50%;
+  rotate: 180deg;
+  scale: 0 1;
+  transition: 2s ease-in-out;
+}
+
+/* plume, helmet, armour */
+.knight {
+  left: 20px;
+  top: 244px;
+  width: 22px;
+  height: 44px;
+  background:
+    linear-gradient(#dc2626 0 0) 50% 0 / 4px 4px,
+    radial-gradient(circle at 50% 13px,
+      #94a3b8 9px, #0000 10px),
+    linear-gradient(#cbd5e1 0 0)
+      bottom / 100% 24px;
+  background-repeat: no-repeat;
+}
+
+#pull:checked ~ .scene .bridge { rotate: 0deg; }
+#pull:checked ~ .scene .chain {
+  rotate: 135deg;
+  scale: 1;
+}
+#pull:checked ~ .scene .gate::before {
+  translate: 0 -80px;
+}
+
+#pull:checked ~ .scene .knight {
+  animation: walk 3s 2s linear forwards,
+    bob .25s 2s 12 alternate;
+}
+
+@keyframes walk {
+  85% { opacity: 1; }
+  to { translate: 226px; opacity: 0; }
+}
+
+@keyframes bob {
+  to { transform: translateY(-4px); }
+}
+
+/* static label, only the stick moves */
+.lever {
+  position: relative;
+  width: 70px;
+  height: 56px;
+  background: linear-gradient(#57534e 0 0)
+    bottom / 100% 16px no-repeat;
+  cursor: pointer;
+}
+
+.lever::before {
+  content: '';
+  position: absolute;
+  left: 31px;
+  top: 2px;
+  width: 8px;
+  height: 48px;
+  background: #292524;
+  border-top: 12px solid #dc2626;
+  transform-origin: 50% 100%;
+  rotate: -35deg;
+  transition: .4s;
+}
+
+#pull:checked ~ .lever::before { rotate: 35deg; }

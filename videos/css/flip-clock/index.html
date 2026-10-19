@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flip clock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type=checkbox id=go>
+<div class="clock">
+  <b class=d style="--a:'0';--b:'1';
+    --d:1.2s"><i></i></b>
+  <b class=d style="--a:'9';--b:'0';
+    --d:.8s"><i></i></b>
+  <span>:</span>
+  <b class=d style="--a:'5';--b:'0';
+    --d:.4s"><i></i></b>
+  <b class=d style="--a:'9';--b:'0';
+    --d:0s"><i></i></b>
+</div>
+<label for=go class="btn">+1 min</label>
+</body>
+</html>

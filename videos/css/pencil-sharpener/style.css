@@ -1,0 +1,137 @@
+@keyframes push {
+  15%, 80% { translate: 64px; }
+}
+
+/* facets slide by = the pencil spins */
+@keyframes spin {
+  to { background-position: 0 14px; }
+}
+
+@keyframes tip {
+  to { clip-path: polygon(0 0, 100% 50%,
+    100% 50%, 0 100%); }
+}
+
+@keyframes curl {
+  from { translate: 0 0; rotate: 0deg; scale: 0; }
+  40% { translate: calc(var(--x) / 2) -40px; }
+}
+
+@keyframes shake { to { rotate: 4deg; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  border-radius: 20px;
+  background: linear-gradient(#312e81 75%,
+    #92400e 0);
+}
+
+.scene * { position: absolute; }
+
+.pen {
+  left: 56px;
+  top: 136px;
+  width: 200px;
+  height: 32px;
+  background: repeating-linear-gradient(#fde047
+    0 5px, #eab308 0 9px, #ca8a04 0 14px);
+}
+
+/* eraser + metal band */
+.pen::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  width: 36px;
+  height: 100%;
+  border-radius: 6px 0 0 6px;
+  background: linear-gradient(90deg, #f472b6 60%,
+    #a1a1aa 0);
+}
+
+/* wood cone + graphite, blunt at first */
+.pen i {
+  left: 100%;
+  width: 44px;
+  height: 100%;
+  background: linear-gradient(90deg, #fcd9b0 56%,
+    #27272a 0);
+  clip-path: polygon(0 0, 60% 34%,
+    60% 66%, 0 100%);
+}
+
+.box {
+  left: 300px;
+  top: 112px;
+  width: 80px;
+  height: 82px;
+  border-radius: 8px;
+  background: linear-gradient(#cbd5e1 0 14px,
+    #2563eb 0);
+  box-shadow: inset -10px 0 #1d4ed8;
+}
+
+.scene b {
+  left: 318px;
+  top: 92px;
+  width: 34px;
+  height: 34px;
+  border: 6px solid;
+  border-radius: 50%;
+  border-color: #eab308 #fcd9b0 #0000 #0000;
+  scale: var(--s);
+  rotate: 320deg;
+  translate: var(--x) 140px;
+  opacity: 0;
+}
+
+/* inner turn of the spiral */
+.scene b::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 5px solid;
+  border-radius: 50%;
+  border-color: #0000 #0000 #fcd9b0 #eab308;
+}
+
+:checked + * .pen {
+  animation: push 5s ease-in-out,
+    spin .25s 1s linear 12;
+}
+
+:checked + * .pen i {
+  animation: tip 1s 2s forwards;
+}
+
+:checked + * .box {
+  animation: shake .1s 1s alternate 30;
+}
+
+:checked + * b {
+  opacity: 1;
+  animation: curl 1.4s var(--d) backwards;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 12px;
+  background: #facc15;
+  color: #1e1b4b;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

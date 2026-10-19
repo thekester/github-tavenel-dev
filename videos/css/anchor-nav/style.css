@@ -1,0 +1,53 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(
+    circle at 30% 20%, #3b1d6e, #0c0a18);
+}
+
+nav {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #fff2;
+  border-radius: 20px;
+  background: #ffffff0d;
+}
+
+a {
+  position: relative;
+  z-index: 1;
+  padding: 14px 22px;
+  border-radius: 12px;
+  color: #a9a3c4;
+  font: 600 20px system-ui;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+/* the hovered link becomes the anchor */
+a:hover,
+nav:not(:has(a:hover)) .on {
+  anchor-name: --pill;
+  color: #fff;
+}
+
+/* the pill follows the anchor */
+nav::before {
+  content: '';
+  position: absolute;
+  position-anchor: --pill;
+  top: anchor(top);
+  left: anchor(left);
+  right: anchor(right);
+  bottom: anchor(bottom);
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+    #7c3aed, #db2777);
+  box-shadow: 0 6px 24px #db277766;
+  transition: .4s
+    cubic-bezier(.4, 1.5, .5, 1);
+}

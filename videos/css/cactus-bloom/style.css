@@ -1,0 +1,169 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#f97316,
+    #fde68a 60%, #eab308 0);
+  counter-reset: w;
+}
+
+/* hidden, but still counted */
+input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+input:checked { counter-increment: w; }
+
+@property --g {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 440px;
+  transition: --g 1s ease-out;
+}
+
+#w1:checked ~ .scene { --g: 1; }
+#w2:checked ~ .scene { --g: 2; }
+#w3:checked ~ .scene { --g: 3; }
+
+.scene *,
+.scene ::after { position: absolute; }
+.count::after { position: static; }
+
+.can {
+  left: 10px;
+  top: 20px;
+  width: 80px;
+  height: 56px;
+  border-radius: 8px 8px 14px 14px;
+  background: #0ea5e9;
+}
+
+.can::after {
+  content: '';
+  left: 70px;
+  top: 6px;
+  width: 50px;
+  height: 10px;
+  background: #0284c7;
+  rotate: 25deg;
+}
+
+/* stacked labels: next watering on top */
+label {
+  left: 10px;
+  top: 20px;
+  width: 110px;
+  height: 60px;
+  cursor: pointer;
+}
+
+[for=w1], #w1:checked ~ * [for=w2],
+#w2:checked ~ * [for=w3] { z-index: 1; }
+
+/* each label pours its own drops */
+label::after {
+  left: 100px;
+  width: 36px;
+  height: 40px;
+  background: radial-gradient(#38bdf8 4px,
+    #0000 5px) 0 0 / 12px 14px;
+}
+
+#w1:checked ~ * [for=w1]::after,
+#w2:checked ~ * [for=w2]::after,
+#w3:checked ~ * [for=w3]::after {
+  content: '';
+  animation: rain .8s forwards;
+}
+
+@keyframes rain {
+  to { translate: 20px 190px; opacity: 0; }
+}
+
+/* the cactus grows with --g */
+.cactus {
+  left: 135px;
+  bottom: 120px;
+  width: 50px;
+  height: calc(90px + var(--g) * 35px);
+  border-radius: 25px 25px 0 0;
+  background: repeating-linear-gradient(90deg,
+    #15803d 0 6px, #16a34a 0 12px);
+}
+
+.arm {
+  bottom: 40px;
+  width: 34px;
+  height: calc(var(--g) * 22px);
+  border: 0 solid #16a34a;
+  scale: min(var(--g), 1);
+}
+
+.arm.l {
+  right: 100%;
+  border-width: 0 0 16px 16px;
+  border-radius: 8px 0 0 20px;
+  transform-origin: 100% 100%;
+}
+
+.arm.r {
+  left: 100%;
+  bottom: 70px;
+  border-width: 0 16px 16px 0;
+  border-radius: 0 8px 20px 0;
+  transform-origin: 0 100%;
+}
+
+.flower { left: 25px; top: 4px; }
+
+/* petals pivot on the flower centre */
+.flower i {
+  left: -12px;
+  top: -36px;
+  width: 24px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ec4899;
+  transform-origin: 50% 100%;
+  scale: 0;
+}
+
+#w3:checked ~ * .flower i {
+  animation: bloom .7s 1s both;
+}
+
+@keyframes bloom {
+  from { rotate: 0deg; scale: 0; }
+  to { rotate: var(--a); scale: 1; }
+}
+
+.pot {
+  left: 100px;
+  bottom: 60px;
+  width: 120px;
+  height: 70px;
+  background: #c2410c;
+  clip-path: polygon(0 0, 100% 0,
+    85% 100%, 15% 100%);
+}
+
+.count {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #7c2d12;
+  font: 900 30px system-ui;
+}
+
+.count::after {
+  content: 'Watered ' counter(w) '/3';
+}

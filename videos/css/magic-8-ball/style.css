@@ -1,0 +1,117 @@
+@keyframes shake {
+  from { translate: -14px 6px; rotate: -12deg; }
+  to { translate: 14px -6px; rotate: 12deg; }
+}
+@keyframes away {
+  to { translate: 0 -200px; scale: 1 .2; }
+}
+@keyframes up {
+  to { translate: 0; scale: 1; }
+}
+/* the answer floats up through the ink */
+@keyframes reveal {
+  from { opacity: 0; filter: blur(8px);
+    rotate: 40deg; scale: .6; }
+  to { opacity: 1; filter: blur(0);
+    rotate: -4deg; scale: 1; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#4c1d95, #1e1b4b);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.ball {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%,
+    #57534e, #0c0a09 45%, #000);
+  box-shadow: 0 24px 40px #0008;
+}
+
+/* glossy highlight above everything */
+.ball::after {
+  content: '';
+  position: absolute;
+  inset: 14px 110px 216px 46px;
+  border-radius: 50%;
+  background: #fff3;
+  rotate: -25deg;
+}
+
+.eight, .window {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.eight {
+  width: 130px;
+  height: 130px;
+  background: #fafaf9;
+  color: #0c0a09;
+  font: 900 96px/130px system-ui;
+  text-align: center;
+}
+
+/* hidden below, waiting to roll in */
+.window {
+  display: grid;
+  place-items: center;
+  width: 156px;
+  height: 156px;
+  border: 6px solid #1c1917;
+  background: radial-gradient(#1e3a8a,
+    #020617 70%);
+  translate: 0 200px;
+  scale: 1 .2;
+}
+
+.answer {
+  width: 126px;
+  height: 108px;
+  margin: 0;
+  padding-top: 14px;
+  box-sizing: border-box;
+  background: #2563eb;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  color: #e0f2fe;
+  font: 800 11px/1.4 system-ui;
+  text-align: center;
+  opacity: 0;
+}
+
+#go:checked + .ball {
+  animation: shake .09s 10 alternate;
+}
+#go:checked + .ball .eight {
+  animation: away .5s .9s ease-in forwards;
+}
+#go:checked + .ball .window {
+  animation: up .6s 1s ease-out forwards;
+}
+#go:checked + .ball .answer {
+  animation: reveal 1.6s 1.6s ease-out forwards;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 10px;
+  background: #fafaf9;
+  color: #1e1b4b;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

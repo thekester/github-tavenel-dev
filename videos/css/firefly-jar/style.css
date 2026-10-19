@@ -1,0 +1,101 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1026;
+}
+
+input { position: fixed; opacity: 0; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 440px;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(#0000 80%, #14532d 0),
+    radial-gradient(circle at 80% 14%,
+      #fef9c3 22px, #0000 23px),
+    radial-gradient(#fff 1px, #0000 2px)
+      0 0 / 47px 53px,
+    linear-gradient(#0b1026, #1e1b4b);
+}
+
+.scene > * { position: absolute; }
+
+.jar {
+  left: 95px;
+  top: 184px;
+  width: 170px;
+  height: 200px;
+  border: 4px solid #cbd5e199;
+  border-radius: 26px 26px 40px 40px;
+  background: linear-gradient(90deg,
+    #fff2 10%, #fff1 20%, #0000 30%);
+}
+
+/* the lid: a static label, the
+   ::before is what pops off */
+label {
+  left: 112px;
+  top: 158px;
+  width: 136px;
+  height: 30px;
+  cursor: pointer;
+}
+
+label::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: repeating-linear-gradient(90deg,
+    #a16207 0 8px, #ca8a04 0 16px);
+}
+
+/* fireflies drift and blink */
+i {
+  left: var(--x);
+  top: var(--y);
+  width: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fef08a;
+  box-shadow: 0 0 12px 5px #facc15aa;
+  offset-path: var(--p);
+  offset-distance: 0%;
+  offset-rotate: 0deg;
+  animation:
+    drift 2s var(--d) infinite alternate,
+    blink .9s var(--d) infinite alternate;
+}
+
+@keyframes drift {
+  to { translate: 12px -14px; }
+}
+@keyframes blink { to { opacity: .2; } }
+
+:checked + .scene label::before {
+  animation: pop 1s forwards ease-in;
+}
+
+@keyframes pop {
+  30% { translate: 30px -110px;
+    rotate: 40deg; }
+  to { translate: 105px 228px;
+    rotate: 180deg; }
+}
+
+/* then they escape on their own curve */
+:checked + .scene i {
+  animation:
+    drift 2s var(--d) infinite alternate,
+    blink .9s var(--d) infinite alternate,
+    fly 3s calc(.4s + var(--d)) forwards;
+}
+
+@keyframes fly {
+  to { offset-distance: 100%; }
+}

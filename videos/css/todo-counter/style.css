@@ -1,0 +1,89 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #ede9fe;
+  font-family: system-ui;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 330px;
+  padding: 24px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 20px 50px #5b21b633;
+  counter-reset: done;
+  transition: box-shadow .5s;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: #222;
+  font-size: 18px;
+  text-decoration: line-through 2px;
+  text-decoration-color: #0000;
+  cursor: pointer;
+  transition: .3s;
+}
+
+input {
+  appearance: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 2px solid #c4c4cc;
+  border-radius: 7px;
+  transition: .25s;
+}
+
+input:checked {
+  border-color: #7c3aed;
+  background: #7c3aed;
+  counter-increment: done;
+}
+
+input:checked::after {
+  content: '\2713';
+  color: #fff;
+  font-size: 14px;
+}
+
+label:has(:checked) {
+  background: #f5f3ff;
+  color: #a1a1aa;
+  text-decoration-color: #a1a1aa;
+}
+
+/* last in the HTML, first on screen */
+.count {
+  order: -1;
+  margin: 0 0 10px;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.count::after {
+  content: counter(done) ' / 5 done';
+}
+
+/* nothing left unchecked? */
+.todo:not(:has(input:not(:checked))) {
+  box-shadow: 0 0 0 4px #22c55e,
+    0 20px 60px #22c55e66;
+}
+
+.todo:not(:has(input:not(:checked)))
+  .count::after {
+  content: 'All done!';
+  color: #16a34a;
+}

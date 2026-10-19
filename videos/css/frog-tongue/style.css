@@ -1,0 +1,152 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b3b5c;
+}
+
+#eat { display: none; }
+
+.pond {
+  position: relative;
+  width: 400px;
+  height: 420px;
+  border-radius: 30px;
+  background:
+    repeating-radial-gradient(circle at 30% 80%,
+      #0000 0 26px, #ffffff14 27px 29px),
+    linear-gradient(#38bdf8, #0369a1);
+}
+
+.pond *, .pond ::before, .pond ::after {
+  position: absolute;
+}
+
+/* lily pad with its notch */
+.pad {
+  left: 50px;
+  top: 300px;
+  width: 300px;
+  height: 90px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 0 14deg,
+    #15803d 0 346deg, #0000 0);
+}
+
+.frog {
+  left: 115px;
+  top: 230px;
+  width: 170px;
+  height: 110px;
+  border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(60% 45% at 50% 100%,
+    #bbf7d0 98%, #0000), #4ade80;
+  cursor: pointer;
+}
+
+/* cheeks that puff when it gulps */
+.frog::before, .frog::after {
+  content: '';
+  top: 50px;
+  left: 6px;
+  width: 38px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fda4af;
+  scale: .5;
+}
+.frog::after { left: 126px; }
+
+.eye {
+  top: -30px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(#111 7px, #fff 8px
+    15px, #4ade80 16px);
+  overflow: hidden;
+}
+.eye.r { left: 110px; }
+
+/* eyelid */
+.eye::after {
+  content: '';
+  inset: 0;
+  background: #22c55e;
+  scale: 1 0;
+  transform-origin: top;
+}
+
+.mouth {
+  left: 45px;
+  top: 40px;
+  width: 80px;
+  height: 30px;
+  border-bottom: 5px solid #14532d;
+  border-radius: 50%;
+}
+
+/* tongue: a bar aimed at the fly */
+.tongue {
+  left: 85px;
+  top: 66px;
+  width: 220px;
+  height: 10px;
+  border-radius: 5px;
+  background: #f472b6;
+  transform-origin: 0 50%;
+  rotate: -60deg;
+  scale: 0 1;
+}
+
+.fly { left: 310px; top: 110px; }
+
+/* buzzing along a small looping path */
+.fly i {
+  width: 18px;
+  height: 18px;
+  margin: -9px;
+  border-radius: 50%;
+  background: #1f2937;
+  box-shadow: -6px -8px 0 -2px #e0f2fecc,
+    6px -8px 0 -2px #e0f2fecc;
+  offset-path:
+    path('M0 0c30-30 50 10 15 20s-40-5-30-30z');
+  animation: buzz .9s linear infinite;
+}
+
+@keyframes buzz { to { offset-distance: 100%; } }
+
+:checked + .pond .tongue {
+  animation: shoot .6s linear;
+}
+
+@keyframes shoot {
+  25%, 40% { scale: 1 1; }
+}
+
+/* fly sticks to the tip, rides it back */
+:checked + .pond .fly {
+  animation: ride .6s linear forwards;
+}
+:checked + .pond .fly i { offset-path: none; }
+
+@keyframes ride {
+  0%, 40% { translate: 0; }
+  to { translate: -110px 190px; scale: 0; }
+}
+
+:checked + .pond .frog::before,
+:checked + .pond .frog::after {
+  animation: puff .5s .6s 2;
+}
+
+@keyframes puff { 50% { scale: 1.2; } }
+
+:checked + .pond .eye::after {
+  animation: blink .4s 1.4s 2;
+}
+
+@keyframes blink { 50% { scale: 1; } }

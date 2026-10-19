@@ -1,0 +1,114 @@
+@property --w {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #cffafe;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.washer {
+  position: relative;
+  width: 300px;
+  height: 360px;
+  border-radius: 22px;
+  background: linear-gradient(#e2e8f0 0 70px,
+    #fff 0);
+  box-shadow: 0 12px 0 #94a3b8;
+}
+
+.washer > * { position: absolute; margin: 0; }
+
+.start {
+  top: 18px;
+  right: 20px;
+  padding: 0 18px;
+  border-radius: 8px;
+  background: #0ea5e9;
+  color: #fff;
+  font: 800 18px/36px system-ui;
+  cursor: pointer;
+}
+
+.done {
+  top: 22px;
+  left: 24px;
+  color: #16a34a;
+  font: 900 24px system-ui;
+  opacity: 0;
+}
+
+/* glass door, water rises from the bottom */
+.door {
+  top: 110px;
+  left: 50px;
+  width: 200px;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border: 14px solid #94a3b8;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(
+    #0000 calc(100% - var(--w)),
+    #38bdf8bb 0), #e0f2fe;
+}
+
+.clothes {
+  position: absolute;
+  inset: 0;
+}
+
+.clothes i {
+  position: absolute;
+  width: 60px;
+  height: 34px;
+  border-radius: 14px;
+}
+
+.clothes i:nth-child(1) {
+  top: 100px; left: 30px; background: #ef4444;
+}
+.clothes i:nth-child(2) {
+  top: 110px; left: 90px; background: #facc15;
+  rotate: 30deg;
+}
+.clothes i:nth-child(3) {
+  top: 70px; left: 60px; background: #8b5cf6;
+  rotate: -20deg;
+}
+
+/* one click: fill, spin, drain, done */
+#go:checked + .washer .door {
+  animation: fill 6s forwards;
+}
+
+@keyframes fill {
+  15%, 85% { --w: 60%; }
+  100% { --w: 0%; }
+}
+
+#go:checked + .washer .clothes {
+  animation: spin .8s .9s linear 5;
+}
+
+@keyframes spin { to { rotate: 1turn; } }
+
+#go:checked + .washer {
+  animation: shake .1s .9s 40 alternate;
+}
+
+@keyframes shake { to { translate: 2px 0; } }
+
+#go:checked + .washer .done {
+  animation: show .3s 6s forwards;
+}
+
+@keyframes show { to { opacity: 1; } }

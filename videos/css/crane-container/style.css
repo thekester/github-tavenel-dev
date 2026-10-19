@@ -1,0 +1,137 @@
+@property --x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 80px;
+}
+@property --y { syntax: '<length>';
+  inherits: true; initial-value: 120px; }
+@property --cx { syntax: '<length>';
+  inherits: true; initial-value: 130px; }
+@property --cy { syntax: '<length>';
+  inherits: true; initial-value: 256px; }
+@property --s { syntax: '<length>';
+  inherits: true; initial-value: 0px; }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#0c4a6e, #fdba74);
+  font: 800 22px system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 380px;
+  /* the dock */
+  background: linear-gradient(#475569 0 0)
+    0 100% / 215px 80px no-repeat;
+}
+
+.scene i { position: absolute; }
+
+.tower, .boom {
+  background: repeating-linear-gradient(45deg,
+    #eab308 0 3px, #0000 0 12px),
+    repeating-linear-gradient(-45deg,
+    #eab308 0 3px, #0000 0 12px);
+  border: 3px solid #eab308;
+}
+
+.tower { left: 30px; top: 50px;
+  width: 16px; height: 244px; }
+
+.boom { left: 14px; top: 50px;
+  width: 396px; height: 10px; }
+
+.trolley {
+  left: calc(var(--x) - 20px);
+  top: 66px;
+  width: 40px;
+  height: 12px;
+  border-radius: 3px;
+  background: #1e293b;
+}
+
+.cable {
+  left: calc(var(--x) - 1px);
+  top: 78px;
+  width: 2px;
+  height: calc(var(--y) - 88px);
+  background: #1e293b;
+}
+
+.spreader {
+  left: calc(var(--x) - 40px);
+  top: calc(var(--y) - 10px);
+  width: 80px;
+  height: 10px;
+  background: #1e293b;
+}
+
+/* the container follows its own pair */
+.box {
+  left: calc(var(--cx) - 45px);
+  top: var(--cy);
+  width: 90px;
+  height: 44px;
+  background: repeating-linear-gradient(90deg,
+    #0002 0 3px, #0000 0 9px), #ea580c;
+}
+
+.ship {
+  left: 235px;
+  top: calc(300px + var(--s));
+  width: 175px;
+  height: 46px;
+  background: linear-gradient(#f8fafc 0 6px,
+    #1e3a8a 0);
+  clip-path: polygon(0 0, 100% 0, 92% 100%,
+    6% 100%);
+}
+
+.cab {
+  left: 372px;
+  top: calc(266px + var(--s));
+  width: 28px;
+  height: 34px;
+  background: radial-gradient(circle, #38bdf8 3px,
+    #0000 4px) 0 0 / 9px 10px, #f8fafc;
+}
+
+.sea {
+  inset: 324px 0 0 215px;
+  background: #0284c7cc;
+}
+
+/* one timeline drives hook AND box */
+#go:checked + .scene {
+  animation: load 8s ease-in-out forwards;
+}
+
+@keyframes load {
+  12% { --x: 130px; --y: 120px; }
+  25%, 29% { --y: 256px; --cy: 256px; }
+  42% { --x: 130px; --cx: 130px;
+    --y: 140px; --cy: 140px; }
+  62% { --y: 140px; --cy: 140px; }
+  62%, to { --x: 320px; --cx: 320px; }
+  75%, 80% { --y: 256px; --cy: 256px;
+    --s: 0px; }
+  88%, to { --cy: 264px; --s: 8px; }
+  to { --y: 130px; }
+}
+
+label {
+  padding: 10px 36px;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #fde047;
+  cursor: pointer;
+}

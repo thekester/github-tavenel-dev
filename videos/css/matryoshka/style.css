@@ -1,0 +1,135 @@
+@keyframes lift {
+  30% { translate: 0 calc(var(--w) * -.5); }
+  60% { z-index: var(--z); }
+  61%, 70% { z-index: calc(var(--z) * -1);
+    translate: calc(var(--x) * -1)
+      calc(var(--w) * -.5); }
+  to { z-index: calc(var(--z) * -1);
+    translate: calc(var(--x) * -1)
+      calc(var(--w) * .675); }
+}
+@keyframes slide {
+  30% { translate: 0; z-index: var(--z); }
+  61% { z-index: calc(var(--z) * -1); }
+  to { translate: var(--x);
+    z-index: calc(var(--z) * -1); }
+}
+@keyframes wink { 20%, 80% { scale: 1 .1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#4c1d95, #1e1b4b);
+}
+input { display: none; }
+
+.shelf {
+  position: relative;
+  isolation: isolate;
+  width: 520px;
+  height: 230px;
+  border-bottom: 14px solid #92400e;
+}
+.doll {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - var(--w) / 2);
+  width: var(--w);
+  height: calc(var(--w) * 1.5);
+}
+.doll i {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: var(--z);
+  background-color: var(--c);
+}
+.top {
+  top: 0;
+  height: 55%;
+  border-radius: 50% 50% 14% 14% / 64% 64% 8% 8%;
+}
+/* the face */
+.top b {
+  position: absolute;
+  top: 24%;
+  left: 23%;
+  width: 54%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 calc(var(--w) * .04) #fbbf24;
+  background:
+    radial-gradient(60% 34% at 50% 0,
+      #713f12 98%, #0000),
+    radial-gradient(14% 7% at 50% 80%,
+      #dc2626 98%, #0000),
+    radial-gradient(circle at 46% 66%,
+      #fb7185 10%, #0000 11%) 0 0 / 52% 100%,
+    #fde7cf;
+}
+.top b::before, .top b::after {
+  content: '';
+  position: absolute;
+  top: 44%;
+  left: 26%;
+  width: 11%;
+  height: 14%;
+  border-radius: 50%;
+  background: #1c1917;
+}
+.top b::after { left: 63%; }
+
+/* apron + flower */
+.bot {
+  bottom: 0;
+  height: 45%;
+  border-top: 2px solid #fbbf24;
+  border-radius: 8% 8% 46% 46% / 6% 6% 34% 34%;
+  --r: calc(var(--w) * .13);
+  background:
+    radial-gradient(var(--r) at 50% 40%,
+      #facc15 35%, #e11d48 0 98%, #0000),
+    repeating-conic-gradient(at 50% 40%,
+      #0000 0 30deg, #fef3c780 0 45deg),
+    radial-gradient(36% 52% at 50% 40%,
+      #fef3c7 98%, #0000);
+}
+
+#o1:checked ~ .shelf .d1 .top,
+#o2:checked ~ .shelf .d2 .top,
+#o3:checked ~ .shelf .d3 .top {
+  animation: lift 1.4s forwards;
+}
+#o1:checked ~ .shelf .d1 .bot,
+#o2:checked ~ .shelf .d2 .bot,
+#o3:checked ~ .shelf .d3 .bot {
+  animation: slide 1.4s forwards;
+}
+#o3:checked ~ .shelf .d4 {
+  transition: scale .5s 1.2s;
+  scale: 1.7;
+  transform-origin: bottom;
+}
+#o3:checked ~ .shelf .d4 b::after {
+  animation: wink 1s 1.9s;
+}
+
+.btns { display: grid; }
+label {
+  grid-area: 1 / 1;
+  padding: 12px 34px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #7c2d12;
+  font: 800 22px system-ui;
+  cursor: pointer;
+}
+#o1:checked ~ .btns [for=o1],
+#o2:checked ~ .btns [for=o2],
+#o3:checked ~ .btns [for=o3] {
+  visibility: hidden;
+}

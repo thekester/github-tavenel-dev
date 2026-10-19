@@ -1,0 +1,90 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f0d1a;
+  font-family: system-ui;
+}
+
+#m { display: none; }
+
+.menu {
+  position: relative;
+  width: 84px;
+  height: 84px;
+}
+
+/* the + button */
+label {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg,
+    #f43f5e, #8b5cf6);
+  box-shadow: 0 10px 30px #8b5cf666;
+  cursor: pointer;
+  transition: rotate .4s;
+}
+
+label::before,
+label::after {
+  content: '';
+  position: absolute;
+  inset: 39px 22px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+label::after { rotate: 90deg; }
+
+#m:checked + .menu label { rotate: 135deg; }
+
+.menu i {
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: hsl(calc(var(--i) * 60) 80% 60%);
+  color: #fff;
+  font: normal 26px system-ui;
+  scale: .3;
+  opacity: 0;
+  cursor: pointer;
+  transition: .5s cubic-bezier(.3, 1.6, .5, 1)
+    calc(var(--i) * 45ms);
+}
+
+/* open: each item on the circle */
+#m:checked + .menu i {
+  --a: calc(var(--i) * 60deg - 90deg);
+  translate:
+    calc(cos(var(--a)) * 125px)
+    calc(sin(var(--a)) * 125px);
+  scale: 1;
+  opacity: 1;
+}
+
+#m:checked + .menu i:hover {
+  scale: 1.25;
+  transition-delay: 0s;
+}
+
+/* tooltip from the HTML */
+.menu i::after {
+  content: attr(data-l);
+  position: absolute;
+  bottom: 110%;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transition: .2s;
+}
+
+.menu i:hover::after { opacity: 1; }

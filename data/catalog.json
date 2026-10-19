@@ -1,0 +1,2108 @@
+{
+  "channel": "https://www.youtube.com/@tavenel-dev",
+  "verifiedOn": "2026-10-19",
+  "examples": [
+    {
+      "slug": "3d-book",
+      "title": "A book that opens in 3D",
+      "description": "Hover it. Pure CSS transforms",
+      "youtubeId": "K0dTTkbFaxY"
+    },
+    {
+      "slug": "3d-carousel",
+      "title": "A 3D carousel in pure CSS",
+      "description": "rotateY + translateZ + cos()",
+      "youtubeId": "f365jqHryH4"
+    },
+    {
+      "slug": "3d-dice",
+      "title": "Roll a 3D dice",
+      "description": "Six faces, one pip each",
+      "youtubeId": null
+    },
+    {
+      "slug": "3d-printer",
+      "title": "CSS 3D printer",
+      "description": "steps() prints it layer by layer",
+      "youtubeId": null
+    },
+    {
+      "slug": "abacus",
+      "title": "CSS abacus",
+      "description": "counter-increment with a weight per rod",
+      "youtubeId": "JxopT1zwr7E"
+    },
+    {
+      "slug": "accordion",
+      "title": "CSS accordion",
+      "description": "Bellows that breathe with scaleX",
+      "youtubeId": null
+    },
+    {
+      "slug": "alarm-clock",
+      "title": "Alarm clock",
+      "description": "Conic ticks and a CSS snooze",
+      "youtubeId": null
+    },
+    {
+      "slug": "anchor-nav",
+      "title": "A menu pill that follows you",
+      "description": "New CSS: anchor positioning, zero JS",
+      "youtubeId": "JPfRbhUlYUg"
+    },
+    {
+      "slug": "ant-trail",
+      "title": "Ant trail",
+      "description": "offset-path with negative delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "aquarium",
+      "title": "A living aquarium in CSS",
+      "description": "Click to feed the fish",
+      "youtubeId": "ix1_7yl5FfE"
+    },
+    {
+      "slug": "astronaut-tether",
+      "title": "Spacewalk",
+      "description": "A tether made of one border curve",
+      "youtubeId": null
+    },
+    {
+      "slug": "attr-chart",
+      "title": "A chart with its data in HTML",
+      "description": "New: typed attr() + if()",
+      "youtubeId": null
+    },
+    {
+      "slug": "aurora",
+      "title": "Northern lights",
+      "description": "Blurred gradients + an animated @property hue",
+      "youtubeId": null
+    },
+    {
+      "slug": "autumn-leaves",
+      "title": "Autumn leaves",
+      "description": "Fall + sway: two animations, two boxes",
+      "youtubeId": null
+    },
+    {
+      "slug": "balloon-pump",
+      "title": "Pump it up",
+      "description": "Stacked labels + :has() size steps",
+      "youtubeId": "vnyKIaItb0A"
+    },
+    {
+      "slug": "barcode-scanner",
+      "title": "Checkout scanner",
+      "description": "Barcodes from repeating gradients",
+      "youtubeId": null
+    },
+    {
+      "slug": "basketball-shot",
+      "title": "Nothing but net",
+      "description": "A basketball shot on an offset-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "bat-cave",
+      "title": "Wake the bats",
+      "description": "Conic beam + offset-path flights",
+      "youtubeId": null
+    },
+    {
+      "slug": "battery-charge",
+      "title": "Plug it in",
+      "description": "One animated integer charges it all",
+      "youtubeId": null
+    },
+    {
+      "slug": "beehive",
+      "title": "CSS beehive",
+      "description": "Bees flying figure-8s on an offset-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "bicycle-ride",
+      "title": "Ride a CSS bike",
+      "description": "Parallax layers at three speeds",
+      "youtubeId": "VqO0nlHdBbo"
+    },
+    {
+      "slug": "birthday-cake",
+      "title": "Blow the candles",
+      "description": "Staggered delays with inline vars",
+      "youtubeId": null
+    },
+    {
+      "slug": "black-hole",
+      "title": "Feed the black hole",
+      "description": "A squashed conic ring + @property spiral",
+      "youtubeId": null
+    },
+    {
+      "slug": "bookshelf",
+      "title": "Pick a book",
+      "description": ":hover pulls it out, rotateY opens it",
+      "youtubeId": null
+    },
+    {
+      "slug": "bowling-strike",
+      "title": "CSS bowling",
+      "description": "Ten pins, one calc()",
+      "youtubeId": null
+    },
+    {
+      "slug": "bubble-tea",
+      "title": "CSS bubble tea",
+      "description": "Inline delays drop every pearl",
+      "youtubeId": null
+    },
+    {
+      "slug": "bubble-wand",
+      "title": "Bubble wand",
+      "description": "Hover to blow conic-gradient bubbles",
+      "youtubeId": null
+    },
+    {
+      "slug": "bubble-wrap",
+      "title": "Bubble wrap",
+      "description": "Pop counter, zero JavaScript",
+      "youtubeId": null
+    },
+    {
+      "slug": "bus-stop",
+      "title": "Catch the bus",
+      "description": "Chained CSS animations with delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "butterfly-cocoon",
+      "title": "It hatched!",
+      "description": "3D wings riding an offset-path",
+      "youtubeId": "TSSfD-KN8b8"
+    },
+    {
+      "slug": "cactus-bloom",
+      "title": "Water the cactus",
+      "description": "A CSS counter on hidden checkboxes",
+      "youtubeId": null
+    },
+    {
+      "slug": "campfire",
+      "title": "A cozy campfire in CSS",
+      "description": "One @property to make it grow",
+      "youtubeId": null
+    },
+    {
+      "slug": "candle",
+      "title": "Blow out the candle",
+      "description": "Flame, glow and smoke in pure CSS",
+      "youtubeId": "_VbEdqnuxiM"
+    },
+    {
+      "slug": "car-wash",
+      "title": "CSS car wash",
+      "description": "Gradient mud that washes away",
+      "youtubeId": null
+    },
+    {
+      "slug": "card-deal",
+      "title": "Card deal",
+      "description": "Flying cards that flip in 3D",
+      "youtubeId": null
+    },
+    {
+      "slug": "card-fan",
+      "title": "Hover to fan the cards",
+      "description": "One CSS variable per card",
+      "youtubeId": "b7k-kaDbp5A"
+    },
+    {
+      "slug": "cassette-tape",
+      "title": "Cassette tape",
+      "description": "Reels driven by an @property length",
+      "youtubeId": null
+    },
+    {
+      "slug": "catapult",
+      "title": "CSS catapult",
+      "description": "Split x and y animations = an arc",
+      "youtubeId": null
+    },
+    {
+      "slug": "caterpillar-walk",
+      "title": "Hungry caterpillar",
+      "description": "Staggered delays make a travelling wave",
+      "youtubeId": "ME5K9SVChvM"
+    },
+    {
+      "slug": "cell-division",
+      "title": "Cell division",
+      "description": "The gooey blur + contrast trick",
+      "youtubeId": null
+    },
+    {
+      "slug": "chameleon",
+      "title": "CSS chameleon",
+      "description": ":has() + @property color",
+      "youtubeId": null
+    },
+    {
+      "slug": "checkout-stepper",
+      "title": "A checkout flow, zero JS",
+      "description": "One animated number drives it all",
+      "youtubeId": null
+    },
+    {
+      "slug": "chess-knight",
+      "title": "The knight move",
+      "description": "Conic checkerboard + arc hop",
+      "youtubeId": null
+    },
+    {
+      "slug": "clapperboard",
+      "title": "Take two!",
+      "description": "A CSS counter fed by checkboxes",
+      "youtubeId": null
+    },
+    {
+      "slug": "claw-machine",
+      "title": "Claw machine",
+      "description": "One shared keyframe timeline",
+      "youtubeId": null
+    },
+    {
+      "slug": "coin-flip",
+      "title": "Heads or tails?",
+      "description": "backface-visibility makes a 2-sided coin",
+      "youtubeId": null
+    },
+    {
+      "slug": "comet-flyby",
+      "title": "Comet flyby",
+      "description": "A ray() path points the tail away",
+      "youtubeId": null
+    },
+    {
+      "slug": "compass-needle",
+      "title": "Always north",
+      "description": "A linear() overshoot on an @property angle",
+      "youtubeId": null
+    },
+    {
+      "slug": "connect-four",
+      "title": "Connect four",
+      "description": "A tiled mask punches the holes",
+      "youtubeId": null
+    },
+    {
+      "slug": "cookie-bites",
+      "title": "Eat the cookie",
+      "description": "mask-composite takes the bites",
+      "youtubeId": null
+    },
+    {
+      "slug": "crab-walk",
+      "title": "Crab walk",
+      "description": "One keyframes, walk then dig",
+      "youtubeId": null
+    },
+    {
+      "slug": "crane-container",
+      "title": "Harbour crane",
+      "description": "One keyframes drives hook and box",
+      "youtubeId": null
+    },
+    {
+      "slug": "crosswalk",
+      "title": "A crosswalk in pure CSS",
+      "description": "One 7s timeline, three actors",
+      "youtubeId": null
+    },
+    {
+      "slug": "crt-tv",
+      "title": "Retro CRT TV",
+      "description": "That old power-off effect, pure CSS",
+      "youtubeId": "WUS-Zwuvii4"
+    },
+    {
+      "slug": "css-chat",
+      "title": "Asking CSS to center a div",
+      "description": "A chat animated with only CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "css-piano",
+      "title": "A piano made of CSS",
+      "description": "Hover the keys, notes fly away",
+      "youtubeId": "OcDW8bec6-I"
+    },
+    {
+      "slug": "css-stopwatch",
+      "title": "A working stopwatch in CSS",
+      "description": "Animated integers + counter()",
+      "youtubeId": "yA0Cv7ZhwkE"
+    },
+    {
+      "slug": "cube-twist",
+      "title": "CSS puzzle cube",
+      "description": "One 3D layer turns with preserve-3d",
+      "youtubeId": null
+    },
+    {
+      "slug": "cuckoo-clock",
+      "title": "CSS cuckoo clock",
+      "description": "Transitions + keyframes on one click",
+      "youtubeId": null
+    },
+    {
+      "slug": "cupcake-frosting",
+      "title": "Frost a cupcake",
+      "description": "clip-path inset pipes each ring",
+      "youtubeId": null
+    },
+    {
+      "slug": "dart-board",
+      "title": "CSS bullseye",
+      "description": "Conic sectors and a scaled dart throw",
+      "youtubeId": null
+    },
+    {
+      "slug": "day-night-toggle",
+      "title": "Day / Night toggle",
+      "description": "Pure CSS, powered by :has()",
+      "youtubeId": "MP5A97zgnwU"
+    },
+    {
+      "slug": "dna-helix",
+      "title": "CSS DNA helix",
+      "description": "Staggered rotateY + an animated @property",
+      "youtubeId": null
+    },
+    {
+      "slug": "domino-chain",
+      "title": "Domino effect",
+      "description": "Precomputed physics, one keyframe",
+      "youtubeId": null
+    },
+    {
+      "slug": "donut-glaze",
+      "title": "Glaze the donut",
+      "description": "A radial-gradient mask makes the drips",
+      "youtubeId": null
+    },
+    {
+      "slug": "doorbell-dog",
+      "title": "Who's there?",
+      "description": "A door opened a crack with rotateY",
+      "youtubeId": null
+    },
+    {
+      "slug": "drawbridge",
+      "title": "Pull the lever",
+      "description": "A drawbridge on transform-origin + rotate",
+      "youtubeId": null
+    },
+    {
+      "slug": "drum-kit",
+      "title": "CSS drum kit",
+      "description": "Toggle swaps the keyframes name",
+      "youtubeId": null
+    },
+    {
+      "slug": "egg-fry",
+      "title": "Fry an egg",
+      "description": "Morphing border-radius makes the blob",
+      "youtubeId": null
+    },
+    {
+      "slug": "egg-hatch",
+      "title": "Hatch the egg",
+      "description": "Stacked labels count the taps",
+      "youtubeId": "PwDi3kXJOds"
+    },
+    {
+      "slug": "elevator",
+      "title": "An elevator in pure CSS",
+      "description": "Doors open by math: abs() + clamp()",
+      "youtubeId": null
+    },
+    {
+      "slug": "envelope",
+      "title": "You've got mail",
+      "description": "A 3D envelope that opens, pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "equalizer",
+      "title": "CSS music player",
+      "description": "Equalizer bars with per-bar timing vars",
+      "youtubeId": null
+    },
+    {
+      "slug": "escalator",
+      "title": "CSS escalator",
+      "description": "Moving steps from background-position",
+      "youtubeId": null
+    },
+    {
+      "slug": "explode-text",
+      "title": "Text that explodes on hover",
+      "description": "CSS sin() + cos(), no random JS",
+      "youtubeId": null
+    },
+    {
+      "slug": "eyes-follow",
+      "title": "Eyes that follow your mouse",
+      "description": "No JavaScript. Just :has() + nth-child",
+      "youtubeId": "ftaJxKS7nj4"
+    },
+    {
+      "slug": "faq-accordion",
+      "title": "Finally: animate height: auto",
+      "description": "interpolate-size + details name",
+      "youtubeId": "vN14L406m_o"
+    },
+    {
+      "slug": "ferris-wheel",
+      "title": "Ferris wheel",
+      "description": "Spin forward, spin back, stay level",
+      "youtubeId": null
+    },
+    {
+      "slug": "firefly-jar",
+      "title": "Free the fireflies",
+      "description": "offset-path curves for every bug",
+      "youtubeId": null
+    },
+    {
+      "slug": "fireworks",
+      "title": "Fireworks in pure CSS",
+      "description": "16 sparks = one box-shadow",
+      "youtubeId": null
+    },
+    {
+      "slug": "flashlight",
+      "title": "A flashlight with zero JS",
+      "description": ":has() + animated @property",
+      "youtubeId": null
+    },
+    {
+      "slug": "flip-clock",
+      "title": "Flip clock",
+      "description": "3D flaps with rotateX and backface-visibility",
+      "youtubeId": null
+    },
+    {
+      "slug": "floppy-save",
+      "title": "Floppy disk save",
+      "description": "steps() for a retro progress bar",
+      "youtubeId": null
+    },
+    {
+      "slug": "fortune-cookie",
+      "title": "Fortune cookie",
+      "description": "clip-path halves + a scaleX unroll",
+      "youtubeId": null
+    },
+    {
+      "slug": "four-seasons",
+      "title": "Four seasons in pure CSS",
+      "description": "One tree, colored by currentColor",
+      "youtubeId": null
+    },
+    {
+      "slug": "fridge-door",
+      "title": "Retro fridge",
+      "description": "A 3D door swing with rotateY and a hinge",
+      "youtubeId": null
+    },
+    {
+      "slug": "frog-tongue",
+      "title": "Hungry frog",
+      "description": "A scaled bar aimed at an offset-path fly",
+      "youtubeId": null
+    },
+    {
+      "slug": "game-controller-combo",
+      "title": "Controller combo",
+      "description": "Checkboxes that fill a combo bar",
+      "youtubeId": null
+    },
+    {
+      "slug": "gear-train",
+      "title": "Gear train",
+      "description": "Conic-gradient teeth, speed set by tooth count",
+      "youtubeId": null
+    },
+    {
+      "slug": "gift-box",
+      "title": "Open the present",
+      "description": "A gift box, confetti and all, pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "glitch-404",
+      "title": "A 404 page that glitches",
+      "description": "attr() + clip-path + steps()",
+      "youtubeId": null
+    },
+    {
+      "slug": "golf-putt",
+      "title": "Golf putt",
+      "description": "A curved offset-path with easing",
+      "youtubeId": null
+    },
+    {
+      "slug": "gone-fishing",
+      "title": "Gone fishing",
+      "description": "Two animations, one shared timeline",
+      "youtubeId": null
+    },
+    {
+      "slug": "guitar-strum",
+      "title": "Strum the strings",
+      "description": "Instant :hover, slow transition back",
+      "youtubeId": null
+    },
+    {
+      "slug": "gumball-machine",
+      "title": "Gumball machine",
+      "description": "Turn the knob, get a gumball",
+      "youtubeId": null
+    },
+    {
+      "slug": "hacker-terminal",
+      "title": "A terminal that types itself",
+      "description": "steps() + ch units, pure CSS",
+      "youtubeId": "O2yfXx09PJQ"
+    },
+    {
+      "slug": "hair-dryer",
+      "title": "Hair dryer",
+      "description": "Staggered rotate + skew keyframes",
+      "youtubeId": null
+    },
+    {
+      "slug": "hamster-wheel",
+      "title": "Turbo hamster",
+      "description": "Swap keyframes to change the speed",
+      "youtubeId": null
+    },
+    {
+      "slug": "heartbeat-monitor",
+      "title": "CSS heart monitor",
+      "description": "clip-path beat + @property BPM counter",
+      "youtubeId": null
+    },
+    {
+      "slug": "hedgehog-curl",
+      "title": "Shy hedgehog",
+      "description": "Conic spikes that curl on hover",
+      "youtubeId": null
+    },
+    {
+      "slug": "hot-air-balloon",
+      "title": "Up, up and away",
+      "description": "Clouds fall so the balloon can rise",
+      "youtubeId": null
+    },
+    {
+      "slug": "hourglass",
+      "title": "An hourglass in pure CSS",
+      "description": "Click to flip it. Gravity included",
+      "youtubeId": null
+    },
+    {
+      "slug": "ice-cream-stack",
+      "title": "Stack the scoops",
+      "description": "Checkboxes + column-reverse flex",
+      "youtubeId": null
+    },
+    {
+      "slug": "impatient-loader",
+      "title": "Stuck at 99%",
+      "description": "A custom linear() easing that lies",
+      "youtubeId": null
+    },
+    {
+      "slug": "jack-in-the-box",
+      "title": "Jack-in-the-box",
+      "description": "Spring physics with linear()",
+      "youtubeId": null
+    },
+    {
+      "slug": "jellyfish",
+      "title": "Glowing jellyfish",
+      "description": "@property colour + staggered keyframes",
+      "youtubeId": null
+    },
+    {
+      "slug": "jenga",
+      "title": "CSS Jenga",
+      "description": "Three checkboxes, one collapse",
+      "youtubeId": null
+    },
+    {
+      "slug": "jigsaw-piece",
+      "title": "Last puzzle piece",
+      "description": "A mask with radial-gradient knobs",
+      "youtubeId": null
+    },
+    {
+      "slug": "kaleidoscope",
+      "title": "CSS kaleidoscope",
+      "description": "12 mirrored slices of one gradient",
+      "youtubeId": null
+    },
+    {
+      "slug": "kawaii-mug",
+      "title": "Drawing a cute mug with CSS",
+      "description": "No images. Just gradients and borders",
+      "youtubeId": "psSd8X8LNEM"
+    },
+    {
+      "slug": "kettle-whistle",
+      "title": "Whistling kettle",
+      "description": "One click, a timeline of delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "kitchen-scale",
+      "title": "CSS kitchen scale",
+      "description": "Typed @property integers add up",
+      "youtubeId": null
+    },
+    {
+      "slug": "kite",
+      "title": "Windy kite",
+      "description": "Radio buttons that swap animation variables",
+      "youtubeId": null
+    },
+    {
+      "slug": "laser-mirrors",
+      "title": "Laser mirrors",
+      "description": "A beam path built with :has()",
+      "youtubeId": null
+    },
+    {
+      "slug": "lava-lamp",
+      "title": "CSS lava lamp",
+      "description": "No JS, no canvas: just blur + contrast",
+      "youtubeId": "koCVZUIaTj8"
+    },
+    {
+      "slug": "lemon-squeeze",
+      "title": "Lemon squeeze",
+      "description": "Filling a glass with @property",
+      "youtubeId": null
+    },
+    {
+      "slug": "light-bulb",
+      "title": "Pull the cord",
+      "description": "Replay a CSS animation on every click",
+      "youtubeId": "pwK4Hz9I19g"
+    },
+    {
+      "slug": "lighthouse",
+      "title": "A lighthouse drawn in CSS",
+      "description": "The beam is just scale: 1 -> -1",
+      "youtubeId": "LnsfDLi2jIw"
+    },
+    {
+      "slug": "lightning-storm",
+      "title": "Lightning storm",
+      "description": "clip-path bolts and an animated @property flash",
+      "youtubeId": null
+    },
+    {
+      "slug": "like-button",
+      "title": "The most satisfying like button",
+      "description": "Sparks, ring and +1, pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "linear-easing",
+      "title": "Real physics in CSS",
+      "description": "The linear() easing function",
+      "youtubeId": "xNEr4cWA1UU"
+    },
+    {
+      "slug": "login-form",
+      "title": "Animated login form",
+      "description": "Floating labels + spinning border, pure CSS",
+      "youtubeId": "SpQFXJDCVYI"
+    },
+    {
+      "slug": "lunar-lander",
+      "title": "Moon landing",
+      "description": "Chained animations with delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "mac-dock",
+      "title": "Mac-style dock",
+      "description": "Magnification with :has(), zero JS",
+      "youtubeId": "Puj4RLtTsYY"
+    },
+    {
+      "slug": "magic-8-ball",
+      "title": "Ask the 8-ball",
+      "description": "Opacity, blur and rotate in one reveal",
+      "youtubeId": null
+    },
+    {
+      "slug": "magnet-clips",
+      "title": "CSS magnet",
+      "description": "Staggered ease-in transitions on hover",
+      "youtubeId": null
+    },
+    {
+      "slug": "mailbox",
+      "title": "You got mail",
+      "description": "Clipped overflow as a mail slot",
+      "youtubeId": null
+    },
+    {
+      "slug": "marble-run",
+      "title": "Marble run",
+      "description": "Chained keyframes down four ramps",
+      "youtubeId": null
+    },
+    {
+      "slug": "marshmallow-roast",
+      "title": "Roast a marshmallow",
+      "description": "Animating a typed @property colour",
+      "youtubeId": null
+    },
+    {
+      "slug": "matchstick",
+      "title": "Strike a match",
+      "description": "Chained CSS animations with delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "matryoshka",
+      "title": "Nesting dolls",
+      "description": "Three clicks, three keyframed splits",
+      "youtubeId": "KVEFVzDC-IY"
+    },
+    {
+      "slug": "maze-solve",
+      "title": "CSS maze solver",
+      "description": "Path segments grow on staggered delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "melting-clock",
+      "title": "Hover to melt time",
+      "description": "A Dali clock in pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "melting-snowman",
+      "title": "Here comes the sun",
+      "description": "One transform-origin melts it all",
+      "youtubeId": "PX42WY0TIiw"
+    },
+    {
+      "slug": "memory-game",
+      "title": "A memory game in pure CSS",
+      "description": "3D flips + :has() pair detection",
+      "youtubeId": "0gTl5kfLKqQ"
+    },
+    {
+      "slug": "merry-go-round",
+      "title": "Merry-go-round",
+      "description": "rotateY + translateZ in preserve-3d",
+      "youtubeId": null
+    },
+    {
+      "slug": "message-in-bottle",
+      "title": "Message in a bottle",
+      "description": "A cork pop, then a note that unrolls",
+      "youtubeId": null
+    },
+    {
+      "slug": "metronome",
+      "title": "CSS metronome",
+      "description": "Radio buttons swap the keyframes",
+      "youtubeId": "I1Vchv5vIGw"
+    },
+    {
+      "slug": "microwave",
+      "title": "CSS microwave",
+      "description": "An animated integer runs the timer",
+      "youtubeId": null
+    },
+    {
+      "slug": "minesweeper",
+      "title": "CSS minesweeper",
+      "description": "Staggered delays cascade the reveal",
+      "youtubeId": null
+    },
+    {
+      "slug": "mood-rating",
+      "title": "Stars that change the mood",
+      "description": ":has() + an animated @property",
+      "youtubeId": "qcd_1ftMn6s"
+    },
+    {
+      "slug": "moon-phases",
+      "title": "CSS moon phases",
+      "description": "A transitioned @property moves the shadow",
+      "youtubeId": null
+    },
+    {
+      "slug": "morse-lamp",
+      "title": "CSS Morse lamp",
+      "description": "One @keyframes blinks S-O-S",
+      "youtubeId": null
+    },
+    {
+      "slug": "mushroom-rain",
+      "title": "Mushroom rain",
+      "description": "Delayed keyframes pop them up",
+      "youtubeId": null
+    },
+    {
+      "slug": "music-box",
+      "title": "Music box",
+      "description": "One click, four synced animations",
+      "youtubeId": null
+    },
+    {
+      "slug": "neon-button",
+      "title": "Animated neon button",
+      "description": "Pure CSS, zero JavaScript",
+      "youtubeId": null
+    },
+    {
+      "slug": "neon-sign",
+      "title": "Flickering neon",
+      "description": "Per-letter keyframes via a variable",
+      "youtubeId": null
+    },
+    {
+      "slug": "newtons-cradle",
+      "title": "Newton's cradle",
+      "description": "Two keyframes, endless momentum",
+      "youtubeId": null
+    },
+    {
+      "slug": "notification-bell",
+      "title": "CSS notifications",
+      "description": "A badge counted by hidden checkboxes",
+      "youtubeId": null
+    },
+    {
+      "slug": "origami-fold",
+      "title": "CSS origami",
+      "description": "rotate3d folds along the diagonals",
+      "youtubeId": null
+    },
+    {
+      "slug": "owl-head",
+      "title": "The 270° owl",
+      "description": "Hover zones + a delayed @property",
+      "youtubeId": null
+    },
+    {
+      "slug": "paint-grid",
+      "title": "Paint with your cursor",
+      "description": "New in CSS: sibling-index()",
+      "youtubeId": "WYe0uv2tNBc"
+    },
+    {
+      "slug": "paint-mix",
+      "title": "Mixing paint in CSS",
+      "description": "Nested color-mix() with transparent",
+      "youtubeId": null
+    },
+    {
+      "slug": "pancake-flip",
+      "title": "Flip the pancake",
+      "description": "rotateX with two backface-hidden sides",
+      "youtubeId": null
+    },
+    {
+      "slug": "paper-fortune-teller",
+      "title": "Paper fortune teller",
+      "description": "One keyframe, alternating axes",
+      "youtubeId": null
+    },
+    {
+      "slug": "paper-planes",
+      "title": "Paper planes on a CSS path",
+      "description": "offset-path + a path that morphs",
+      "youtubeId": "z4tWsBdbNLQ"
+    },
+    {
+      "slug": "paper-shredder",
+      "title": "CSS paper shredder",
+      "description": "A striped mask cuts the sheet",
+      "youtubeId": null
+    },
+    {
+      "slug": "parking-gate",
+      "title": "Ticket, please",
+      "description": "One click, three synced animations",
+      "youtubeId": null
+    },
+    {
+      "slug": "party-lights",
+      "title": "Party lights",
+      "description": "Radio buttons swap the keyframes",
+      "youtubeId": null
+    },
+    {
+      "slug": "password-field",
+      "title": "Show password, zero JS",
+      "description": "text-security + a pattern meter",
+      "youtubeId": null
+    },
+    {
+      "slug": "peacock-tail",
+      "title": "Peacock display",
+      "description": "11 feathers, one rotate formula",
+      "youtubeId": null
+    },
+    {
+      "slug": "pencil-sharpener",
+      "title": "Sharpen a pencil",
+      "description": "clip-path cone + sliding stripes",
+      "youtubeId": null
+    },
+    {
+      "slug": "pendulum-wave",
+      "title": "Pendulum wave",
+      "description": "One keyframe, twelve durations",
+      "youtubeId": null
+    },
+    {
+      "slug": "penguin-slide",
+      "title": "Penguin slide",
+      "description": "offset-path with offset-rotate: auto",
+      "youtubeId": null
+    },
+    {
+      "slug": "photocopier",
+      "title": "CSS photocopier",
+      "description": "A negative scale flips the lid",
+      "youtubeId": null
+    },
+    {
+      "slug": "piggy-bank",
+      "title": "CSS piggy bank",
+      "description": "Checkboxes that count your coins",
+      "youtubeId": null
+    },
+    {
+      "slug": "pin-padlock",
+      "title": "Unlock it",
+      "description": "pattern + :valid, zero JavaScript",
+      "youtubeId": null
+    },
+    {
+      "slug": "pinata",
+      "title": "Three hits to win",
+      "description": "Radio buttons count the hits",
+      "youtubeId": null
+    },
+    {
+      "slug": "pinball-flipper",
+      "title": "Pinball flipper",
+      "description": "Overshoot keyframes + an @property score",
+      "youtubeId": null
+    },
+    {
+      "slug": "pixel-robot",
+      "title": "Pixel art with ONE div",
+      "description": "Every pixel is a box-shadow",
+      "youtubeId": null
+    },
+    {
+      "slug": "pizza-slice",
+      "title": "Pull a pizza slice",
+      "description": "clip-path wedge + stretchy cheese",
+      "youtubeId": "wDuiiKfvvRU"
+    },
+    {
+      "slug": "polaroid",
+      "title": "Instant camera",
+      "description": "A photo that develops with CSS filters",
+      "youtubeId": null
+    },
+    {
+      "slug": "pomodoro-ring",
+      "title": "Pomodoro in CSS",
+      "description": "@property integers count down",
+      "youtubeId": null
+    },
+    {
+      "slug": "pong-rally",
+      "title": "Retro tennis",
+      "description": "Ball and paddles on synced keyframes",
+      "youtubeId": "tempywgCLTE"
+    },
+    {
+      "slug": "popcorn",
+      "title": "Popcorn time",
+      "description": "Inline variables, one keyframe",
+      "youtubeId": null
+    },
+    {
+      "slug": "popover",
+      "title": "A popup with zero JavaScript",
+      "description": "popover + @starting-style",
+      "youtubeId": "CQHgiWdsGWM"
+    },
+    {
+      "slug": "popsicle-melt",
+      "title": "Popsicle melt",
+      "description": "Animating height and border-radius",
+      "youtubeId": null
+    },
+    {
+      "slug": "pottery-wheel",
+      "title": "Pottery wheel",
+      "description": "A clip-path polygon morphs into a vase",
+      "youtubeId": null
+    },
+    {
+      "slug": "radar-scan",
+      "title": "Radar scan",
+      "description": "Blips synced to a conic sweep",
+      "youtubeId": "5YZyzrqS_rY"
+    },
+    {
+      "slug": "radial-menu",
+      "title": "A radial menu in pure CSS",
+      "description": "cos() + sin() place every item",
+      "youtubeId": null
+    },
+    {
+      "slug": "rainbow-after-rain",
+      "title": "After the rain",
+      "description": "A rainbow drawn by animated conic masks",
+      "youtubeId": null
+    },
+    {
+      "slug": "ramen-noodles",
+      "title": "Ramen slurp",
+      "description": "Wavy noodles from radial gradients",
+      "youtubeId": null
+    },
+    {
+      "slug": "retractable-pen",
+      "title": "Click pen",
+      "description": "Checkbox click, clip-path signature",
+      "youtubeId": null
+    },
+    {
+      "slug": "revolving-door",
+      "title": "Revolving door",
+      "description": "preserve-3d glass wings",
+      "youtubeId": null
+    },
+    {
+      "slug": "robot-vacuum",
+      "title": "Robot vacuum",
+      "description": "offset-path zigzag with timed delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "rocket-launch",
+      "title": "3, 2, 1... liftoff!",
+      "description": "A rocket launch timed with only CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "roller-coaster",
+      "title": "CSS roller coaster",
+      "description": "One path() for the ride, offset-rotate tilts it",
+      "youtubeId": "eTUirAVmk1c"
+    },
+    {
+      "slug": "rubber-duck",
+      "title": "Squeaky duck",
+      "description": "Squash, spin and bubbles on click",
+      "youtubeId": null
+    },
+    {
+      "slug": "rubber-stamp",
+      "title": "Approved.",
+      "description": "A rubber stamp in two keyframes",
+      "youtubeId": null
+    },
+    {
+      "slug": "safe-dial",
+      "title": "Crack the safe",
+      "description": "Keyframe pauses turn a combination dial",
+      "youtubeId": "uFnwpoOsolQ"
+    },
+    {
+      "slug": "sailboat",
+      "title": "Set sail",
+      "description": "Layered gradient waves at different speeds",
+      "youtubeId": "qUH2-3KaeKQ"
+    },
+    {
+      "slug": "sand-art",
+      "title": "Sand art bottle",
+      "description": "Wavy layers from radial-gradient masks",
+      "youtubeId": "GdK7etFRAt0"
+    },
+    {
+      "slug": "satellite-panels",
+      "title": "Satellite deploy",
+      "description": "Accordion panels with nested rotateY",
+      "youtubeId": null
+    },
+    {
+      "slug": "scissors-cut",
+      "title": "Cut the paper",
+      "description": "clip-path halves + rotating blades",
+      "youtubeId": null
+    },
+    {
+      "slug": "scroll-driven",
+      "title": "Scroll animations, zero JS",
+      "description": "animation-timeline: view() + scroll()",
+      "youtubeId": "VIshyQsVMFc"
+    },
+    {
+      "slug": "seesaw",
+      "title": "CSS seesaw",
+      "description": ":has() picks the tilt angle",
+      "youtubeId": "C0yymDh_AX0"
+    },
+    {
+      "slug": "seismograph",
+      "title": "CSS earthquake",
+      "description": "A masked trace and an @property needle",
+      "youtubeId": "cTCdHIufO0k"
+    },
+    {
+      "slug": "sewing-stitch",
+      "title": "Sewing machine",
+      "description": "A dashed line grows in sync",
+      "youtubeId": null
+    },
+    {
+      "slug": "shell-game",
+      "title": "Where's the ball?",
+      "description": "Three cups, three keyframes",
+      "youtubeId": null
+    },
+    {
+      "slug": "shy-ghost",
+      "title": "Shy CSS ghost",
+      "description": "It hides when you hover it",
+      "youtubeId": null
+    },
+    {
+      "slug": "skateboard-kickflip",
+      "title": "CSS kickflip",
+      "description": "rotateX in 3D with preserve-3d",
+      "youtubeId": null
+    },
+    {
+      "slug": "skeleton-loader",
+      "title": "The perfect loading state",
+      "description": "Skeleton shimmer to content, pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "sketch-house",
+      "title": "Pencil sketch",
+      "description": "Lines that grow, then a watercolour mask",
+      "youtubeId": null
+    },
+    {
+      "slug": "sky-lanterns",
+      "title": "Sky lanterns",
+      "description": "Rising lanterns, mirrored with box-reflect",
+      "youtubeId": null
+    },
+    {
+      "slug": "sleepy-cat",
+      "title": "Pet the cat",
+      "description": "One :hover wakes it up",
+      "youtubeId": null
+    },
+    {
+      "slug": "sliding-puzzle",
+      "title": "Sliding puzzle",
+      "description": "Tiles slide with :has() states",
+      "youtubeId": null
+    },
+    {
+      "slug": "slot-machine",
+      "title": "A slot machine in pure CSS",
+      "description": "steps() + animation-play-state",
+      "youtubeId": "eyI1UN0CPpI"
+    },
+    {
+      "slug": "snail-race",
+      "title": "Snail race",
+      "description": "Same duration, different easing",
+      "youtubeId": null
+    },
+    {
+      "slug": "snow-globe",
+      "title": "Shake the snow globe",
+      "description": "Pure CSS, one click",
+      "youtubeId": null
+    },
+    {
+      "slug": "snowflake-grow",
+      "title": "Grow a snowflake",
+      "description": "One arm, rotated six times",
+      "youtubeId": null
+    },
+    {
+      "slug": "soccer-penalty",
+      "title": "Top corner goal",
+      "description": "A curved shot with offset-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "soda-can-fizz",
+      "title": "Soda can fizz",
+      "description": "Pop the tab with rotateX",
+      "youtubeId": null
+    },
+    {
+      "slug": "solar-eclipse",
+      "title": "Solar eclipse",
+      "description": "One 7s timeline syncs moon, sky and stars",
+      "youtubeId": "X9wmE2oLfd8"
+    },
+    {
+      "slug": "solar-system",
+      "title": "Hover the sun to stop time",
+      "description": "A whole solar system in pure CSS",
+      "youtubeId": "FN8d-0YThGk"
+    },
+    {
+      "slug": "spider-drop",
+      "title": "Spider drop",
+      "description": "A bouncy linear() easing on a silk thread",
+      "youtubeId": null
+    },
+    {
+      "slug": "spinning-top",
+      "title": "CSS spinning top",
+      "description": "A conic-gradient spun with linear() easing",
+      "youtubeId": null
+    },
+    {
+      "slug": "spirit-level",
+      "title": "CSS spirit level",
+      "description": "Radios that tilt and slide a bubble",
+      "youtubeId": null
+    },
+    {
+      "slug": "spirograph",
+      "title": "CSS spirograph",
+      "description": "Nested rotations draw a hypotrochoid",
+      "youtubeId": null
+    },
+    {
+      "slug": "split-flap",
+      "title": "Split-flap board",
+      "description": "Letter strips flipped with steps()",
+      "youtubeId": "PEptLYCPmNM"
+    },
+    {
+      "slug": "stained-glass",
+      "title": "Stained glass light",
+      "description": "Clip-path shards cast on the floor",
+      "youtubeId": null
+    },
+    {
+      "slug": "sticky-note-peel",
+      "title": "Peel the sticky note",
+      "description": "clip-path + a gradient fold",
+      "youtubeId": "BKwOlQPQ1ws"
+    },
+    {
+      "slug": "submarine-dive",
+      "title": "Submarine dive",
+      "description": "A tall gradient and an @property depth meter",
+      "youtubeId": null
+    },
+    {
+      "slug": "submit-button",
+      "title": "The most satisfying button",
+      "description": "Loader, check and confetti: pure CSS",
+      "youtubeId": null
+    },
+    {
+      "slug": "subway-line",
+      "title": "Metro map",
+      "description": "One offset-path, synced transition delays",
+      "youtubeId": null
+    },
+    {
+      "slug": "sundial",
+      "title": "CSS sundial",
+      "description": "offset-path sun, rotating shadow",
+      "youtubeId": null
+    },
+    {
+      "slug": "sunflower-sun",
+      "title": "Sunflowers follow",
+      "description": "offset-path sun, rotate synced",
+      "youtubeId": null
+    },
+    {
+      "slug": "sushi-belt",
+      "title": "Sushi conveyor",
+      "description": "offset-path follows any shape",
+      "youtubeId": null
+    },
+    {
+      "slug": "synthwave",
+      "title": "A synthwave scene in CSS",
+      "description": "mask + a grid tilted in 3D",
+      "youtubeId": "ipovPKQ7y_Q"
+    },
+    {
+      "slug": "tangram",
+      "title": "Tangram cat",
+      "description": "7 clip-path pieces, one transition",
+      "youtubeId": null
+    },
+    {
+      "slug": "tape-measure",
+      "title": "Tape measure",
+      "description": "@property counts the centimeters",
+      "youtubeId": null
+    },
+    {
+      "slug": "tea-bag",
+      "title": "Steep some tea",
+      "description": "Colour diffusion with @property",
+      "youtubeId": "sTPep5Z5dc8"
+    },
+    {
+      "slug": "telescope-moon",
+      "title": "Telescope zoom",
+      "description": "clip-path circle + scale lens view",
+      "youtubeId": null
+    },
+    {
+      "slug": "tetris-line",
+      "title": "Line clear",
+      "description": "Steps() falling blocks and an @property score",
+      "youtubeId": "75Gvba_R3bA"
+    },
+    {
+      "slug": "theater-curtain",
+      "title": "Curtain call",
+      "description": "Curtains drawn with scaleX and skew",
+      "youtubeId": "vlXyvTvS7I4"
+    },
+    {
+      "slug": "theme-card",
+      "title": "Dark mode in one line of CSS",
+      "description": "light-dark() + color-mix()",
+      "youtubeId": "7fCuDG4BXqc"
+    },
+    {
+      "slug": "thermometer",
+      "title": "CSS thermometer",
+      "description": "@property animates color and numbers",
+      "youtubeId": null
+    },
+    {
+      "slug": "tic-tac-toe",
+      "title": "CSS tic-tac-toe",
+      "description": ":has() detects three in a row",
+      "youtubeId": "HLVstAIrmT4"
+    },
+    {
+      "slug": "toaster",
+      "title": "Pure CSS toaster",
+      "description": "One click, one keyframe timeline",
+      "youtubeId": null
+    },
+    {
+      "slug": "todo-counter",
+      "title": "A to-do list that counts itself",
+      "description": "CSS counters + :has(), no JS",
+      "youtubeId": "_574DjLO6Is"
+    },
+    {
+      "slug": "toothpaste",
+      "title": "Striped toothpaste",
+      "description": "One gradient, extruded in a wave",
+      "youtubeId": null
+    },
+    {
+      "slug": "top-secret",
+      "title": "Declassified",
+      "description": "A decoder lens made of clip-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "tornado",
+      "title": "CSS tornado",
+      "description": "Stacked ellipses that sway and spin",
+      "youtubeId": "URhfNq1I8AY"
+    },
+    {
+      "slug": "traffic-roundabout",
+      "title": "CSS roundabout",
+      "description": "offset-path: circle() traffic",
+      "youtubeId": null
+    },
+    {
+      "slug": "train-tunnel",
+      "title": "Tunnel train",
+      "description": "Staggered delays and a mask",
+      "youtubeId": null
+    },
+    {
+      "slug": "trampoline-flip",
+      "title": "Trampoline backflip",
+      "description": "Keyframes synced to a stretching mat",
+      "youtubeId": "BkdKG4tYHMM"
+    },
+    {
+      "slug": "treasure-chest",
+      "title": "Open the chest",
+      "description": "3D lid with rotateX and perspective",
+      "youtubeId": null
+    },
+    {
+      "slug": "tree-grow",
+      "title": "Growing tree",
+      "description": "Recursive branches at 70% of the parent",
+      "youtubeId": null
+    },
+    {
+      "slug": "trumpet",
+      "title": "CSS trumpet",
+      "description": "Notes riding a wavy offset-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "turtle-shell",
+      "title": "Shy turtle",
+      "description": "Hover to retract with transitions",
+      "youtubeId": null
+    },
+    {
+      "slug": "typewriter",
+      "title": "CSS typewriter",
+      "description": "steps() types, the carriage follows",
+      "youtubeId": null
+    },
+    {
+      "slug": "typing-keyboard",
+      "title": "Typing keyboard",
+      "description": "Keys timed to every typed letter",
+      "youtubeId": "llb-qQE3UvQ"
+    },
+    {
+      "slug": "ufo-abduction",
+      "title": "UFO abduction",
+      "description": "A tractor beam made of clip-path",
+      "youtubeId": null
+    },
+    {
+      "slug": "umbrella-rain",
+      "title": "Rainy day mood",
+      "description": ":hover opens the umbrella",
+      "youtubeId": null
+    },
+    {
+      "slug": "unfolding-cube",
+      "title": "A cube that unfolds",
+      "description": "3D in pure CSS, one click",
+      "youtubeId": "qyr130kUxwY"
+    },
+    {
+      "slug": "usb-plug-flip",
+      "title": "USB plug law",
+      "description": "Keyframes that flip with rotate: x",
+      "youtubeId": "SRDpSQJHurQ"
+    },
+    {
+      "slug": "vending-machine",
+      "title": "CSS vending machine",
+      "description": "A turning coil drops your snack",
+      "youtubeId": "wGOxOkXky34"
+    },
+    {
+      "slug": "venetian-blinds",
+      "title": "Open the blinds",
+      "description": "rotateX slats with staggered delays",
+      "youtubeId": "t7Md0jBRC10"
+    },
+    {
+      "slug": "vinyl-player",
+      "title": "A vinyl player in pure CSS",
+      "description": "Gradients + animation-play-state",
+      "youtubeId": null
+    },
+    {
+      "slug": "volcano",
+      "title": "Make it erupt",
+      "description": "An animated gradient stop pours the lava",
+      "youtubeId": null
+    },
+    {
+      "slug": "warp-speed",
+      "title": "Jump to warp",
+      "description": "Rotated dots that scaleX into streaks",
+      "youtubeId": "6JjEasb9spI"
+    },
+    {
+      "slug": "washing-machine",
+      "title": "Laundry day",
+      "description": "An animated percentage fills the drum",
+      "youtubeId": null
+    },
+    {
+      "slug": "water-counter",
+      "title": "Numbers that count up in CSS",
+      "description": "@property <integer> + counter()",
+      "youtubeId": null
+    },
+    {
+      "slug": "water-plant",
+      "title": "Water me",
+      "description": "Staggered transitions grow a flower",
+      "youtubeId": "ld8PSDJvVwo"
+    },
+    {
+      "slug": "waterfall",
+      "title": "CSS waterfall",
+      "description": "Gradients scrolling at 3 speeds",
+      "youtubeId": null
+    },
+    {
+      "slug": "wavy-3d-text",
+      "title": "3D text that rides a wave",
+      "description": "text-shadow + color-mix(currentColor)",
+      "youtubeId": null
+    },
+    {
+      "slug": "weather-if",
+      "title": "CSS has if() now",
+      "description": "A weather card driven by one variable",
+      "youtubeId": "VqQZRu1OLnw"
+    },
+    {
+      "slug": "whack-a-mole",
+      "title": "A game made with only CSS",
+      "description": "Whack-a-mole: counters + :has()",
+      "youtubeId": "Otkev3Wfh2A"
+    },
+    {
+      "slug": "whale-spout",
+      "title": "Whale dive",
+      "description": "Inline-var droplets and a fluke dive",
+      "youtubeId": null
+    },
+    {
+      "slug": "wind-chimes",
+      "title": "Wind chimes",
+      "description": "Hover restarts a damped sin() swing",
+      "youtubeId": "IGyKQKQccUE"
+    },
+    {
+      "slug": "wind-turbine",
+      "title": "Wind turbine",
+      "description": "Stacked paused animations add speed",
+      "youtubeId": null
+    },
+    {
+      "slug": "windshield-wipers",
+      "title": "Rainy windshield",
+      "description": "Wipers mask the rain with @property",
+      "youtubeId": "qVsfym-vXAU"
+    },
+    {
+      "slug": "wrecking-ball",
+      "title": "Wrecking ball",
+      "description": "Inline vars drive every flying brick",
+      "youtubeId": "ydfNImhrOwk"
+    },
+    {
+      "slug": "xylophone",
+      "title": "Rainbow xylophone",
+      "description": "Hover glissando with one @property",
+      "youtubeId": "jVmSP7JblEs"
+    },
+    {
+      "slug": "yo-yo",
+      "title": "CSS yo-yo",
+      "description": "Animating height and rotate",
+      "youtubeId": "1w7-4iKlE8E"
+    },
+    {
+      "slug": "zipper",
+      "title": "Unzip the jacket",
+      "description": "clip-path V + gradient zipper teeth",
+      "youtubeId": "t3fpBWRsL2Q"
+    }
+  ],
+  "videos": [
+    {
+      "id": "t7Md0jBRC10",
+      "title": "venetian blinds | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/t7Md0jBRC10",
+      "slug": "venetian-blinds"
+    },
+    {
+      "id": "BkdKG4tYHMM",
+      "title": "trampoline flip | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/BkdKG4tYHMM",
+      "slug": "trampoline-flip"
+    },
+    {
+      "id": "KVEFVzDC-IY",
+      "title": "matryoshka | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/KVEFVzDC-IY",
+      "slug": "matryoshka"
+    },
+    {
+      "id": "sTPep5Z5dc8",
+      "title": "tea bag | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/sTPep5Z5dc8",
+      "slug": "tea-bag"
+    },
+    {
+      "id": "wDuiiKfvvRU",
+      "title": "pizza slice | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/wDuiiKfvvRU",
+      "slug": "pizza-slice"
+    },
+    {
+      "id": "X9wmE2oLfd8",
+      "title": "solar eclipse | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/X9wmE2oLfd8",
+      "slug": "solar-eclipse"
+    },
+    {
+      "id": "eTUirAVmk1c",
+      "title": "roller coaster | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/eTUirAVmk1c",
+      "slug": "roller-coaster"
+    },
+    {
+      "id": "tempywgCLTE",
+      "title": "pong rally | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/tempywgCLTE",
+      "slug": "pong-rally"
+    },
+    {
+      "id": "qcd_1ftMn6s",
+      "title": "mood rating | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/qcd_1ftMn6s",
+      "slug": "mood-rating"
+    },
+    {
+      "id": "5YZyzrqS_rY",
+      "title": "radar scan | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/5YZyzrqS_rY",
+      "slug": "radar-scan"
+    },
+    {
+      "id": "SRDpSQJHurQ",
+      "title": "usb plug flip | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/SRDpSQJHurQ",
+      "slug": "usb-plug-flip"
+    },
+    {
+      "id": "cTCdHIufO0k",
+      "title": "seismograph | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/cTCdHIufO0k",
+      "slug": "seismograph"
+    },
+    {
+      "id": "IGyKQKQccUE",
+      "title": "wind chimes | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/IGyKQKQccUE",
+      "slug": "wind-chimes"
+    },
+    {
+      "id": "qVsfym-vXAU",
+      "title": "windshield wipers | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/qVsfym-vXAU",
+      "slug": "windshield-wipers"
+    },
+    {
+      "id": "VqO0nlHdBbo",
+      "title": "bicycle ride | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/VqO0nlHdBbo",
+      "slug": "bicycle-ride"
+    },
+    {
+      "id": "uFnwpoOsolQ",
+      "title": "safe dial | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/uFnwpoOsolQ",
+      "slug": "safe-dial"
+    },
+    {
+      "id": "t3fpBWRsL2Q",
+      "title": "zipper | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/t3fpBWRsL2Q",
+      "slug": "zipper"
+    },
+    {
+      "id": "qUH2-3KaeKQ",
+      "title": "sailboat | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/qUH2-3KaeKQ",
+      "slug": "sailboat"
+    },
+    {
+      "id": "z4tWsBdbNLQ",
+      "title": "paper planes | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/z4tWsBdbNLQ",
+      "slug": "paper-planes"
+    },
+    {
+      "id": "PX42WY0TIiw",
+      "title": "melting snowman | HTML CSS #html    #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/PX42WY0TIiw",
+      "slug": "melting-snowman"
+    },
+    {
+      "id": "URhfNq1I8AY",
+      "title": "tornado | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/URhfNq1I8AY",
+      "slug": "tornado"
+    },
+    {
+      "id": "ydfNImhrOwk",
+      "title": "wrecking ball | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ydfNImhrOwk",
+      "slug": "wrecking-ball"
+    },
+    {
+      "id": "GdK7etFRAt0",
+      "title": "sand art | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/GdK7etFRAt0",
+      "slug": "sand-art"
+    },
+    {
+      "id": "HLVstAIrmT4",
+      "title": "tic tac toe | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/HLVstAIrmT4",
+      "slug": "tic-tac-toe"
+    },
+    {
+      "id": "C0yymDh_AX0",
+      "title": "seesaw | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/C0yymDh_AX0",
+      "slug": "seesaw"
+    },
+    {
+      "id": "K0dTTkbFaxY",
+      "title": "3d book | HTML CSS #html    #css    #webdevelopment   This",
+      "url": "https://www.youtube.com/shorts/K0dTTkbFaxY",
+      "slug": "3d-book"
+    },
+    {
+      "id": "pwK4Hz9I19g",
+      "title": "light bulb | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/pwK4Hz9I19g",
+      "slug": "light-bulb"
+    },
+    {
+      "id": "jVmSP7JblEs",
+      "title": "xylophone | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/jVmSP7JblEs",
+      "slug": "xylophone"
+    },
+    {
+      "id": "TSSfD-KN8b8",
+      "title": "butterfly cocoon | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/TSSfD-KN8b8",
+      "slug": "butterfly-cocoon"
+    },
+    {
+      "id": "vnyKIaItb0A",
+      "title": "balloon pump | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/vnyKIaItb0A",
+      "slug": "balloon-pump"
+    },
+    {
+      "id": "llb-qQE3UvQ",
+      "title": "typing keyboard | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/llb-qQE3UvQ",
+      "slug": "typing-keyboard"
+    },
+    {
+      "id": "BKwOlQPQ1ws",
+      "title": "sticky note peel | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/BKwOlQPQ1ws",
+      "slug": "sticky-note-peel"
+    },
+    {
+      "id": "PEptLYCPmNM",
+      "title": "split flap | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/PEptLYCPmNM",
+      "slug": "split-flap"
+    },
+    {
+      "id": "Otkev3Wfh2A",
+      "title": "whack a mole | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/Otkev3Wfh2A",
+      "slug": "whack-a-mole"
+    },
+    {
+      "id": "ipovPKQ7y_Q",
+      "title": "synthwave | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ipovPKQ7y_Q",
+      "slug": "synthwave"
+    },
+    {
+      "id": "uZRU5_neZVg",
+      "title": "droidrops promo vertical",
+      "url": "https://www.youtube.com/shorts/uZRU5_neZVg",
+      "slug": null
+    },
+    {
+      "id": "JxopT1zwr7E",
+      "title": "abacus | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/JxopT1zwr7E",
+      "slug": "abacus"
+    },
+    {
+      "id": "ME5K9SVChvM",
+      "title": "caterpillar walk | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ME5K9SVChvM",
+      "slug": "caterpillar-walk"
+    },
+    {
+      "id": "6JjEasb9spI",
+      "title": "warp speed | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/6JjEasb9spI",
+      "slug": "warp-speed"
+    },
+    {
+      "id": "wGOxOkXky34",
+      "title": "vending machine | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/wGOxOkXky34",
+      "slug": "vending-machine"
+    },
+    {
+      "id": "75Gvba_R3bA",
+      "title": "tetris line | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/75Gvba_R3bA",
+      "slug": "tetris-line"
+    },
+    {
+      "id": "vN14L406m_o",
+      "title": "faq accordion | HTML CSS #html     #css     #webdevelopment",
+      "url": "https://www.youtube.com/shorts/vN14L406m_o",
+      "slug": "faq-accordion"
+    },
+    {
+      "id": "ld8PSDJvVwo",
+      "title": "water plant | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ld8PSDJvVwo",
+      "slug": "water-plant"
+    },
+    {
+      "id": "7fCuDG4BXqc",
+      "title": "theme card | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/7fCuDG4BXqc",
+      "slug": "theme-card"
+    },
+    {
+      "id": "PwDi3kXJOds",
+      "title": "egg hatch | HTML CSS #html    #css    #webdevelopment   This video was created with the help of AI.",
+      "url": "https://www.youtube.com/shorts/PwDi3kXJOds",
+      "slug": "egg-hatch"
+    },
+    {
+      "id": "vlXyvTvS7I4",
+      "title": "theater curtain | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/vlXyvTvS7I4",
+      "slug": "theater-curtain"
+    },
+    {
+      "id": "_574DjLO6Is",
+      "title": "todo counter | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/_574DjLO6Is",
+      "slug": "todo-counter"
+    },
+    {
+      "id": "xNEr4cWA1UU",
+      "title": "linear easing | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/xNEr4cWA1UU",
+      "slug": "linear-easing"
+    },
+    {
+      "id": "1w7-4iKlE8E",
+      "title": "yo yo | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/1w7-4iKlE8E",
+      "slug": "yo-yo"
+    },
+    {
+      "id": "VIshyQsVMFc",
+      "title": "scroll driven | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/VIshyQsVMFc",
+      "slug": "scroll-driven"
+    },
+    {
+      "id": "f365jqHryH4",
+      "title": "3d carousel | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/f365jqHryH4",
+      "slug": "3d-carousel"
+    },
+    {
+      "id": "I1Vchv5vIGw",
+      "title": "metronome | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/I1Vchv5vIGw",
+      "slug": "metronome"
+    },
+    {
+      "id": "CQHgiWdsGWM",
+      "title": "popover | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/CQHgiWdsGWM",
+      "slug": "popover"
+    },
+    {
+      "id": "0gTl5kfLKqQ",
+      "title": "memory game | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/0gTl5kfLKqQ",
+      "slug": "memory-game"
+    },
+    {
+      "id": "VqQZRu1OLnw",
+      "title": "weather if | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/VqQZRu1OLnw",
+      "slug": "weather-if"
+    },
+    {
+      "id": "ix1_7yl5FfE",
+      "title": "aquarium | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ix1_7yl5FfE",
+      "slug": "aquarium"
+    },
+    {
+      "id": "JPfRbhUlYUg",
+      "title": "anchor nav | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/JPfRbhUlYUg",
+      "slug": "anchor-nav"
+    },
+    {
+      "id": "LnsfDLi2jIw",
+      "title": "lighthouse | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/LnsfDLi2jIw",
+      "slug": "lighthouse"
+    },
+    {
+      "id": "WYe0uv2tNBc",
+      "title": "paint grid | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/WYe0uv2tNBc",
+      "slug": "paint-grid"
+    },
+    {
+      "id": "psSd8X8LNEM",
+      "title": "kawaii mug | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/psSd8X8LNEM",
+      "slug": "kawaii-mug"
+    },
+    {
+      "id": "b7k-kaDbp5A",
+      "title": "card fan | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/b7k-kaDbp5A",
+      "slug": "card-fan"
+    },
+    {
+      "id": "O2yfXx09PJQ",
+      "title": "hacker terminal | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/O2yfXx09PJQ",
+      "slug": "hacker-terminal"
+    },
+    {
+      "id": "qyr130kUxwY",
+      "title": "unfolding cube | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/qyr130kUxwY",
+      "slug": "unfolding-cube"
+    },
+    {
+      "id": "eyI1UN0CPpI",
+      "title": "slot machine | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/eyI1UN0CPpI",
+      "slug": "slot-machine"
+    },
+    {
+      "id": "OcDW8bec6-I",
+      "title": "css piano | HTML CSS #html    #css    #webdevelopment",
+      "url": "https://www.youtube.com/shorts/OcDW8bec6-I",
+      "slug": "css-piano"
+    },
+    {
+      "id": "yA0Cv7ZhwkE",
+      "title": "css stopwatch  | HTML CSS #html   #css   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/yA0Cv7ZhwkE",
+      "slug": "css-stopwatch"
+    },
+    {
+      "id": "FN8d-0YThGk",
+      "title": "solar system  | HTML CSS #html  #css  #webdevelopment",
+      "url": "https://www.youtube.com/shorts/FN8d-0YThGk",
+      "slug": "solar-system"
+    },
+    {
+      "id": "WUS-Zwuvii4",
+      "title": "retro crt tv  | HTML CSS #html #css #webdevelopment",
+      "url": "https://www.youtube.com/shorts/WUS-Zwuvii4",
+      "slug": "crt-tv"
+    },
+    {
+      "id": "Puj4RLtTsYY",
+      "title": "mac dock | HTML CSS #html #css #webdevelopment",
+      "url": "https://www.youtube.com/shorts/Puj4RLtTsYY",
+      "slug": "mac-dock"
+    },
+    {
+      "id": "ftaJxKS7nj4",
+      "title": "eyes follow | HTML CSS #html #css #webdevelopment",
+      "url": "https://www.youtube.com/shorts/ftaJxKS7nj4",
+      "slug": "eyes-follow"
+    },
+    {
+      "id": "_VbEdqnuxiM",
+      "title": "candle | HTML CSS #html #css #webdevelopment",
+      "url": "https://www.youtube.com/shorts/_VbEdqnuxiM",
+      "slug": "candle"
+    },
+    {
+      "id": "WwQJX8Xbt1U",
+      "title": "youvegotmail  | HTML CSS JS #html   #css   #javascript   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/WwQJX8Xbt1U",
+      "slug": null
+    },
+    {
+      "id": "koCVZUIaTj8",
+      "title": "Lava lamp | HTML CSS JS #html   #css   #javascript   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/koCVZUIaTj8",
+      "slug": "lava-lamp"
+    },
+    {
+      "id": "MP5A97zgnwU",
+      "title": "day night toggle  | HTML CSS JS #html  #css  #javascript  #webdevelopment",
+      "url": "https://www.youtube.com/shorts/MP5A97zgnwU",
+      "slug": "day-night-toggle"
+    },
+    {
+      "id": "SpQFXJDCVYI",
+      "title": "Login form | HTML CSS JS   #html   #css   #javascript   #webdevelopment",
+      "url": "https://www.youtube.com/shorts/SpQFXJDCVYI",
+      "slug": "login-form"
+    }
+  ]
+}

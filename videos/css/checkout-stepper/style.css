@@ -1,0 +1,102 @@
+@property --s {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #eef2ff;
+  font-family: system-ui;
+  transition: --s .7s ease-in-out;
+}
+
+body:has(#s1:checked) { --s: 1; }
+body:has(#s2:checked) { --s: 2; }
+body:has(#s3:checked) { --s: 3; }
+
+input { display: none; }
+
+.wizard {
+  width: 380px;
+  padding: 26px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 20px 50px #312e8122;
+}
+
+/* step dots + progress line */
+.steps {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  background: linear-gradient(#e5e7eb 0 0)
+    50% / 92% 4px no-repeat;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 4%;
+  width: calc(var(--s) / 3 * 92%);
+  height: 4px;
+  translate: 0 -50%;
+  background: #6366f1;
+}
+
+.steps i {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  /* 0 -> 1 as --s reaches this step */
+  --on: clamp(0, var(--s) - var(--n) + 1, 1);
+  background: color-mix(in srgb, #6366f1
+    calc(var(--on) * 100%), #e5e7eb);
+  color: #fff;
+  font: normal 800 16px system-ui;
+}
+
+/* passed steps get a check */
+.steps i::after {
+  content: '\2713';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #22c55e;
+  opacity: clamp(0, var(--s) - var(--n), 1);
+}
+
+.panels { overflow: hidden; }
+
+.panels {
+  display: flex;
+}
+
+section {
+  flex: 0 0 100%;
+  translate: calc(var(--s) * -100%);
+}
+
+h2 { margin: 0 0 6px; color: #1e1b4b; }
+p { margin: 0 0 18px; color: #64748b; }
+
+label {
+  display: block;
+  padding: 13px;
+  border-radius: 12px;
+  background: #6366f1;
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+}

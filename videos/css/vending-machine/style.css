@@ -1,0 +1,142 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #312e81;
+  font: 700 14px monospace;
+}
+
+#b2 { display: none; }
+
+.machine {
+  position: relative;
+  width: 340px;
+  height: 430px;
+  border-radius: 18px;
+  background: #b91c1c;
+}
+
+.machine > * { position: absolute; margin: 0; }
+
+.window {
+  top: 16px;
+  left: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  width: 216px;
+  border-radius: 10px;
+  background: linear-gradient(120deg,
+    #1e293b 60%, #334155 0);
+}
+
+/* one cell = a coil + its code */
+.window i {
+  position: relative;
+  height: 100px;
+  color: #94a3b8;
+  font-size: 11px;
+  text-align: center;
+}
+
+.window i::after {
+  content: attr(data-k);
+  position: absolute;
+  inset: auto 0 2px;
+}
+
+/* the spiral coil */
+.window i::before {
+  content: '';
+  position: absolute;
+  inset: 68px 8px 18px;
+  background: repeating-linear-gradient(60deg,
+    #cbd5e1 0 3px, #0000 0 10px);
+}
+
+/* a snack bag sitting on the coil */
+.window b {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  width: 44px;
+  height: 54px;
+  border-radius: 6px 6px 10px 10px;
+  background: linear-gradient(#fff6 0 0)
+    0 20px / 100% 8px no-repeat, var(--c);
+}
+
+/* B2: the coil turns... */
+#b2:checked + .machine [data-k=B2]::before {
+  animation: turn .3s linear 4;
+}
+
+@keyframes turn {
+  to { background-position: 23px 0; }
+}
+
+/* ...and the snack drops with a bounce */
+#b2:checked + .machine [data-k=B2] b {
+  z-index: 2;
+  animation: fall 1.4s 1.1s forwards;
+}
+
+@keyframes fall {
+  15% { translate: 0 6px; scale: 1.1;
+    animation-timing-function: ease-in; }
+  70% { translate: 0 222px; scale: 1.1; }
+  82% { translate: 0 198px; scale: 1.1;
+    animation-timing-function: ease-in; }
+  to { translate: 0 222px; scale: 1.1; }
+}
+
+.screen {
+  top: 24px;
+  right: 16px;
+  width: 80px;
+  height: 34px;
+  border-radius: 6px;
+  background: #052e16;
+  color: #4ade80;
+  line-height: 34px;
+  text-align: center;
+}
+
+.screen::after { content: '- -'; }
+
+#b2:checked + .machine .screen::after {
+  animation: msg 3.2s forwards;
+}
+
+@keyframes msg {
+  0%, 75% { content: 'B2'; }
+  76%, to { content: 'ENJOY'; }
+}
+
+.key {
+  top: 76px;
+  right: 26px;
+  width: 60px;
+  height: 44px;
+  border-radius: 8px;
+  background: #e2e8f0;
+  color: #1e293b;
+  font-size: 20px;
+  line-height: 44px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#b2:checked + .machine .key {
+  background: #facc15;
+}
+
+.tray {
+  left: 16px;
+  bottom: 18px;
+  width: 216px;
+  height: 70px;
+  border-radius: 10px;
+  background: #020617;
+}

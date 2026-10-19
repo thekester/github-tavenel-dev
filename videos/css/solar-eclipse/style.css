@@ -1,0 +1,113 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.sky {
+  position: relative;
+  width: 380px;
+  height: 340px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #38bdf8;
+}
+
+.sky i {
+  position: absolute;
+  top: 80px;
+  left: 125px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.sun {
+  background: #fde047;
+  box-shadow: 0 0 40px #facc15;
+}
+
+/* the moon starts off-screen */
+.moon {
+  background: #1e293b;
+  translate: -270px;
+}
+
+/* the corona: a glowing ring */
+.corona {
+  box-shadow: 0 0 25px 12px #fff,
+    0 0 70px 30px #bae6fd;
+  opacity: 0;
+}
+
+.sky .stars {
+  inset: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background:
+    radial-gradient(#fff 1.5px, #0000 2.5px)
+      0 0 / 70px 60px,
+    radial-gradient(#fff 1px, #0000 2px)
+      30px 25px / 90px 80px;
+  opacity: 0;
+}
+
+.sky .hill {
+  inset: auto -40px -120px;
+  width: auto;
+  height: 200px;
+  background: #16a34a;
+}
+
+/* one timeline drives every layer */
+#go:checked + .sky {
+  animation: sky 7s;
+}
+
+#go:checked + .sky .moon {
+  animation: moon 7s ease-in-out;
+}
+
+#go:checked + .sky :is(.corona, .stars) {
+  animation: night 7s;
+}
+
+#go:checked + .sky .hill {
+  animation: dim 7s;
+}
+
+@keyframes moon {
+  40%, 60% { translate: 0; }
+  to { translate: 270px; }
+}
+
+@keyframes sky {
+  40%, 60% { background: #020617; }
+}
+
+@keyframes night {
+  0%, 36%, 64%, to { opacity: 0; }
+  42%, 58% { opacity: 1; }
+}
+
+@keyframes dim {
+  40%, 60% { filter: brightness(.25); }
+}
+
+label {
+  padding: 12px 36px;
+  border-radius: 30px;
+  background: #fde047;
+  color: #1e293b;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}

@@ -1,0 +1,115 @@
+@property --p {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 12;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1120;
+  font-family: system-ui;
+  transition: --p 1s;
+}
+
+#plug { display: none; }
+
+/* charging: count up to 100 */
+body:has(#plug:checked) {
+  --p: 100;
+  transition: --p 7s linear;
+}
+
+.battery {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 130px;
+  height: 240px;
+  padding: 8px;
+  border: 8px solid #cbd5e1;
+  border-radius: 26px;
+  /* glow only past 90% */
+  box-shadow: 0 0 calc(max(0, var(--p) - 90)
+    * 5px) #22c55e;
+}
+
+.battery::before {
+  content: '';
+  position: absolute;
+  top: -22px;
+  width: 46px;
+  height: 12px;
+  border-radius: 6px 6px 0 0;
+  background: #cbd5e1;
+}
+
+.level {
+  position: absolute;
+  inset: auto 8px 8px;
+  height: calc(var(--p) * (100% - 16px) / 100);
+  border-radius: 14px;
+  /* red -> orange -> green */
+  background: hsl(calc(var(--p) * 1.2)
+    85% 50%);
+}
+
+.pct {
+  position: relative;
+  color: #fff;
+  font-size: 34px;
+  font-weight: 900;
+  text-shadow: 0 2px 6px #0007;
+  counter-reset: p var(--p);
+}
+
+.pct::after { content: counter(p) '%'; }
+
+.bolt {
+  position: absolute;
+  top: 40px;
+  width: 30px;
+  height: 46px;
+  background: #fff;
+  clip-path: polygon(60% 0, 0 58%, 45% 58%,
+    35% 100%, 100% 38%, 55% 38%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+body:has(#plug:checked) .bolt {
+  opacity: 1;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse { to { scale: 1.2; } }
+
+/* the plug slides into the port */
+.plug {
+  position: relative;
+  width: 34px;
+  height: 44px;
+  margin-top: 60px;
+  border-radius: 6px;
+  background: #64748b;
+  cursor: pointer;
+  transition: translate .5s;
+}
+
+.plug::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  width: 10px;
+  height: 200px;
+  background: #334155;
+}
+
+body:has(#plug:checked) .plug {
+  translate: 0 -52px;
+}

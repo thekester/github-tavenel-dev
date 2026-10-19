@@ -1,0 +1,127 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fef3c7;
+}
+
+#go { display: none; }
+
+.machine {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  border-bottom: 6px solid #a16207;
+}
+
+.machine > * { position: absolute; }
+
+/* ten gumballs = ten gradients */
+.globe {
+  top: 0;
+  left: 40px;
+  width: 200px;
+  aspect-ratio: 1;
+  border: 6px solid #fff8;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 62%,
+      #ef4444 17px, #0000 18px),
+    radial-gradient(circle at 52% 72%,
+      #3b82f6 17px, #0000 18px),
+    radial-gradient(circle at 74% 62%,
+      #22c55e 17px, #0000 18px),
+    radial-gradient(circle at 40% 82%,
+      #facc15 17px, #0000 18px),
+    radial-gradient(circle at 64% 84%,
+      #a855f7 17px, #0000 18px),
+    radial-gradient(circle at 22% 80%,
+      #f97316 17px, #0000 18px),
+    radial-gradient(circle at 80% 80%,
+      #ec4899 17px, #0000 18px),
+    radial-gradient(circle at 50% 50%,
+      #14b8a6 17px, #0000 18px),
+    radial-gradient(circle at 30% 40%,
+      #facc15 17px, #0000 18px),
+    radial-gradient(circle at 70% 40%,
+      #ef4444 17px, #0000 18px),
+    #fff6;
+}
+
+.base {
+  top: 190px;
+  left: 60px;
+  width: 160px;
+  height: 210px;
+  border-radius: 24px 24px 8px 8px;
+  background: #dc2626;
+}
+
+/* the exit door */
+.base::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  right: 14px;
+  width: 50px;
+  height: 36px;
+  border-radius: 8px;
+  background: #7f1d1d;
+}
+
+.knob {
+  top: 240px;
+  left: 115px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  cursor: pointer;
+  transition: rotate .8s ease-in-out;
+}
+
+.knob::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 5px;
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+  background: #9ca3af;
+}
+
+.gum {
+  top: 338px;
+  left: 168px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    #fff 3px, #22c55e 5px);
+  scale: 0;
+}
+
+#go:checked + .machine .knob { rotate: 1turn; }
+
+#go:checked + .machine .globe {
+  animation: jiggle .1s 8 alternate;
+}
+
+@keyframes jiggle { to { rotate: 3deg; } }
+
+#go:checked + .machine .gum {
+  animation: roll 1.8s .8s forwards;
+}
+
+/* out, drop, bounce, roll away */
+@keyframes roll {
+  15% { scale: 1; translate: 20px 0; }
+  35% { scale: 1; translate: 60px 34px;
+    animation-timing-function: ease-out; }
+  55% { scale: 1; translate: 90px 10px;
+    animation-timing-function: ease-in; }
+  75%, to { scale: 1; translate: 120px 34px;
+    rotate: 1turn; }
+}

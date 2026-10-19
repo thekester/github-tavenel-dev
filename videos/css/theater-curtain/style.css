@@ -1,0 +1,135 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a09;
+  font-family: Georgia, serif;
+}
+
+#go { display: none; }
+
+.stage {
+  position: relative;
+  width: 380px;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(#292524 75%,
+    #78350f 0);
+}
+
+.stage > * { position: absolute; margin: 0; }
+
+/* velvet folds */
+.curtain {
+  inset: 0 50% 0 0;
+  background: repeating-linear-gradient(90deg,
+    #7f1d1d, #dc2626 10px, #7f1d1d 22px);
+  transform-origin: left;
+}
+.curtain.r {
+  inset: 0 0 0 50%;
+  transform-origin: right;
+}
+
+.valance {
+  inset: 0 0 auto;
+  height: 40px;
+  background: radial-gradient(circle at 50% 0,
+    #991b1b 19px, #eab308 0 22px, #0000 0)
+    0 26px / 38px 26px repeat-x,
+    linear-gradient(#991b1b 26px, #0000 0);
+}
+
+/* curtains bunch up at the edges */
+#go:checked + .stage .curtain {
+  animation: open 1.6s ease-in-out forwards;
+}
+#go:checked + .stage .r { --s: -1; }
+
+@keyframes open {
+  to {
+    transform: skewX(calc(var(--s, 1) * 7deg))
+      scaleX(.2);
+    border-radius: 0 0 100% 0 / 0 0 25% 0;
+  }
+}
+
+.spot {
+  top: 0;
+  left: 40px;
+  width: 200px;
+  height: 100%;
+  background: linear-gradient(#fef9c388, #0000);
+  clip-path: polygon(48% 0, 52% 0, 100% 100%,
+    0 100%);
+  rotate: 18deg;
+  opacity: 0;
+}
+.spot.r { left: 140px; rotate: -18deg; }
+
+h2 {
+  top: 50px;
+  width: 100%;
+  color: #fde047;
+  font-size: 46px;
+  text-align: center;
+  opacity: 0;
+}
+
+#go:checked + .stage :is(.spot, h2) {
+  transition: opacity .8s 1.2s;
+  opacity: 1;
+}
+
+/* stick figure: legs + a torso that bows */
+.actor {
+  bottom: 48px;
+  left: 170px;
+  width: 40px;
+  height: 46px;
+}
+.actor::before, .actor b::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  clip-path: polygon(45% 0, 55% 0, 100% 100%,
+    88% 100%, 50% 14%, 12% 100%, 0 100%);
+}
+.actor b {
+  position: absolute;
+  left: 18px;
+  bottom: 44px;
+  width: 4px;
+  height: 46px;
+  background: #fff;
+  transform-origin: bottom;
+}
+.actor b::before {
+  content: '';
+  position: absolute;
+  top: -28px;
+  left: -12px;
+  width: 28px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+}
+.actor b::after { inset: 6px -16px 4px; }
+#go:checked + .stage b {
+  animation: bow 1.2s 2s 2;
+}
+@keyframes bow { 50% { rotate: 70deg; } }
+
+label {
+  padding: 12px 34px;
+  border: 2px solid #eab308;
+  border-radius: 99px;
+  color: #fde047;
+  font-size: 24px;
+  cursor: pointer;
+}

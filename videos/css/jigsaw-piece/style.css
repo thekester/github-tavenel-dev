@@ -1,0 +1,118 @@
+@keyframes snap {
+  from { rotate: -35deg; }
+  70% { translate: -46px -226px;
+    rotate: 6deg; scale: 1.15; }
+  85%, to { translate: -46px -206px;
+    rotate: 0deg; scale: 1; }
+}
+@keyframes bob { to { rotate: -25deg; } }
+@keyframes sweep { to { translate: 520px; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+}
+#fit { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 420px;
+  /* one landscape, shared by picture + piece */
+  --pic:
+    radial-gradient(120% 50% at 25% 100%,
+      #22c55e 60%, #0000 61%),
+    radial-gradient(90% 45% at 95% 100%,
+      #15803d 60%, #0000 61%),
+    conic-gradient(from 135deg at 68% 38%,
+      #475569 90deg, #0000 0),
+    conic-gradient(from 135deg at 34% 26%,
+      #64748b 90deg, #0000 0),
+    radial-gradient(circle at 80% 20%,
+      #fde047 9%, #0000 9.5%),
+    linear-gradient(#0ea5e9, #bae6fd);
+}
+.scene > * { position: absolute; }
+
+.pic {
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  height: 240px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 8px #f5f5f4, 0 20px 40px #000;
+  /* faint seams between the other pieces */
+  background:
+    linear-gradient(90deg, #0003 1px, #0000 0)
+      0 0 / 80px 80px,
+    linear-gradient(#0003 1px, #0000 0)
+      0 0 / 80px 80px,
+    var(--pic);
+}
+
+/* the piece shape: a square + two round knobs */
+.piece, .hole {
+  position: absolute;
+  inset: 0;
+  width: 112px;
+  height: 112px;
+  mask:
+    radial-gradient(13px at 50% 16px,
+      #000 98%, #0000),
+    radial-gradient(13px at 96px 50%,
+      #000 98%, #0000),
+    conic-gradient(#000 0 0)
+      16px 16px / 80px 80px no-repeat;
+}
+.hole {
+  inset: 64px 0 0 144px;
+  background: #1c1917cc;
+}
+.piece {
+  background: var(--pic);
+  background-size: 320px 240px;
+  background-position: -144px -64px;
+  rotate: -35deg;
+  animation: bob 1s infinite alternate;
+}
+
+label {
+  top: 290px;
+  left: 210px;
+  width: 112px;
+  height: 112px;
+  filter: drop-shadow(0 12px 8px #000a);
+  cursor: pointer;
+}
+
+#fit:checked + .scene label {
+  filter: none;
+  transition: filter .3s 1s;
+}
+#fit:checked + .scene .piece {
+  animation: snap 1.5s forwards;
+}
+
+/* light sweep once the picture is complete */
+.shine {
+  inset: 20px 20px auto;
+  height: 240px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shine::before {
+  content: '';
+  position: absolute;
+  inset: -40px auto;
+  left: -160px;
+  width: 80px;
+  rotate: 20deg;
+  background: linear-gradient(90deg, #0000,
+    #fff9, #0000);
+}
+#fit:checked + .scene .shine::before {
+  animation: sweep 1s 1.7s ease-in forwards;
+}

@@ -1,0 +1,138 @@
+@property --alt {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0c4a6e;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.sky {
+  position: relative;
+  width: 360px;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(#38bdf8, #e0f2fe);
+}
+
+.sky > * { position: absolute; margin: 0; }
+
+.cloud {
+  width: 110px;
+  height: 36px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 30px -18px 0 6px #fff;
+}
+
+.c1 { top: 60px; left: 20px; }
+.c2 { top: 300px; left: 220px; scale: .7; }
+
+.balloon {
+  top: 150px;
+  left: 100px;
+  width: 160px;
+  height: 290px;
+  cursor: pointer;
+}
+
+/* striped envelope */
+.balloon::before {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 190px;
+  border-radius: 50% 50% 46% 46% /
+    56% 56% 44% 44%;
+  background:
+    radial-gradient(circle at 35% 30%,
+      #fff6, #0000 60%),
+    repeating-linear-gradient(90deg,
+      #ef4444 0 32px, #facc15 0 64px);
+}
+
+.flame {
+  position: absolute;
+  top: 196px;
+  left: 70px;
+  width: 20px;
+  height: 30px;
+  border-radius: 50% / 60% 60% 40% 40%;
+  background: radial-gradient(#fef08a, #f97316);
+  scale: 0;
+  transition: scale .3s;
+}
+
+.basket {
+  position: absolute;
+  top: 240px;
+  left: 55px;
+  width: 50px;
+  height: 36px;
+  border-radius: 4px 4px 10px 10px;
+  background: #92400e;
+}
+
+/* two ropes */
+.basket::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 2px;
+  right: 2px;
+  height: 56px;
+  border-inline: 2px solid #78350f;
+}
+
+.alt {
+  bottom: 14px;
+  left: 18px;
+  color: #0c4a6e;
+  font-size: 24px;
+  font-weight: 800;
+  counter-reset: alt var(--alt);
+}
+
+.alt::after { content: 'ALT ' counter(alt) ' m'; }
+
+/* fire! the balloon climbs, the clouds fall */
+#go:checked + .sky {
+  animation: climb 6s linear forwards;
+}
+
+@keyframes climb { to { --alt: 500; } }
+
+#go:checked + .sky .flame {
+  scale: 1;
+  animation: flicker .15s infinite alternate;
+}
+
+@keyframes flicker { to { scale: .8 1.15; } }
+
+#go:checked + .sky .balloon {
+  animation: rise 6s ease-in-out forwards;
+}
+
+@keyframes rise {
+  to { translate: 0 -110px; }
+}
+
+#go:checked + .sky .cloud {
+  animation: pass 2.5s linear infinite;
+}
+
+#go:checked + .sky .c2 { animation-delay: -1.2s; }
+
+@keyframes pass {
+  from { translate: 0 -420px; }
+  to { translate: 0 520px; }
+}

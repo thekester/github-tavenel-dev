@@ -1,0 +1,75 @@
+:root {
+  /* real physics, sampled into linear() */
+  --bounce: linear(
+    0, 0.005, 0.019, 0.043, 0.076, 0.118, 0.17, 0.232,
+    0.303, 0.383, 0.473, 0.572, 0.681, 0.799, 0.926, 0.97,
+    0.91, 0.86, 0.819, 0.788, 0.766, 0.753, 0.75, 0.757,
+    0.772, 0.798, 0.833, 0.877, 0.931, 0.994, 0.973, 0.952,
+    0.94, 0.938, 0.945, 0.962, 0.988, 0.991, 0.985, 0.988,
+    1);
+  --spring: linear(
+    0, 0.041, 0.145, 0.288, 0.449, 0.61, 0.76, 0.89,
+    0.994, 1.072, 1.124, 1.153, 1.163, 1.158, 1.141, 1.118,
+    1.092, 1.066, 1.041, 1.02, 1.002, 0.989, 0.98, 0.975,
+    0.973, 0.974, 0.977, 0.98, 0.985, 0.989, 0.993, 0.996,
+    0.999, 1.002, 1.003, 1.004, 1.004, 1.004, 1.004, 1.003,
+    1);
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f1020;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.lanes {
+  display: grid;
+  gap: 26px;
+  cursor: pointer;
+}
+
+.lanes div {
+  position: relative;
+  width: 440px;
+  height: 56px;
+  border-radius: 28px;
+  background: #1c1d38;
+}
+
+b {
+  position: absolute;
+  top: -22px;
+  left: 12px;
+  color: #8b8fc7;
+  font-size: 15px;
+}
+
+i {
+  position: absolute;
+  top: 3px;
+  left: 56px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #94a3b8;
+  transition: translate 1.4s ease;
+}
+
+.bounce i {
+  background: #f472b6;
+  transition-timing-function: var(--bounce);
+}
+
+.spring i {
+  background: #22d3ee;
+  transition-timing-function: var(--spring);
+}
+
+#go:checked + .lanes i {
+  translate: 280px;
+}

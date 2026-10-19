@@ -1,0 +1,131 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #0b1020;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.space {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(1.5px at 20% 30%, #fff 60%,
+      #0000) 0 0 / 97px 89px,
+    radial-gradient(1px at 70% 60%, #fff 60%,
+      #0000) 0 0 / 61px 73px,
+    radial-gradient(2px at 40% 80%, #fff8 60%,
+      #0000) 0 0 / 131px 117px,
+    #020617;
+}
+
+.space * { position: absolute; }
+
+.planet {
+  left: -150px;
+  top: 310px;
+  width: 700px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 4%,
+    #7dd3fc, #2563eb 12%, #1e1b4b 40%);
+  box-shadow: 0 0 40px #38bdf8;
+}
+
+/* gold foil body; perspective for the wings */
+.sat {
+  left: 172px;
+  top: 96px;
+  width: 56px;
+  height: 70px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(45deg,
+    #fbbf24 0 6px, #d97706 0 12px);
+  perspective: 600px;
+}
+
+/* boom + nested panel segments */
+.wing {
+  left: 100%;
+  top: 9px;
+  width: 10px;
+  height: 52px;
+  background: linear-gradient(#94a3b8 0 0)
+    0 50% / 100% 4px no-repeat;
+  transform-style: preserve-3d;
+}
+
+.left { left: auto; right: 100%; scale: -1 1; }
+
+.wing i {
+  left: 100%;
+  width: 44px;
+  height: 52px;
+  outline: 2px solid #1e3a8a;
+  background:
+    linear-gradient(90deg, #0000 45%, #bfdbfe
+      0 55%, #0000 0) 0 0 / 22px 100%,
+    linear-gradient(135deg, #1e3a8a, #3b82f6);
+  transform-style: preserve-3d;
+  transform-origin: left;
+  transform: rotateY(var(--f));
+  transition: transform .7s var(--d) ease-out;
+}
+
+/* zigzag folds, opened one after another */
+.wing i { --f: 80deg; --d: 0s; }
+.wing i i { --f: -160deg; --d: .35s; }
+.wing i i i { --f: 160deg; --d: .7s; }
+
+:has(#go:checked) .wing i { transform: none; }
+
+.dish {
+  left: 8px;
+  top: calc(100% + 4px);
+  width: 40px;
+  height: 18px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(#f1f5f9, #94a3b8);
+  rotate: -110deg;
+  transition: rotate 1s 1.3s;
+}
+
+:has(#go:checked) .dish { rotate: 0deg; }
+
+.wave {
+  left: -2px;
+  top: 100px;
+  width: 60px;
+  height: 40px;
+  border-radius: 50%;
+  border-bottom: 5px solid #67e8f9;
+  transform-origin: 50% 0;
+  opacity: 0;
+}
+
+:has(#go:checked) .wave {
+  animation: ping 1.2s 2.3s infinite;
+}
+
+@keyframes ping {
+  from { opacity: 1; }
+  to { scale: 3.5; opacity: 0; }
+}
+
+.go {
+  padding: 12px 40px;
+  border: 2px solid #38bdf8;
+  border-radius: 12px;
+  color: #7dd3fc;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}

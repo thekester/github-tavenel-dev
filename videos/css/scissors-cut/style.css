@@ -1,0 +1,126 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: #134e4a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+label {
+  padding: 10px 36px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #451a03;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.sheet {
+  position: relative;
+  width: 340px;
+  height: 220px;
+}
+
+/* one sheet, drawn twice, clipped in half */
+.half {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, #334155 50%, #0000 0)
+      0 50% / 14px 2px repeat-x,
+    repeating-linear-gradient(#0000 0 26px,
+      #bae6fd 0 28px) #fff;
+  transform-origin: 100% 50%;
+}
+
+.top { clip-path: inset(0 0 50% 0); --a: 2deg; }
+.bot { clip-path: inset(50% 0 0 0); --a: -5deg; }
+
+.scissors {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+}
+
+/* each blade turns around the pivot */
+.scissors i {
+  --s: -1;
+  position: absolute;
+  left: -50px;
+  top: -5px;
+  width: 50px;
+  height: 10px;
+  background: #e11d48;
+  transform-origin: 100% 50%;
+  rotate: calc(var(--s) * 22deg);
+}
+
+.scissors i + i { --s: 1; }
+
+.scissors i::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border: 6px solid #e11d48;
+  border-radius: 50%;
+}
+
+.scissors i::after {
+  content: '';
+  position: absolute;
+  left: 50px;
+  width: 80px;
+  height: 10px;
+  background: linear-gradient(#f1f5f9, #64748b);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.scissors::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: #1e293b;
+}
+
+#go:checked ~ .sheet .scissors {
+  animation: travel 2.2s linear forwards;
+}
+
+#go:checked ~ .sheet i {
+  animation: snip .14s 16 alternate;
+}
+
+#go:checked ~ .sheet .half {
+  animation: open 2.2s linear forwards;
+}
+
+/* the bottom piece drops once cut */
+#go:checked ~ .sheet .bot {
+  animation: open 2.2s linear forwards,
+    fall 1.2s 2.3s ease-in forwards;
+}
+
+@keyframes travel { to { translate: 420px; } }
+
+@keyframes snip {
+  to { rotate: calc(var(--s) * 2deg); }
+}
+
+@keyframes open { to { rotate: var(--a); } }
+
+@keyframes fall {
+  from { rotate: var(--a); }
+  to { translate: -30px 420px; rotate: -40deg; }
+}

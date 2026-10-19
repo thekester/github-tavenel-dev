@@ -1,0 +1,106 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0e0e1a;
+  font-family: system-ui;
+}
+
+.card {
+  position: relative;
+  width: 380px;
+  padding: 36px 40px;
+  border-radius: 20px;
+  background: #16162a;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    transparent 70%, #00e5ff, #ff2e88);
+  animation: spin 4s linear infinite;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 18px;
+  background: #16162a;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+h2 {
+  margin: 0 0 30px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 2px solid #444;
+  background: none;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: .3s;
+}
+
+label {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: #888;
+  pointer-events: none;
+  transition: .3s;
+}
+
+input:focus,
+input:valid {
+  border-color: #00e5ff;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: -10px;
+  font-size: 12px;
+  color: #00e5ff;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg, #00e5ff, #ff2e88);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  box-shadow: 0 0 25px #ff2e88;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

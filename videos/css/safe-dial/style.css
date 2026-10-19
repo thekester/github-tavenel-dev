@@ -1,0 +1,154 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3f3f46, #09090b);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.safe {
+  position: relative;
+  width: 320px;
+  height: 300px;
+  border-radius: 18px;
+  background: linear-gradient(145deg,
+    #71717a, #27272a);
+  box-shadow: 0 12px 0 #18181b;
+  perspective: 900px;
+}
+
+.gold, .door {
+  position: absolute;
+  inset: 16px;
+  border-radius: 10px;
+}
+
+/* gold bars stacked from the bottom */
+.gold {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 4px;
+  padding: 14px 20px;
+  background: #18181b;
+  box-shadow: inset 0 0 40px #000;
+}
+
+.gold i {
+  width: 76px;
+  height: 40px;
+  background: linear-gradient(#fef08a, #ca8a04);
+  clip-path: polygon(14% 0, 86% 0,
+    100% 100%, 0 100%);
+}
+
+.door {
+  background: linear-gradient(145deg,
+    #a1a1aa, #52525b);
+  box-shadow: inset 0 0 0 5px #0003;
+  transform-origin: left;
+}
+
+/* fixed marker above the dial */
+.door::before {
+  content: '';
+  position: absolute;
+  left: 95px;
+  top: 50px;
+  width: 20px;
+  height: 16px;
+  background: #ef4444;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.door::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #b91c1c;
+}
+
+/* 100 ticks from one conic gradient */
+.dial {
+  position: absolute;
+  left: 30px;
+  top: 69px;
+  width: 150px;
+  aspect-ratio: 1;
+  border: 6px solid #27272a;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background:
+    radial-gradient(closest-side, #52525b 32%,
+      #18181b 0 80%, #0000 0),
+    repeating-conic-gradient(#e4e4e7 0 .7deg,
+      #0000 0 3.6deg) #18181b;
+}
+
+.dial b {
+  position: absolute;
+  inset: 0;
+  padding-top: 17px;
+  rotate: calc(var(--n) * -3.6deg);
+  color: #e4e4e7;
+  font-size: 11px;
+  text-align: center;
+}
+
+.handle {
+  position: absolute;
+  right: 28px;
+  top: 104px;
+  width: 70px;
+  height: 70px;
+  background:
+    radial-gradient(#27272a 28%, #0000 30%),
+    linear-gradient(#d4d4d8 0 0) 50% / 12px 100%,
+    linear-gradient(#d4d4d8 0 0) 50% / 100% 12px;
+  background-repeat: no-repeat;
+}
+
+/* right 30, left 60, right 15 */
+:checked + .safe .dial {
+  animation: spin 4.2s .3s forwards;
+}
+
+@keyframes spin {
+  25%, 35% { rotate: 468deg; }
+  55%, 65% { rotate: 216deg; }
+  85%, to { rotate: 414deg; }
+}
+
+:checked + .safe .handle {
+  rotate: 45deg;
+  transition: rotate .6s 4.6s;
+}
+
+:checked + .safe .door::after {
+  background: #4ade80;
+  transition: 0s 4.6s;
+}
+
+:checked + .safe .door {
+  transform: rotateY(-105deg);
+  transition: 1.6s 5.3s ease-in-out;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 12px;
+  background: #ca8a04;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+}

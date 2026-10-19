@@ -1,0 +1,94 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #07010f;
+}
+
+#drive { display: none; }
+
+.scene {
+  position: relative;
+  display: block;
+  width: 600px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 20px;
+  background:
+    radial-gradient(#fff9 1px, #0000 2px)
+      0 0 / 46px 46px,
+    linear-gradient(#0b0221, #3b0a5c 62%);
+  cursor: pointer;
+}
+
+.scene i { position: absolute; }
+
+/* striped sun, cut with a mask */
+.sun {
+  top: 70px;
+  left: 50%;
+  width: 210px;
+  aspect-ratio: 1;
+  translate: -50%;
+  border-radius: 50%;
+  background: linear-gradient(
+    #ffe259, #ff7a59 50%, #ff2a8a);
+  mask: linear-gradient(#000 50%,
+    #0000 0 55%, #000 0 63%,
+    #0000 0 68%, #000 0 76%,
+    #0000 0 81%, #000 0 89%, #0000 0);
+}
+
+.hills {
+  bottom: 38%;
+  width: 100%;
+  height: 90px;
+  background: #1a0633;
+  clip-path: polygon(0 100%, 0 60%,
+    12% 30%, 25% 70%, 38% 20%, 50% 65%,
+    63% 25%, 76% 70%, 88% 35%, 100% 60%,
+    100% 100%);
+}
+
+/* a flat grid, tilted into the distance */
+.grid {
+  top: 62%;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background:
+    linear-gradient(#ff2a8a 2px, #0000 0)
+      0 0 / 100% 40px,
+    linear-gradient(90deg, #ff2a8a 2px, #0000 0)
+      0 0 / 40px 100%,
+    #12032a;
+  transform-origin: top;
+  transform: perspective(220px)
+    rotateX(65deg);
+  animation: drive .45s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes drive {
+  to { background-position: 0 40px, 0 0; }
+}
+
+b {
+  position: absolute;
+  top: 26px;
+  width: 100%;
+  text-align: center;
+  font: italic 900 46px system-ui;
+  letter-spacing: 4px;
+  background: linear-gradient(#fff, #7dd3fc
+    55%, #c026d3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* click: drive */
+#drive:checked + .scene .grid {
+  animation-play-state: running;
+}

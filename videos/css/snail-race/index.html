@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snail race</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type=checkbox id=go>
+<div class="track">
+  <div class="lane" style="--e:linear">
+    <b>linear</b><i class="snail"></i>
+  </div>
+  <div class="lane" style="--e:ease-in">
+    <b>ease-in</b><i class="snail"></i>
+  </div>
+  <div class="lane" style="--e:steps(6)">
+    <b>steps(6)</b><i class="snail"></i>
+  </div>
+</div>
+<p class="badge">Tie! All took 3s</p>
+<label for=go>Race</label>
+</body>
+</html>

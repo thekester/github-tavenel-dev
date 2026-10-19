@@ -1,0 +1,159 @@
+/* a number we can delay-reset */
+@property --f {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #070b1d;
+}
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 420px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 80% 16%,
+      #fef9c3 30px, #fef9c322 32px, #0000 70px),
+    linear-gradient(#1e1b4b, #0f172a);
+  transition: --f 0s 2.6s;
+}
+
+/* stars, then the branch */
+.scene::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  box-shadow: 34px 40px #fff, 120px 22px #fff9,
+    190px 70px #fff, 66px 120px #fff8,
+    20px 210px #fff, 300px 110px #fffa;
+}
+
+.scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 60px;
+  width: 340px;
+  height: 22px;
+  border-radius: 11px;
+  background: #4a2e1b;
+  rotate: -4deg;
+}
+
+.owl {
+  position: absolute;
+  left: 95px;
+  top: 100px;
+  width: 150px;
+  height: 250px;
+  z-index: 1;
+}
+
+.body {
+  position: absolute;
+  inset: 90px 5px 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 70%, #d9bf94 40%, #0000 41%),
+    #7c5a3a;
+}
+
+.head {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 130px;
+  border-radius: 50%;
+  background: #8b6a45;
+  rotate: var(--a, 0deg);
+  transition: rotate .7s;
+}
+
+/* ear tufts */
+.head::before {
+  content: '';
+  position: absolute;
+  inset: -26px 6px 100px;
+  background: #8b6a45;
+  clip-path: polygon(0 100%, 8% 0, 30% 100%,
+    70% 100%, 92% 0, 100% 100%);
+}
+
+.eye {
+  position: absolute;
+  top: 34px;
+  left: 18px;
+  width: 50px;
+  height: 50px;
+  border: 7px solid #e7d3ad;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fbbf24;
+}
+
+.eye + .eye { left: 68px; }
+
+.eye i {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: #111;
+  translate: var(--p, 0);
+  transition: translate .5s;
+}
+
+/* eyelid blink */
+.eye::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #8b6a45;
+  transform-origin: top;
+  animation: blink 4s infinite;
+}
+
+@keyframes blink {
+  0%, 90%, to { scale: 1 0; }
+  95% { scale: 1 1; }
+}
+
+.head::after {
+  content: '';
+  position: absolute;
+  left: 66px;
+  top: 82px;
+  width: 18px;
+  height: 22px;
+  background: #f59e0b;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* three invisible zones steer the head */
+.zones {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.scene:has(i:nth-child(1):hover) {
+  --p: -10px;
+  /* came from the right? spin the long way */
+  --a: calc(-40deg + var(--f) * 250deg);
+}
+
+.scene:has(i:nth-child(3):hover) {
+  --p: 10px;
+  --a: 40deg;
+  --f: 1;
+  transition: none;
+}

@@ -1,0 +1,175 @@
+@property --amp {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@property --m {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --w {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes amp {
+  14% { --amp: 4deg; } 27% { --amp: 0deg; }
+  35% { --amp: 9deg; } 50% { --amp: 13deg; }
+  62% { --amp: 14deg; } 75% { --amp: 13deg; }
+  88% { --amp: 9deg; } 98% { --amp: 0deg; }
+}
+@keyframes osc {
+  from { rotate: calc(var(--amp) * -1); }
+  to { rotate: var(--amp); }
+}
+@keyframes feed { to { translate: -400px; } }
+@keyframes mag { to { --m: 62; } }
+@keyframes shake {
+  25% { translate: -4px 2px; }
+  75% { translate: 4px -2px; }
+}
+@keyframes roll {
+  to { background-position: -30px; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: monospace;
+}
+
+#go { display: none; }
+
+.desk {
+  position: relative;
+  width: 420px;
+  height: 290px;
+  background: linear-gradient(#0000 230px,
+    #92400e 0 250px, #78350f 0);
+}
+
+.desk > * { position: absolute; margin: 0; }
+
+/* paper grid scrolls forever */
+.drum {
+  left: 20px;
+  top: 40px;
+  width: 300px;
+  height: 150px;
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, #f871714d
+      0 1px, #0000 0 30px),
+    repeating-linear-gradient(#f871714d 0 1px,
+      #0000 0 25px) #fef3c7;
+  animation: roll .75s linear infinite;
+}
+
+/* ink only exists left of the needle */
+.ink {
+  position: absolute;
+  width: 220px;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(#1e3a8a 0 0)
+    0 50% / 100% 2px no-repeat;
+}
+
+/* scribbles cut by two wave envelopes */
+.trace {
+  position: absolute;
+  left: 220px;
+  top: 25px;
+  width: 160px;
+  height: 100px;
+  background:
+    repeating-linear-gradient(78deg,
+      #1e3a8a 0 1.5px, #0000 0 5.5px),
+    repeating-linear-gradient(-78deg,
+      #1e3a8a 0 1.5px, #0000 0 5.5px);
+  mask:
+    radial-gradient(20px 10px at 23px 50%,
+      #000 98%, #0000),
+    radial-gradient(57px 34px at 100px 50%,
+      #000 98%, #0000);
+}
+
+.post {
+  left: 365px;
+  top: 10px;
+  width: 30px;
+  height: 222px;
+  background: linear-gradient(90deg,
+    #57534e, #a8a29e, #57534e);
+}
+
+/* the boom pivots on the post */
+.arm {
+  left: 240px;
+  top: 113px;
+  width: 140px;
+  height: 4px;
+  background: #d6d3d1;
+  transform-origin: right;
+}
+
+.arm::before, .arm::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+.arm::before {
+  left: -4px; top: -3px; width: 10px;
+  height: 10px; background: #dc2626;
+}
+.arm::after {
+  left: 70px; top: -14px; width: 32px;
+  height: 32px; background: #44403c;
+}
+
+.mag {
+  left: 20px;
+  top: 200px;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: #0c0a09;
+  color: #f87171;
+  font-size: 22px;
+  --w: calc(var(--m) / 10 - .5);
+  counter-reset: w var(--w)
+    t calc(var(--m) - var(--w) * 10);
+}
+.mag::after {
+  content: 'MAG ' counter(w) '.' counter(t);
+}
+
+#go:checked + .desk {
+  animation: shake .12s .1s 32;
+}
+#go:checked + .desk .trace {
+  animation: feed 10s linear forwards;
+}
+#go:checked + .desk .arm {
+  animation: amp 4s linear,
+    osc .14s linear 28 alternate;
+}
+#go:checked + .desk .mag {
+  animation: mag 3s ease-out forwards;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 10px;
+  background: #dc2626;
+  color: #fff;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

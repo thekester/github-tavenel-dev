@@ -1,0 +1,110 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a1d;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 460px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #1e1b4b;
+}
+
+/* the lake is a live mirror of the sky */
+.sky {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  background:
+    radial-gradient(140px 40px at 20% 100%,
+      #1e1b4b 98%, #0000),
+    radial-gradient(180px 34px at 75% 100%,
+      #1e1b4b 98%, #0000),
+    linear-gradient(#1e1b4b, #7c3aed 55%,
+      #fb923c);
+  -webkit-box-reflect: below 0
+    linear-gradient(#0000 10%, #000d);
+}
+
+.lake {
+  position: absolute;
+  inset: 260px 0 0;
+  background: repeating-linear-gradient(
+    #fff1 0 2px, #0000 2px 9px);
+}
+
+.sky i {
+  position: absolute;
+  left: var(--x);
+  bottom: 16px;
+  width: 26px;
+  height: 34px;
+}
+
+.sky b {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 8px 12px 12px;
+  background: radial-gradient(circle at 50% 80%,
+    #fef3c7, #fb923c 45%, #c2410c);
+  box-shadow: 0 0 18px #fb923c;
+}
+
+/* the flame inside */
+.sky b::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  bottom: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px 4px #fde047;
+  animation: flicker .15s infinite alternate;
+}
+
+/* own duration, delay and sway */
+#go:checked + .scene i {
+  animation: rise var(--t) var(--d) ease-in
+    forwards;
+}
+
+#go:checked + .scene b {
+  animation: sway 1.6s ease-in-out infinite
+    alternate;
+}
+
+@keyframes rise {
+  to { translate: 0 -195px; scale: .4; }
+}
+
+@keyframes sway {
+  from { translate: var(--s); rotate: 6deg; }
+  to { translate: calc(var(--s) * -1);
+    rotate: -6deg; }
+}
+
+@keyframes flicker {
+  to { opacity: .6; scale: .8 1.1; }
+}
+
+.go {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #fb923c;
+  color: #431407;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

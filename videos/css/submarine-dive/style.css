@@ -1,0 +1,185 @@
+@property --m {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font: 800 24px system-ui;
+}
+
+#go { display: none; }
+
+.sea, .sea::before {
+  background-size: 100% 300%;
+}
+
+/* a tall gradient: sky, surface, abyss */
+.sea {
+  position: relative;
+  width: 360px;
+  height: 380px;
+  border-radius: 24px;
+  overflow: hidden;
+  background-image: linear-gradient(
+    #bae6fd 15%, #0ea5e9 0, #0369a1 40%,
+    #082f49 70%, #020617);
+}
+
+/* water in front of the sub's lower half */
+.sea::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: linear-gradient(
+    #0000 15%, #38bdf822 0);
+}
+
+.sea > * { position: absolute; margin: 0; }
+
+.sub {
+  left: 90px;
+  top: 150px;
+  width: 105px;
+  height: 66px;
+  padding: 0 25px 0 50px;
+  border-radius: 45% 50% 50% 45% / 50%;
+  isolation: isolate;
+  background: radial-gradient(#075985 8px,
+    #0000 9px) 0 50% / 35px 35px repeat-x
+    content-box, #facc15;
+}
+
+.sub::before, .sub::after {
+  content: '';
+  position: absolute;
+  background: #eab308;
+}
+
+.sub::before {
+  left: -18px;
+  top: 12px;
+  width: 26px;
+  height: 42px;
+  clip-path: polygon(0 0, 100% 35%,
+    100% 65%, 0 100%);
+}
+
+.sub::after {
+  left: 60px;
+  top: -30px;
+  width: 50px;
+  height: 34px;
+  border-radius: 12px 12px 0 0;
+}
+
+.peri {
+  position: absolute;
+  left: 92px;
+  top: -62px;
+  z-index: -1;
+  width: 6px;
+  height: 40px;
+  background: #a16207;
+  box-shadow: 6px 0 #a16207;
+}
+
+u {
+  left: calc(80px + var(--x));
+  top: 175px;
+  width: 10px;
+  aspect-ratio: 1;
+  border: 2px solid #fff9;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.fish {
+  left: 380px;
+  top: 290px;
+  width: 44px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 25% 40%,
+    #000 2px, #0000 3px), #fb923c;
+}
+
+.fish::after {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+.depth {
+  top: 16px;
+  right: 18px;
+  z-index: 3;
+  color: #fff;
+  font: 700 22px monospace;
+  counter-reset: m var(--m);
+}
+
+.depth::after { content: counter(m) ' m'; }
+
+:checked + .sea .peri {
+  position: absolute;
+  translate: 0 26px;
+  transition: .5s;
+}
+
+:checked + .sea .sub {
+  animation: dive 5s .5s forwards;
+}
+
+@keyframes dive {
+  20%, 80% { rotate: 14deg; }
+  to { rotate: 3deg; translate: 0 60px;
+    filter: brightness(.75); }
+}
+
+:checked + .sea,
+:checked + .sea::before,
+:checked + .sea .depth {
+  animation: deep 5s .5s ease-in-out forwards;
+}
+
+@keyframes deep {
+  to { background-position: 0 100%;
+    --m: 200; }
+}
+
+:checked + .sea u {
+  animation: rise 1.6s var(--d) infinite;
+}
+
+@keyframes rise {
+  from { opacity: 1; }
+  to { translate: 0 -150px; scale: 1.8;
+    opacity: 0; }
+}
+
+:checked + .sea .fish {
+  animation: swim 3s 2.5s linear forwards;
+}
+
+@keyframes swim { to { translate: -480px; } }
+
+label {
+  padding: 12px 44px;
+  border-radius: 12px;
+  background: #facc15;
+  color: #422006;
+}

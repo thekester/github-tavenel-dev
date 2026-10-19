@@ -1,0 +1,161 @@
+@keyframes spin { to { rotate: y 1turn; } }
+@keyframes bob { to { translate: 0 30px; } }
+@keyframes blink { 50% { opacity: .1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: radial-gradient(#4c1d95, #0f0a2e);
+  perspective: 900px;
+}
+
+.scene * {
+  position: absolute;
+  margin: 0;
+  transform-style: preserve-3d;
+}
+
+.roof {
+  inset: 18px 30px auto;
+  height: 96px;
+  background: repeating-conic-gradient(
+    from 150deg at 50% 0, #ef4444 0 6deg,
+    #fef3c7 0 12deg);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.lights {
+  inset: 112px 30px auto;
+  height: 20px;
+  background: #b91c1c;
+}
+
+/* two rows of bulbs blinking in turn */
+.lights::before, .lights::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, #fef08a 5px,
+    #0000 6px) 0 / 30px 20px;
+  animation: blink .6s steps(1) infinite paused;
+}
+
+.lights::after {
+  background-position: 15px 0;
+  animation-delay: .3s;
+}
+
+.stage {
+  left: 200px;
+  top: 232px;
+  rotate: x -12deg;
+}
+
+/* two crossed planes = a pillar */
+.column, .column::after {
+  left: -18px;
+  top: -100px;
+  width: 36px;
+  height: 200px;
+  background: linear-gradient(90deg, #92400e,
+    #fcd34d, #92400e);
+}
+
+.column::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  rotate: y 90deg;
+}
+
+.base {
+  left: -165px;
+  top: -55px;
+  width: 330px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    #be123c 0 15deg, #fb7185 0 30deg);
+  rotate: x 90deg;
+}
+
+/* each horse: turn, then push out */
+.rotor p {
+  left: -30px;
+  top: -100px;
+  width: 60px;
+  height: 210px;
+  background: linear-gradient(90deg, #0000 27px,
+    #fcd34d 0 33px, #0000 0);
+  transform: rotateY(var(--a)) translateZ(120px);
+}
+
+.rotor i {
+  top: 70px;
+  left: 2px;
+  width: 52px;
+  height: 26px;
+  border-radius: 14px;
+  background: var(--c);
+  /* out of phase via --d */
+  animation: bob .5s var(--d) ease-in-out
+    infinite alternate paused;
+}
+
+/* head + legs */
+.rotor i::before, .rotor i::after {
+  content: '';
+  position: absolute;
+  background: var(--c);
+}
+
+.rotor i::before {
+  right: -10px;
+  top: -20px;
+  width: 18px;
+  height: 30px;
+  border-radius: 8px 14px 4px 4px;
+  rotate: 25deg;
+}
+
+.rotor i::after {
+  left: 4px;
+  top: 20px;
+  width: 44px;
+  height: 22px;
+  background: linear-gradient(90deg, var(--c) 6px,
+    #0000 0 38px, var(--c) 0);
+}
+
+#go:checked + .scene .rotor {
+  animation: spin 6s linear infinite;
+}
+
+#go:checked + .scene i,
+#go:checked + .scene .lights::before,
+#go:checked + .scene .lights::after {
+  animation-play-state: running;
+}
+
+.btn {
+  justify-self: center;
+  padding: 12px 42px;
+  border-radius: 99px;
+  background: #f472b6;
+  font: 800 24px system-ui;
+}

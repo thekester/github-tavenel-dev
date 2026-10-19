@@ -1,0 +1,93 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 60px;
+  height: 100vh;
+  margin: 0;
+  background: #134e4a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.paper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+/* front side: coral with a dot pattern */
+.paper i {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(#fff4 2px, #0000 3px)
+      0 0 / 20px 20px,
+    #f43f5e;
+  clip-path: polygon(var(--cp));
+  transform-origin: var(--o);
+}
+
+.paper .base {
+  clip-path: polygon(50% 0, 100% 50%,
+    50% 100%, 0 50%);
+}
+
+/* each corner flips over its fold line */
+:has(#go:checked) .paper i {
+  animation: fold .9s var(--d)
+    ease-in-out both;
+}
+
+@keyframes fold {
+  to {
+    transform: perspective(600px)
+      rotate3d(var(--ax), 0, 180deg);
+    /* the back side is darker */
+    background: radial-gradient(
+      circle at var(--o), #be123c 0 15%,
+      #fb7185 75%);
+  }
+}
+
+/* then the envelope turns square */
+:has(#go:checked) .paper {
+  animation: turn .6s 3.4s ease-out both;
+}
+
+@keyframes turn {
+  to { rotate: 45deg; scale: 1.2; }
+}
+
+.seal {
+  position: absolute;
+  inset: 95px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fbbf24;
+  color: #b45309;
+  font-size: 30px;
+  rotate: -45deg;
+  scale: 0;
+}
+
+:has(#go:checked) .seal {
+  animation: pop .4s 4s ease-out both;
+}
+
+@keyframes pop {
+  60% { scale: 1.3; }
+  to { scale: 1; }
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #fef3c7;
+  color: #134e4a;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

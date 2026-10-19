@@ -1,0 +1,138 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #05060c;
+}
+
+#off { display: none; }
+
+.scene {
+  position: relative;
+  display: block;
+  width: 600px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(#fff 1px, #0000 2px)
+      0 0 / 50px 50px,
+    radial-gradient(#fff8 1px, #0000 2px)
+      25px 30px / 70px 70px,
+    linear-gradient(#0b1026, #312e81);
+  cursor: pointer;
+}
+
+.scene i { position: absolute; }
+
+.moon {
+  top: 40px;
+  right: 60px;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fef9c3;
+  box-shadow: 0 0 40px #fef9c3aa;
+}
+
+.tower {
+  bottom: 70px;
+  left: 50%;
+  width: 90px;
+  height: 200px;
+  translate: -50%;
+  clip-path: polygon(25% 0, 75% 0,
+    100% 100%, 0 100%);
+  background: repeating-linear-gradient(
+    #f8fafc 0 40px, #dc2626 40px 80px);
+}
+
+.lamp {
+  top: 104px;
+  left: 50%;
+  width: 50px;
+  height: 46px;
+  translate: -50%;
+  border-radius: 6px 6px 0 0;
+  background: #fde68a;
+  box-shadow: 0 0 40px 10px #fde68a99;
+  transition: .4s;
+}
+
+.lamp::before {
+  content: '';
+  position: absolute;
+  top: -26px;
+  left: -10px;
+  right: -10px;
+  height: 26px;
+  background: #1f2937;
+  clip-path: polygon(50% 0, 100% 100%,
+    0 100%);
+}
+
+/* the beam "rotates" with scale */
+.beam {
+  top: 127px;
+  left: 50%;
+  width: 430px;
+  height: 70px;
+  translate: 0 -50%;
+  transform-origin: left;
+  clip-path: polygon(0 45%, 100% 0,
+    100% 100%, 0 55%);
+  background: linear-gradient(90deg,
+    #fde68acc, #fde68a00);
+  animation: sweep 4s linear infinite;
+  transition: opacity .4s;
+}
+
+@keyframes sweep {
+  25% { scale: 0 1; }
+  50% { scale: -1 1; }
+  75% { scale: 0 1; }
+}
+
+.sea {
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(
+    #1e3a8a, #172554);
+}
+
+.sea::after {
+  content: '';
+  position: absolute;
+  inset: 22px 0 auto;
+  height: 3px;
+  background: repeating-linear-gradient(90deg,
+    #fff3 0 24px, #0000 24px 70px);
+  animation: drift 4s linear infinite reverse;
+}
+
+.sea::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 100%;
+  height: 24px;
+  background: radial-gradient(
+    circle at 50% 100%,
+    #1e3a8a 12px, #0000 13px)
+    0 0 / 34px 24px repeat-x;
+  animation: drift 2.5s linear infinite;
+}
+
+@keyframes drift {
+  to { background-position: 34px 0; }
+}
+
+/* click: lights out */
+#off:checked + .scene .beam { opacity: 0; }
+
+#off:checked + .scene .lamp {
+  background: #57534e;
+  box-shadow: none;
+}

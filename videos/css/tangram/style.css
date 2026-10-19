@@ -1,0 +1,97 @@
+@keyframes wag {
+  to { transform: rotate(16deg); }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #172554;
+}
+
+#go { display: none; }
+
+.tg {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+/* every piece is the full 200px square,
+   cut out with clip-path */
+.tg i {
+  position: absolute;
+  inset: 100px;
+  background: var(--c);
+  transition: translate 1s var(--d),
+    rotate 1s var(--d);
+}
+
+.t1 {
+  --c: #f43f5e; --t: 25px 208px;
+  --r: .5turn; --d: 0s;
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transform-origin: 50% 16.7%;
+}
+
+.t2 {
+  --c: #f97316; --t: 25px 75px; --d: .15s;
+  clip-path: polygon(0 0, 50% 50%, 0 100%);
+}
+
+.m {
+  --c: #facc15; --t: -175px 75px;
+  --r: -1turn; --d: .3s;
+  clip-path: polygon(100% 50%, 100% 100%,
+    50% 100%);
+  transform-origin: 83.3% 83.3%;
+}
+
+.s1 {
+  --c: #22c55e; --t: -75px -125px; --d: .45s;
+  clip-path: polygon(50% 50%, 75% 75%,
+    75% 25%);
+}
+
+.sq {
+  --c: #06b6d4; --t: -75px -125px; --d: .6s;
+  clip-path: polygon(50% 50%, 75% 75%,
+    50% 100%, 25% 75%);
+}
+
+.s2 {
+  --c: #84cc16; --t: -58.3px -208.3px;
+  --r: 90deg; --d: .75s;
+  clip-path: polygon(25% 75%, 50% 100%,
+    0 100%);
+  transform-origin: 25% 91.7%;
+}
+
+/* pivot on the base of the tail */
+.p {
+  --c: #a855f7; --t: 75px 125px; --d: .9s;
+  clip-path: polygon(100% 0, 100% 50%,
+    75% 75%, 75% 25%);
+  transform-origin: 75% 75%;
+}
+
+:checked + .tg i {
+  translate: var(--t);
+  rotate: var(--r, 0deg);
+}
+
+:checked + .tg .p {
+  animation: wag .35s 2.2s alternate 8;
+}
+
+label {
+  padding: 12px 50px;
+  border-radius: 12px;
+  background: #fbbf24;
+  color: #172554;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

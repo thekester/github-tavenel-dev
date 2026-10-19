@@ -1,0 +1,91 @@
+@property --cs {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --s {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --m {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --p {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #0b1120;
+  font-family: system-ui;
+}
+
+#run { display: none; }
+
+.watch {
+  display: grid;
+  place-items: center;
+  width: 270px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(#0f172a 64%, #0000 65%),
+    conic-gradient(#22d3ee calc(var(--p) * 1turn),
+      #1e293b 0);
+  color: #e2e8f0;
+  font: 700 38px monospace;
+  /* every digit is an animated integer */
+  animation:
+    cs 1s linear infinite,
+    s 60s linear infinite,
+    m 3600s linear infinite,
+    p 60s linear infinite;
+  animation-play-state: paused;
+  counter-reset: m var(--m) s var(--s)
+    cs var(--cs);
+}
+
+.watch::after {
+  content:
+    counter(m, decimal-leading-zero) ':'
+    counter(s, decimal-leading-zero) '.'
+    counter(cs, decimal-leading-zero);
+}
+
+@keyframes cs { to { --cs: 99; } }
+@keyframes s { to { --s: 59; } }
+@keyframes m { to { --m: 59; } }
+@keyframes p { to { --p: 1; } }
+
+#run:checked + .watch {
+  animation-play-state: running;
+}
+
+label {
+  padding: 14px 40px;
+  border-radius: 999px;
+  background: #22d3ee;
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+label::after { content: 'Start'; }
+
+#run:checked ~ label { background: #f472b6; }
+#run:checked ~ label::after { content: 'Pause'; }

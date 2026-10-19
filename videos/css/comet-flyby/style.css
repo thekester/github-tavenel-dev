@@ -1,0 +1,149 @@
+/* ray() = angle + distance from the sun */
+@keyframes fly {
+  from { offset-path: ray(30deg);
+    offset-distance: 480px; }
+  40% { offset-path: ray(70deg);
+    offset-distance: 135px; }
+  50% { offset-path: ray(90deg);
+    offset-distance: 100px; }
+  60% { offset-path: ray(110deg);
+    offset-distance: 135px; }
+  to { offset-path: ray(150deg);
+    offset-distance: 480px; }
+}
+/* longer, brighter tail near the sun */
+@keyframes heat {
+  from, to { width: 60px; }
+  50% { width: 210px; filter: brightness(2); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  15% { opacity: 1; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.sky {
+  position: relative;
+  width: 420px;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(1.5px at 23px 41px, #fff,
+      #0000) 0 0 / 97px 83px,
+    radial-gradient(1px at 61px 17px, #fffc,
+      #0000) 0 0 / 71px 59px,
+    radial-gradient(2px at 9px 30px, #c4b5fd,
+      #0000) 0 0 / 133px 113px,
+    linear-gradient(160deg, #1e1b4b, #020617);
+}
+
+.sky > * { position: absolute; }
+
+.sun {
+  left: -8px;
+  top: 120px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(#fef9c3,
+    #facc15 50%, #f97316);
+  box-shadow: 0 0 60px 20px #f9731688;
+}
+
+.planet {
+  left: 300px;
+  top: 220px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    #7dd3fc, #1d4ed8 60%, #172554);
+}
+
+.planet::after {
+  content: '';
+  position: absolute;
+  inset: 24px -22px;
+  border: 3px solid #fde68a99;
+  border-radius: 50%;
+  rotate: -18deg;
+}
+
+/* comet: head on the left, tail on +x */
+.comet {
+  top: 0;
+  left: 0;
+  height: 16px;
+  opacity: 0;
+  offset-position: 42px 50%;
+  offset-anchor: 8px 50%;
+  offset-rotate: auto;
+}
+
+.comet::before, .comet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.comet::before {
+  background: linear-gradient(90deg, #fff,
+    #67e8f9aa 15%, #0000);
+  clip-path: polygon(0 30%, 100% 0,
+    100% 100%, 0 70%);
+}
+
+.comet::after {
+  width: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px 4px #a5f3fc;
+}
+
+/* sparkles: frozen copies of the flight */
+.sky i {
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  box-shadow: 0 0 8px 2px #7dd3fc;
+  offset-position: 42px 50%;
+  opacity: 0;
+}
+
+#go:checked + .sky .comet {
+  opacity: 1;
+  animation: fly 4.5s linear forwards,
+    heat 4.5s linear forwards;
+}
+
+#go:checked + .sky i {
+  animation:
+    fly 4.5s linear calc(var(--t) * -1) paused,
+    blink 2s var(--t) both;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 10px;
+  background: #67e8f9;
+  color: #082f49;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

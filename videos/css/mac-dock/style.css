@@ -1,0 +1,44 @@
+body {
+  display: grid;
+  place-items: end center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg,
+    #3a1c71, #d76d77, #ffaf7b);
+}
+
+.dock {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 60px;
+  padding: 10px 14px;
+  border: 1px solid #fff5;
+  border-radius: 22px;
+  background: #fff3;
+  backdrop-filter: blur(12px);
+}
+
+.dock i {
+  width: 54px;
+  aspect-ratio: 1;
+  border-radius: 28%;
+  background: linear-gradient(135deg,
+    var(--c), var(--d));
+  box-shadow: 0 4px 10px #0003;
+  transition: width .2s ease-out;
+}
+
+.dock i:hover {
+  width: 100px;
+}
+
+.dock i:hover + i,
+.dock i:has(+ i:hover) {
+  width: 80px;
+}
+
+.dock i:hover + i + i,
+.dock i:has(+ i + i:hover) {
+  width: 64px;
+}

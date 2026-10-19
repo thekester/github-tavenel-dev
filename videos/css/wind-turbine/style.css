@@ -1,0 +1,153 @@
+@property --s {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 1deg;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font: 800 18px system-ui;
+}
+
+input { display: none; }
+
+.sky {
+  position: relative;
+  width: 360px;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #38bdf8;
+}
+
+.sky > *, .sky::before, .sky::after {
+  position: absolute;
+  content: '';
+}
+
+/* clouds on a looping strip */
+.sky::before, .sky::after {
+  inset: 10px 0 auto;
+  height: 120px;
+  background:
+    radial-gradient(40px 20px at 20% 40%,
+      #fff 95%, #0000),
+    radial-gradient(50px 24px at 70% 25%,
+      #fff 95%, #0000);
+  animation: drift 14s linear infinite
+    paused;
+}
+
+.sky::after {
+  translate: 0 50px;
+  opacity: 0;
+  transition: opacity 1s;
+  animation-duration: 2s;
+}
+
+@keyframes drift {
+  to { background-position-x: 360px; }
+}
+
+.hill {
+  inset: auto -60px -120px;
+  height: 220px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.tower {
+  left: 172px;
+  bottom: 70px;
+  width: 16px;
+  height: 200px;
+  background: #e2e8f0;
+  border-radius: 8px 8px 0 0;
+}
+
+/* 3 nested layers, each adds speed */
+.rotor { inset: 0 70px auto; height: 220px; }
+.r2, .r3 { position: absolute; inset: 0; }
+.rotor { animation: spin 5s linear infinite; }
+.r2 { animation: spin 1.5s linear infinite; }
+.r3 { animation: spin .6s linear infinite; }
+.rotor, .r2, .r3 { animation-play-state: paused; }
+
+@keyframes spin { to { rotate: 1turn; } }
+
+.r3 i {
+  position: absolute;
+  left: 103px;
+  bottom: 50%;
+  width: 14px;
+  height: 104px;
+  border-radius: 50%;
+  background: #fff;
+  transform-origin: bottom;
+  rotate: var(--a, 0deg);
+}
+
+.grass {
+  inset: auto 0 0;
+  height: 36px;
+  background: conic-gradient(from 155deg
+    at 50% 0, #15803d 50deg, #0000 0)
+    0 / 14px;
+  transform-origin: bottom;
+  transition: --s 1s;
+  animation: sway .8s infinite alternate;
+}
+
+@keyframes sway {
+  from { transform: skewX(calc(-1 * var(--s))); }
+  to { transform: skewX(var(--s)); }
+}
+
+.meter {
+  width: 360px;
+  height: 18px;
+  margin: 0;
+  border-radius: 9px;
+  background: #334155;
+}
+
+.meter::before {
+  content: '';
+  display: block;
+  width: var(--p, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: #facc15;
+  transition: width 1s;
+}
+
+:has(input:checked) .rotor,
+:has(input:checked) .sky::before,
+:has(#breeze:checked, #storm:checked) .r2,
+:has(#breeze:checked, #storm:checked) .sky::after,
+:has(#storm:checked) .r3 {
+  animation-play-state: running;
+}
+
+:has(#calm:checked) { --s: 3deg; --p: 25%; }
+:has(#breeze:checked) { --s: 9deg; --p: 60%; }
+:has(#storm:checked) { --s: 20deg; --p: 100%; }
+:has(#breeze:checked) .sky::after { opacity: .5; }
+:has(#storm:checked) .sky::after { opacity: 1; }
+:has(#storm:checked) .sky { background: #64748b; }
+
+.btns { display: flex; gap: 12px; }
+
+label {
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #e2e8f0;
+}
+
+label:has(:checked) { background: #38bdf8; }

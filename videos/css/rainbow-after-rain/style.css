@@ -1,0 +1,131 @@
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #1e293b;
+  font-family: system-ui;
+}
+
+#sun { display: none; }
+
+.sky {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #64748b;
+  transition: background 1.5s;
+}
+
+.sky > * { position: absolute; }
+
+/* green ground */
+.sky::after {
+  content: '';
+  position: absolute;
+  inset: 270px -40px -60px;
+  border-radius: 50% 50% 0 0;
+  background: #4d7c0f;
+}
+
+.rainbow {
+  left: 30px;
+  top: 120px;
+  width: 280px;
+  height: 140px;
+  overflow: hidden;
+}
+
+/* each ring is a circle, the box shows its top */
+.rainbow i {
+  position: absolute;
+  inset: var(--s) var(--s) auto;
+  aspect-ratio: 1;
+  border: 12px solid var(--c);
+  border-radius: 50%;
+  mask: conic-gradient(from -90deg,
+    #000 var(--a), #0000 0);
+}
+
+.sunny {
+  right: 30px;
+  top: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 40px #fde047;
+  scale: 0;
+  transition: scale 1s .5s;
+}
+
+/* two layers of falling drops */
+.rain {
+  inset: 80px 0 0;
+  background:
+    radial-gradient(1px 8px, #e0f2fe 99%, #0000)
+      0 0 / 22px 46px,
+    radial-gradient(1px 8px, #e0f2fe 99%, #0000)
+      9px 0 / 31px 57px;
+  animation: fall .5s linear infinite;
+  transition: opacity .6s;
+}
+
+@keyframes fall {
+  to { background-position: 0 184px, 9px 228px; }
+}
+
+.cloud {
+  left: -10px;
+  top: 10px;
+  width: 200px;
+  height: 100px;
+  background:
+    radial-gradient(circle at 28% 70%,
+      #9ca3af 32px, #0000 33px),
+    radial-gradient(circle at 55% 45%,
+      #9ca3af 44px, #0000 45px),
+    radial-gradient(circle at 80% 70%,
+      #9ca3af 30px, #0000 31px);
+  transition: translate 1.4s ease-in;
+}
+
+.two {
+  left: 150px;
+  top: 40px;
+  filter: brightness(.8);
+}
+
+/* the sun wins */
+:has(#sun:checked) .sky { background: #38bdf8; }
+:has(#sun:checked) .rain { opacity: 0; }
+:has(#sun:checked) .cloud { translate: -260px; }
+:has(#sun:checked) .two { translate: 260px; }
+:has(#sun:checked) .sunny { scale: 1; }
+
+/* rings draw themselves, one after another */
+:has(#sun:checked) .rainbow i {
+  animation: arc .8s var(--d) ease-out forwards;
+}
+
+@keyframes arc { to { --a: 180deg; } }
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 999px;
+  background: #facc15;
+  color: #713f12;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

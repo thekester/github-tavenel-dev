@@ -1,0 +1,122 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#134e4a, #022c22);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 380px;
+}
+
+.scene > * { position: absolute; }
+
+/* 11 feathers share one pivot point */
+.scene i {
+  left: 176px;
+  top: 90px;
+  width: 48px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 18%,
+      #1e1b4b 6px, #0284c7 7px 11px,
+      #facc15 12px 15px, #0000 16px),
+    linear-gradient(#22c55e, #065f46 80%);
+  transform-origin: 50% 100%;
+  scale: .3 .4;
+  transition: rotate .6s var(--d),
+    scale .6s var(--d);
+  --d: calc(var(--i) * .07s);
+  animation: shine 1.5s var(--d) infinite
+    alternate;
+}
+
+/* shimmering colour shift */
+@keyframes shine {
+  to { filter: hue-rotate(-40deg)
+    brightness(1.25); }
+}
+
+#go:checked + .scene i {
+  rotate: calc(var(--i) * 15deg - 75deg);
+  scale: 1;
+}
+
+.body {
+  left: 160px;
+  top: 220px;
+  width: 80px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%,
+    #3b82f6, #1e3a8a);
+}
+
+/* legs */
+.body::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  bottom: -40px;
+  width: 32px;
+  height: 46px;
+  background: linear-gradient(90deg,
+    #b45309 0 4px, #0000 0 28px, #b45309 0);
+  z-index: -1;
+}
+
+.neck {
+  left: 186px;
+  top: 150px;
+  width: 28px;
+  height: 100px;
+  border-radius: 14px;
+  background: #2563eb;
+}
+
+/* head with eye, beak and crest */
+.neck::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: -24px;
+  width: 40px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 45%,
+    #111 3px, #fff 4px 7px, #0000 8px), #2563eb;
+  filter: drop-shadow(7px 3px 0 #f59e0b);
+}
+
+.neck::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: -52px;
+  width: 30px;
+  height: 30px;
+  background:
+    radial-gradient(circle at 50% 4px,
+      #22d3ee 4px, #0000 5px),
+    linear-gradient(90deg, #0000 4px,
+      #22d3ee 0 6px, #0000 0);
+  background-size: 10px 100%;
+}
+
+.btn {
+  padding: 12px 36px;
+  border-radius: 99px;
+  background: #0d9488;
+  color: #f0fdfa;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}

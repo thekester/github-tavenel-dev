@@ -1,0 +1,137 @@
+@property --f {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --w {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #334155;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.sky {
+  position: relative;
+  width: 340px;
+  height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(70px 40px at 20% 8%,
+      #334155 98%, #0000),
+    radial-gradient(90px 45px at 75% 5%,
+      #1e293b 98%, #0000),
+    linear-gradient(#1e1b4b, #475569);
+}
+
+/* the white flash */
+.sky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: var(--f);
+}
+
+/* glow on the wrapper, zigzag on the child */
+.bolt {
+  position: absolute;
+  left: var(--x);
+  top: 20px;
+  width: 80px;
+  height: 230px;
+  filter: drop-shadow(0 0 10px #fde047);
+  opacity: 0;
+}
+
+.bolt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fefce8;
+  clip-path: polygon(35% 0, 65% 0, 48% 32%,
+    72% 32%, 40% 64%, 60% 64%, 20% 100%,
+    30% 72%, 12% 72%, 30% 40%, 10% 40%);
+}
+
+.bolt + .bolt::before { scale: -1 1; }
+
+.town {
+  position: absolute;
+  inset: auto 10px 0;
+  display: flex;
+  align-items: end;
+  gap: 6px;
+}
+
+/* windows: a grid of gaps over --w */
+.town i {
+  flex: 1;
+  height: var(--h);
+  background:
+    linear-gradient(90deg, #0f172a 8px, #0000 0)
+      0 0 / 18px 100%,
+    linear-gradient(#0f172a 8px, #0000 0)
+      0 0 / 100% 18px,
+    var(--w);
+}
+
+#s1:checked ~ .sky { animation: hit1 1.2s; }
+#s2:checked ~ .sky { animation: hit2 1.2s; }
+
+#s1:checked ~ .sky .bolt:first-child,
+#s2:checked ~ .sky .bolt + .bolt {
+  animation: zap .7s;
+}
+
+@keyframes zap {
+  10%, 40%, 70% { opacity: 1; }
+  25% { opacity: .3; }
+}
+
+/* flash + shake + windows, twice */
+@keyframes hit1 {
+  5% { --f: 1; translate: -6px 4px; }
+  12% { --f: .1; translate: 6px -3px; }
+  20% { --f: .7; translate: -4px 2px; }
+  30% { --f: 0; translate: 0; }
+  10%, 70% { --w: #fde047; }
+}
+
+@keyframes hit2 {
+  5% { --f: 1; translate: 6px 4px; }
+  12% { --f: .1; translate: -6px -3px; }
+  20% { --f: .7; translate: 4px 2px; }
+  30% { --f: 0; translate: 0; }
+  10%, 70% { --w: #fde047; }
+}
+
+.btns { display: grid; }
+
+label {
+  grid-area: 1 / 1;
+  padding: 12px 36px;
+  border-radius: 12px;
+  background: #4338ca;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#s1:checked ~ .btns [for=s1] {
+  visibility: hidden;
+}

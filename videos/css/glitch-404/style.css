@@ -1,0 +1,113 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #07070c;
+  color: #fff;
+  font-family: monospace;
+}
+
+main { text-align: center; }
+
+h1 {
+  position: relative;
+  margin: 0;
+  font: 900 170px/1 system-ui;
+  cursor: pointer;
+}
+
+/* two colored copies of the text */
+h1::before,
+h1::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: #07070c;
+  animation: g1 2.4s steps(1) infinite;
+}
+
+h1::before { color: #ff2e63; }
+
+h1::after {
+  color: #08f7fe;
+  animation-name: g2;
+}
+
+@keyframes g1 {
+  0%, 78%, 100% { clip-path: inset(50%); }
+  80% {
+    clip-path: inset(8% 0 62% 0);
+    translate: -14px 0;
+  }
+  85% {
+    clip-path: inset(48% 0 30% 0);
+    translate: 12px 0;
+  }
+  90% {
+    clip-path: inset(75% 0 6% 0);
+    translate: -8px 0;
+  }
+}
+
+@keyframes g2 {
+  0%, 78%, 100% { clip-path: inset(50%); }
+  80% {
+    clip-path: inset(60% 0 12% 0);
+    translate: 12px 0;
+  }
+  86% {
+    clip-path: inset(20% 0 58% 0);
+    translate: -10px 0;
+  }
+  92% {
+    clip-path: inset(40% 0 40% 0);
+    translate: 16px 0;
+  }
+}
+
+/* hover: total meltdown */
+h1:hover::before,
+h1:hover::after {
+  animation-duration: .35s;
+  animation-direction: alternate;
+}
+
+h1:hover {
+  animation: shake .12s infinite;
+}
+
+@keyframes shake {
+  50% { translate: 3px -2px; }
+}
+
+p {
+  margin: 10px 0 0;
+  color: #8a8aa3;
+  font-size: 18px;
+}
+
+p::after {
+  content: '_';
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+a {
+  display: inline-block;
+  margin-top: 26px;
+  padding: 12px 26px;
+  border: 2px solid #08f7fe;
+  color: #08f7fe;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+a:hover {
+  background: #08f7fe;
+  color: #07070c;
+  box-shadow: 0 0 30px #08f7fe;
+}

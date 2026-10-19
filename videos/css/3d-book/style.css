@@ -1,0 +1,82 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(
+    #2e2840, #110f18);
+  perspective: 1400px;
+}
+
+.book {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  margin-left: 200px;
+  transform-style: preserve-3d;
+  rotate: x 12deg;
+  cursor: pointer;
+}
+
+.book > div {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px 12px 12px 4px;
+  transform-origin: left;
+  transform-style: preserve-3d;
+}
+
+.page {
+  padding: 30px 24px;
+  box-sizing: border-box;
+  background: #fdf8ec;
+  box-shadow: 4px 4px 0 #ece2c9,
+    8px 8px 0 #d8cba8;
+  color: #3a3226;
+  font: 19px/1.6 Georgia, serif;
+}
+
+.page::first-letter {
+  float: left;
+  margin-right: 6px;
+  color: #7c3aed;
+  font-size: 58px;
+  line-height: 1;
+}
+
+.flip {
+  background: #f4ecd8;
+  transition: rotate .8s .2s;
+}
+
+.cover {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: linear-gradient(135deg,
+    #7c3aed, #db2777);
+  color: #fff;
+  font: 800 54px system-ui;
+  transition: rotate 1s
+    cubic-bezier(.6, .05, .3, 1);
+}
+
+.cover small {
+  display: block;
+  font: italic 18px Georgia, serif;
+}
+
+/* inside of the cover */
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #4c1d95;
+  transform: rotateY(180deg)
+    translateZ(1px);
+  backface-visibility: hidden;
+}
+
+.book:hover .cover { rotate: y -165deg; }
+.book:hover .flip { rotate: y -155deg; }

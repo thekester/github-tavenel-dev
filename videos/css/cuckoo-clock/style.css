@@ -1,0 +1,154 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e3a5f, #0b1220);
+}
+
+#go { display: none; }
+
+.clock {
+  position: relative;
+  width: 300px;
+  height: 440px;
+}
+
+.clock > * { position: absolute; }
+
+.roof {
+  top: 0;
+  width: 300px;
+  height: 100px;
+  background: #7c2d12;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.house {
+  z-index: 1;
+  top: 96px;
+  left: 30px;
+  width: 240px;
+  height: 210px;
+  border-radius: 0 0 14px 14px;
+  background: repeating-linear-gradient(90deg,
+    #a0522d 0 22px, #8b4513 0 24px);
+}
+
+/* dark hole + a door panel on hinges */
+.door {
+  position: absolute;
+  top: 14px;
+  left: 95px;
+  width: 50px;
+  height: 52px;
+  border-radius: 25px 25px 0 0;
+  background: #1c0a02;
+}
+
+.door::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  background: #d97706;
+  transform-origin: left;
+}
+
+.bird {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  left: 6px;
+  width: 38px;
+  height: 30px;
+  border-radius: 50% 50% 40% 40%;
+  background: radial-gradient(circle at 35% 35%,
+    #111 3px, #0000 4px), #fde047;
+  scale: .3;
+}
+
+.bird::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -12px;
+  border: 7px solid #0000;
+  border-right: 12px solid #f97316;
+}
+
+.face {
+  position: absolute;
+  top: 78px;
+  left: 60px;
+  width: 120px;
+  height: 120px;
+  border: 6px solid #fbbf24;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: repeating-conic-gradient(
+    #fff7ed 0 28deg, #78350f 0 30deg);
+}
+
+.face i {
+  position: absolute;
+  bottom: 50%;
+  left: calc(50% - 3px);
+  width: 6px;
+  border-radius: 3px;
+  background: #111;
+  transform-origin: bottom;
+  transition: rotate 1.2s ease-in-out;
+}
+
+.hr { height: 30px; rotate: 300deg; }
+.min { height: 46px; rotate: 60deg; }
+
+.pendulum {
+  top: 290px;
+  left: 130px;
+  width: 40px;
+  height: 130px;
+  background:
+    radial-gradient(circle at 50% 110px,
+      #fbbf24 18px, #0000 19px),
+    linear-gradient(90deg, #0000 16px,
+      #b45309 0 24px, #0000 0);
+  transform-origin: top;
+  animation: swing 1s ease-in-out infinite
+    alternate;
+}
+
+@keyframes swing {
+  from { rotate: 18deg; }
+  to { rotate: -18deg; }
+}
+
+/* click: hands to 12, door opens, bird x2 */
+#go:checked + .clock .hr { rotate: 360deg; }
+#go:checked + .clock .min { rotate: 1080deg; }
+
+#go:checked + .clock .door::after {
+  animation: door 2.6s 1.2s;
+}
+
+#go:checked + .clock .bird {
+  animation: cuckoo 2s 1.5s;
+}
+
+@keyframes door {
+  10%, 90% {
+    transform: perspective(150px)
+      rotateY(-100deg);
+  }
+}
+
+@keyframes cuckoo {
+  15%, 35%, 65%, 85% {
+    scale: 1.7;
+    translate: -6px 14px;
+  }
+  50% { scale: .3; }
+}

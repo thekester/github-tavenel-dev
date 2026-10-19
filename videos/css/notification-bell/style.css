@@ -1,0 +1,135 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+  counter-reset: n;
+}
+
+/* hidden but still counted */
+input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+input:checked { counter-increment: n; }
+
+.scene {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 300px;
+}
+
+/* 3 labels stacked: the top one gets used */
+label {
+  grid-area: 1 / 1;
+  padding: 10px 34px;
+  border-radius: 99px;
+  background: #facc15;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#n1:checked ~ .scene [for=n1],
+#n2:checked ~ .scene [for=n2] {
+  visibility: hidden;
+}
+
+.bell {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 22px 0 30px;
+  border-radius: 40px 40px 8px 8px;
+  background: #facc15;
+  transform-origin: 50% -14px;
+}
+
+/* brim + clapper */
+.bell::before,
+.bell::after {
+  content: '';
+  position: absolute;
+  background: #eab308;
+}
+
+.bell::before {
+  inset: auto -12px -6px;
+  height: 14px;
+  border-radius: 7px;
+}
+
+.bell::after {
+  left: 28px;
+  bottom: -26px;
+  width: 24px;
+  height: 14px;
+  border-radius: 0 0 12px 12px;
+}
+
+/* badge shows the counter */
+.bell b {
+  position: absolute;
+  top: -10px;
+  right: -16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  font: 800 18px/34px system-ui;
+  text-align: center;
+  scale: 0;
+}
+
+.bell b::after { content: counter(n); }
+
+/* new keyframe name = animation restarts */
+#n1:checked ~ .scene .bell {
+  animation: ring1 .9s;
+}
+#n2:checked ~ .scene .bell {
+  animation: ring2 .9s;
+}
+#n3:checked ~ .scene .bell {
+  animation: ring3 .9s;
+}
+
+#n1:checked ~ .scene b { animation: pop1 .4s; }
+#n2:checked ~ .scene b { animation: pop2 .4s; }
+#n3:checked ~ .scene b { animation: pop3 .4s; }
+input:checked ~ .scene b { scale: 1; }
+
+@keyframes ring1 {
+  25%, 75% { rotate: 25deg; }
+  50% { rotate: -25deg; }
+}
+@keyframes ring2 { 50% { rotate: -25deg; } }
+@keyframes ring3 { 50% { rotate: 25deg; } }
+@keyframes pop1 { 50% { scale: 1.6; } }
+@keyframes pop2 { 50% { scale: 1.6; } }
+@keyframes pop3 { 50% { scale: 1.6; } }
+
+p {
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+  border-left: 5px solid #facc15;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #e2e8f0;
+  translate: 60%;
+  opacity: 0;
+  transition: .5s;
+}
+
+#n1:checked ~ .scene p:nth-of-type(1),
+#n2:checked ~ .scene p:nth-of-type(2),
+#n3:checked ~ .scene p:nth-of-type(3) {
+  translate: 0;
+  opacity: 1;
+}

@@ -1,0 +1,74 @@
+@property --s {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 120px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a1d;
+  font-family: system-ui;
+  transition: --s .9s cubic-bezier(.5, 0, .2, 1);
+}
+
+body:has(#s1:checked) { --s: 1; }
+body:has(#s2:checked) { --s: 2; }
+body:has(#s3:checked) { --s: 3; }
+body:has(#s4:checked) { --s: 4; }
+body:has(#s5:checked) { --s: 5; }
+
+.stage { perspective: 1000px; }
+
+.ring {
+  position: relative;
+  width: 170px;
+  height: 230px;
+  transform-style: preserve-3d;
+  transform: rotateX(-8deg)
+    rotateY(calc(var(--s) * -60deg));
+}
+
+/* six cards around a circle */
+.ring i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: linear-gradient(160deg,
+    hsl(calc(var(--i) * 60) 85% 62%),
+    hsl(calc(var(--i) * 60 + 40) 85% 45%));
+  color: #fff;
+  font: 800 30px system-ui;
+  font-style: normal;
+  transform: rotateY(calc(var(--i) * 60deg))
+    translateZ(250px);
+  /* the CSS knows which card faces you */
+  opacity: calc(.45 + .55 *
+    cos((var(--i) - var(--s)) * 60deg));
+}
+
+nav { display: flex; gap: 16px; }
+
+label {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3b3660;
+  cursor: pointer;
+  transition: .3s;
+}
+
+label:has(:checked),
+body:not(:has(:checked)) label:first-child {
+  background: #fff;
+  scale: 1.3;
+}
+
+input { display: none; }

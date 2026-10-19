@@ -1,0 +1,122 @@
+@property --s {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: #1c1917;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene { position: relative; }
+
+/* bull + 20 sectors */
+.board {
+  width: 300px;
+  aspect-ratio: 1;
+  border: 18px solid #0c0a09;
+  border-radius: 50%;
+  background:
+    radial-gradient(#dc2626 0 9px,
+      #16a34a 0 20px, #0000 0),
+    repeating-conic-gradient(from -9deg,
+      #1c1917 0 18deg, #fde68a 0 36deg);
+  box-shadow: 0 0 0 4px #57534e;
+}
+
+/* treble + double rings, masked */
+.board::before {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from -9deg, #dc2626 0 18deg,
+    #16a34a 0 36deg);
+  mask: radial-gradient(#0000 0 84px,
+    #000 0 96px, #0000 0 136px, #000 0);
+}
+
+/* tip sits on the bullseye */
+.dart {
+  position: absolute;
+  top: calc(50% - 3px);
+  left: 50%;
+  width: 150px;
+  height: 7px;
+  background: linear-gradient(90deg,
+    #cbd5e1 0 25%, #475569 0 60%,
+    #e2e8f0 0);
+  transform-origin: 0 50%;
+  rotate: 35deg;
+  opacity: 0;
+  filter: drop-shadow(4px 8px 3px #000c);
+}
+
+.dart::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: -16px;
+  width: 44px;
+  height: 38px;
+  background: #ef4444;
+  clip-path: polygon(0 50%, 100% 0,
+    75% 50%, 100% 100%);
+}
+
+/* big + close -> small + far, on an arc */
+#go:checked + .scene .dart {
+  opacity: 1;
+  animation: fly .7s ease-in,
+    wobble .6s .7s;
+}
+
+@keyframes fly {
+  from { translate: 160px 420px; scale: 6; }
+  50% { translate: 70px -40px; scale: 2.2; }
+}
+
+@keyframes wobble {
+  25% { rotate: 46deg; }
+  50% { rotate: 28deg; }
+  75% { rotate: 39deg; }
+}
+
+.score {
+  margin: 0;
+  color: #fde68a;
+  font: 900 44px system-ui;
+}
+
+.score::after { content: counter(s); }
+
+#go:checked ~ .score {
+  counter-reset: s var(--s);
+  animation: hit .5s .7s both;
+}
+
+@keyframes hit {
+  50% { scale: 1.6; color: #f87171; }
+  to { --s: 50; }
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 10px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}

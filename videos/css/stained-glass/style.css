@@ -1,0 +1,151 @@
+/* three animations, same timing = in sync */
+@keyframes sun {
+  50% { translate: 0 -30px; }
+  to { translate: 170px 60px; }
+}
+@keyframes glow {
+  50% { filter: brightness(1.4); }
+}
+@keyframes patch {
+  50% { translate: 0; transform: skewX(0);
+    opacity: .9; }
+  to { translate: -150px;
+    transform: skewX(-40deg); }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a09;
+  font: 800 22px system-ui;
+}
+
+input { display: none; }
+
+/* stone wall + floor */
+.scene {
+  position: relative;
+  width: 380px;
+  height: 430px;
+  overflow: hidden;
+  background: linear-gradient(#292524 300px,
+    #57534e 0, #3f3a36);
+}
+
+.scene * { position: absolute; margin: 0; }
+
+.window {
+  left: 90px;
+  top: 30px;
+  width: 200px;
+  height: 260px;
+  border-radius: 100px 100px 0 0;
+  overflow: hidden;
+  background: #1e3a8a;
+  box-shadow: 0 0 0 10px #78716c;
+}
+
+.sun {
+  left: 50px;
+  top: 90px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #fef9c3;
+  box-shadow: 0 0 40px 20px #fde047;
+  translate: -170px 60px;
+}
+
+.glass, .light, i { inset: 0; }
+
+.glass { opacity: .8; filter: brightness(.5); }
+
+/* small scale toward each centre = lead lines */
+i { scale: .94; }
+
+/* the floor copy: squashed, skewed, blurred */
+.light {
+  top: 300px;
+  bottom: auto;
+  height: 260px;
+  left: 90px;
+  width: 200px;
+  scale: 1 .5;
+  transform-origin: top;
+  transform: skewX(40deg);
+  translate: 150px;
+  opacity: .15;
+  filter: blur(7px);
+  mix-blend-mode: screen;
+}
+
+#go:checked + .scene .sun {
+  animation: sun 5s ease-in-out forwards;
+}
+#go:checked + .scene .glass {
+  animation: glow 5s ease-in-out forwards;
+}
+#go:checked + .scene .light {
+  animation: patch 5s ease-in-out forwards;
+}
+
+.a {
+  clip-path: polygon(0 0, 50% 0,
+    50% 40%, 0 25%);
+  transform-origin: 25% 16%;
+  background: #dc2626;
+}
+
+.b {
+  clip-path: polygon(50% 0, 100% 0,
+    100% 25%, 50% 40%);
+  transform-origin: 75% 16%;
+  background: #2563eb;
+}
+
+.c {
+  clip-path: polygon(0 25%, 50% 40%,
+    0 60%);
+  transform-origin: 17% 42%;
+  background: #facc15;
+}
+
+.d {
+  clip-path: polygon(100% 25%, 100% 60%,
+    50% 40%);
+  transform-origin: 83% 42%;
+  background: #16a34a;
+}
+
+.e {
+  clip-path: polygon(0 60%, 50% 40%,
+    100% 60%, 50% 78%);
+  transform-origin: 50% 60%;
+  background: #9333ea;
+}
+
+.f {
+  clip-path: polygon(0 60%, 50% 78%,
+    50% 100%, 0 100%);
+  transform-origin: 25% 84%;
+  background: #f97316;
+}
+
+.g {
+  clip-path: polygon(100% 60%, 100% 100%,
+    50% 100%, 50% 78%);
+  transform-origin: 75% 84%;
+  background: #06b6d4;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #fbbf24;
+  color: #451a03;
+  cursor: pointer;
+}

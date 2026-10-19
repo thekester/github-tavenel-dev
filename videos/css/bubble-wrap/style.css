@@ -1,0 +1,83 @@
+body {
+  display: grid;
+  place-content: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font: 800 30px system-ui;
+  counter-reset: pop;
+}
+
+.wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 84px);
+  gap: 14px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #bae6fd22;
+}
+
+input { display: none; }
+
+/* every popped bubble adds one */
+label:has(:checked) {
+  counter-increment: pop;
+}
+
+i {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  background: radial-gradient(circle at 32% 28%,
+    #fff 0 8%, #e0f2fe99 22%, #7dd3fc33 70%);
+  box-shadow: inset -6px -8px 14px #0ea5e955,
+    0 6px 12px #0006;
+  transition: scale .15s, background .2s;
+}
+
+label:hover i { scale: 1.08; }
+
+/* popped: flat and wrinkled */
+input:checked + i {
+  scale: .82;
+  border-radius: 46% 54% 40% 60%;
+  background: #7dd3fc1f;
+  box-shadow: inset 0 0 0 2px #7dd3fc33;
+}
+
+/* the burst ring */
+input:checked + i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: burst .45s ease-out;
+}
+
+@keyframes burst {
+  from { scale: .7; opacity: 1; }
+  to { scale: 1.9; opacity: 0; }
+}
+
+.count {
+  margin: 0;
+  text-align: center;
+  color: #e0f2fe;
+}
+
+.count::after {
+  content: counter(pop) ' / 9 popped';
+}
+
+/* all popped: celebrate */
+body:not(:has(input:not(:checked))) .count {
+  color: #4ade80;
+  animation: yay .5s 2 alternate;
+}
+
+@keyframes yay { to { scale: 1.25; } }

@@ -1,0 +1,157 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #134e4a;
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 420px;
+}
+
+.scene > * { position: absolute; }
+
+/* a trapezoid of clear plastic */
+.cup {
+  top: 120px;
+  left: 60px;
+  width: 200px;
+  height: 290px;
+  clip-path: polygon(0 0, 100% 0,
+    88% 100%, 12% 100%);
+  background: linear-gradient(90deg,
+    #fff3, #fff6 15%, #fff1);
+}
+
+.tea {
+  position: absolute;
+  inset: auto 0 0;
+  height: 80%;
+  background: linear-gradient(#ead1ac,
+    #c99e6e);
+  box-shadow: inset 0 6px #f5e3c8;
+  transition: height 1.4s .7s;
+}
+
+.cup i {
+  position: absolute;
+  left: var(--x);
+  bottom: var(--y);
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%, #7a5a45, #1c1008 60%);
+  opacity: 0;
+}
+
+/* each pearl drops with its own delay */
+#add:checked ~ .scene i {
+  opacity: 1;
+  animation: fall .7s var(--d) ease-in both;
+}
+
+@keyframes fall {
+  from { translate: 0 -300px; }
+  75% { translate: 0 0; }
+  88% { translate: 0 -8px; }
+}
+
+.lid {
+  top: 92px;
+  left: 52px;
+  width: 216px;
+  height: 36px;
+  z-index: 1;
+  border-radius: 50% 50% 6px 6px /
+    100% 100% 6px 6px;
+  background: #fbcfe8cc;
+  opacity: 0;
+}
+
+#add:checked ~ .scene .lid {
+  animation: seal .5s 2.9s both;
+}
+
+@keyframes seal {
+  from { translate: 0 -90px; opacity: 0; }
+  to { opacity: 1; }
+}
+
+.straw {
+  left: 168px;
+  width: 40px;
+  height: 100px;
+  opacity: 0;
+  transition: opacity .4s 3.3s;
+}
+
+#add:checked ~ .scene .straw { opacity: 1; }
+
+/* the label stays, its ::before stabs */
+.straw::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  width: 16px;
+  height: 180px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(
+    -40deg, #f472b6 0 8px, #fff 0 14px);
+  transition: translate .3s ease-in;
+}
+
+#sip:checked ~ .scene .straw::before {
+  translate: 0 150px;
+}
+
+/* pop! a ring bursts from the seal */
+.lid::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 110px;
+  width: 36px;
+  height: 36px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+#sip:checked ~ .scene .lid::after {
+  animation: pop .5s .25s;
+}
+
+@keyframes pop {
+  from { scale: .2; opacity: 1; }
+  to { scale: 2; }
+}
+
+#sip:checked ~ .scene .tea { height: 64%; }
+
+/* the top pearls get sucked up */
+#sip:checked ~ .scene i:nth-of-type(n+7) {
+  animation: suck .8s calc(var(--d) * .4)
+    ease-in forwards;
+}
+
+@keyframes suck {
+  to { translate: calc(118px - var(--x))
+    -150px; scale: .5; opacity: 0; }
+}
+
+.btn {
+  padding: 12px 34px;
+  border-radius: 99px;
+  background: #fbcfe8;
+  color: #831843;
+  font: 800 24px system-ui;
+}

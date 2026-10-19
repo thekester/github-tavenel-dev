@@ -1,0 +1,141 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#bae6fd, #0284c7);
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 300px;
+  height: 340px;
+}
+
+.scene > *, .egg > * { position: absolute; }
+
+.egg {
+  left: 75px;
+  top: 40px;
+  width: 150px;
+  height: 190px;
+  /* the zig-zag shared by shell + cracks */
+  --zz: 13% 52%, 26% 43%, 39% 53%,
+    52% 43%, 65% 53%, 78% 43%, 91% 52%;
+}
+
+.shell {
+  inset: 0;
+  border-radius: 50% 50% 50% 50% /
+    60% 60% 40% 40%;
+  background: radial-gradient(circle at 35% 30%,
+    #fff, #fde7c4 60%, #e9c48f);
+}
+
+.top {
+  clip-path: polygon(100% 0, 0 0, 0 46%,
+    var(--zz), 100% 46%);
+}
+
+.low {
+  clip-path: polygon(0 100%, 0 46%,
+    var(--zz), 100% 46%, 100% 100%);
+}
+
+.crack {
+  inset: 0;
+  background: #78350f;
+  scale: 0 1;
+}
+
+.c1 { clip-path: polygon(0 46%, 13% 52%,
+  26% 43%, 39% 53%, 52% 43%, 52% 47%,
+  39% 57%, 26% 47%, 13% 56%, 0 50%); }
+
+.c2 { clip-path: polygon(52% 43%, 65% 53%,
+  78% 43%, 91% 52%, 100% 46%, 100% 50%,
+  91% 56%, 78% 47%, 65% 57%, 52% 47%); }
+
+/* one wobble + one crack per tap */
+#t1:checked ~ * .egg {
+  animation: w1 .5s; }
+#t2:checked ~ * .egg {
+  animation: w2 .5s; }
+#t1:checked ~ * .c1,
+#t2:checked ~ * .c2 {
+  scale: 1; transition: scale .3s; }
+
+@keyframes w1 { 25% { rotate: -12deg; }
+  75% { rotate: 10deg; } }
+@keyframes w2 { 25% { rotate: 12deg; }
+  75% { rotate: -10deg; } }
+
+/* tap 3: the top shell flies off */
+#t3:checked ~ * .top {
+  animation: off .8s ease-in forwards;
+}
+
+@keyframes off {
+  to { translate: 120px -260px;
+    rotate: 200deg; opacity: 0; }
+}
+
+.chick {
+  left: 25px;
+  top: 70px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 150deg at 50% 52%,
+      #f97316 60deg, #0000 0) 0 0 / 100% 70%
+      no-repeat,
+    #fde047;
+  box-shadow: 0 -6px 0 -2px #fde047,
+    -8px -2px 0 -4px #facc15;
+}
+
+/* the eyes blink on their own */
+.chick::before {
+  content: '';
+  position: absolute;
+  inset: 32px 22px 56px;
+  background: radial-gradient(circle,
+    #1c1917 6px, #0000 7px) 0 0 / 50% 100%;
+  animation: blink 2s infinite;
+}
+
+#t3:checked ~ * .chick {
+  animation: up .5s .3s both;
+}
+
+@keyframes up {
+  from { translate: 0 0; }
+  70% { translate: 0 -95px; }
+  to { translate: 0 -80px; }
+}
+
+@keyframes blink {
+  0%, 88% { scale: 1; }
+  94% { scale: 1 .1; }
+}
+
+.nest {
+  left: 30px;
+  top: 190px;
+  width: 240px;
+  height: 90px;
+  border-radius: 20px 20px 50% 50%;
+  background: repeating-linear-gradient(
+    -20deg, #92400e 0 5px, #b45309 0 9px);
+}
+
+label {
+  inset: 30px 60px 100px;
+  cursor: pointer;
+}
+
+[for=t1], #t1:checked ~ * [for=t2],
+#t2:checked ~ * [for=t3] { z-index: 1; }

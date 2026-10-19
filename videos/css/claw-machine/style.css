@@ -1,0 +1,167 @@
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 35deg;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a1f;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.machine {
+  width: 300px;
+  padding: 0 20px 16px;
+  border-radius: 24px 24px 12px 12px;
+  background: linear-gradient(#db2777, #9d174d);
+}
+
+.sign {
+  margin: 0;
+  color: #831843;
+  font: 900 40px/64px system-ui;
+  text-align: center;
+}
+
+.glass {
+  position: relative;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(#312e81, #1e1b4b);
+}
+
+.glass > * { position: absolute; }
+
+/* claw = cable (b) + head (i) */
+.claw { left: 20px; width: 40px; z-index: 3; }
+
+.claw b {
+  display: block;
+  width: 4px;
+  height: 30px;
+  margin: auto;
+  background: #cbd5e1;
+}
+
+.claw i {
+  position: relative;
+  display: block;
+  height: 16px;
+  border-radius: 8px;
+  background: #94a3b8;
+}
+
+.claw i::before, .claw i::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  width: 6px;
+  height: 42px;
+  border-radius: 3px;
+  background: #cbd5e1;
+  transform-origin: top;
+  rotate: var(--a);
+}
+
+.claw i::after {
+  right: 0;
+  rotate: calc(var(--a) * -1);
+}
+
+/* plush balls with two eyes */
+.glass u {
+  left: var(--x);
+  bottom: var(--y);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 40%,
+      #000 4px, #0000 5px),
+    radial-gradient(circle at 65% 40%,
+      #000 4px, #0000 5px), var(--c);
+}
+
+.chute {
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 84px;
+  z-index: 2;
+  background: repeating-linear-gradient(-45deg,
+    #facc15 0 10px, #1c1917 0 20px);
+}
+
+.panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  height: 76px;
+}
+
+.joy {
+  width: 8px;
+  height: 46px;
+  background: #1c1917;
+  box-shadow: 0 -20px 0 8px #ef4444;
+  border-radius: 4px;
+}
+
+.go {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #facc15;
+  box-shadow: 0 5px #a16207;
+  font: 900 20px/56px system-ui;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* one 6s timeline shared by every part */
+#go:checked + .machine {
+  .claw { animation: cx 6s forwards; }
+  .claw b { animation: cable 6s forwards; }
+  .claw i::before,
+  .claw i::after { animation: grab 6s forwards; }
+  .prize { animation: prize 6s forwards; }
+  .sign {
+    animation: win .3s 5.3s 5 alternate both;
+  }
+}
+
+@keyframes cx {
+  15%, 62% { translate: 160px; }
+  80% { translate: 0; }
+}
+
+@keyframes cable {
+  0%, 15% { height: 30px; }
+  35%, 42% { height: 214px; }
+  60% { height: 30px; }
+}
+
+@keyframes grab {
+  42%, 80% { --a: 8deg; }
+}
+
+@keyframes prize {
+  42% { translate: 0 0; }
+  60%, 62% { translate: 0 -184px; }
+  80%, 84% { translate: -160px -184px; }
+  to { translate: -160px 120px; }
+}
+
+@keyframes win {
+  to {
+    color: #fde047;
+    text-shadow: 0 0 16px #facc15;
+  }
+}

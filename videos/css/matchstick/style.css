@@ -1,0 +1,143 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+}
+
+#lit { display: none; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 440px;
+}
+
+.scene > * { position: absolute; }
+
+.box {
+  left: 40px;
+  top: 320px;
+  width: 300px;
+  height: 90px;
+  border-radius: 8px;
+  background: #dc2626;
+}
+
+/* the striker strip */
+label {
+  position: absolute;
+  inset: auto 20px 14px;
+  height: 22px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(60deg,
+    #57534e 0 3px, #78350f 0 6px);
+  cursor: pointer;
+}
+
+/* rests on the striker, origin at the base */
+.match {
+  left: 185px;
+  top: 170px;
+  width: 10px;
+  height: 130px;
+  transform-origin: 50% 100%;
+  translate: -218px 150px;
+  z-index: 1;
+  rotate: 60deg;
+}
+
+#lit:checked ~ .scene .match {
+  animation: strike 1.2s ease-in-out forwards;
+}
+
+@keyframes strike {
+  45% { translate: -8px 150px; rotate: 60deg; }
+  to { translate: 0 0; rotate: 0deg; }
+}
+
+/* burns down, char on top */
+.stick {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 130px;
+  border-radius: 3px;
+  background: linear-gradient(#1c1917 14px,
+    #44403c 20px, #fcd9a8 34px);
+}
+
+/* match head */
+.stick::before {
+  content: '';
+  position: absolute;
+  inset: -8px -4px auto;
+  height: 22px;
+  border-radius: 50%;
+  background: #b91c1c;
+}
+
+#lit:checked ~ .scene .stick {
+  animation: burn 6s 1.2s linear forwards;
+}
+
+#lit:checked ~ .scene .stick::before {
+  background: #292524;
+  transition: background .4s .5s;
+}
+
+@keyframes burn { to { height: 34px; } }
+
+.flame {
+  position: absolute;
+  left: -11px;
+  top: -46px;
+  width: 32px;
+  height: 48px;
+  border-radius: 50% / 70% 70% 30% 30%;
+  background: radial-gradient(
+    circle at 50% 75%, #fff 10%,
+    #fde047 30%, #f97316 65%, #0000 70%);
+  filter: drop-shadow(0 0 12px #f97316);
+  transform-origin: 50% 90%;
+  scale: 0;
+}
+
+#lit:checked ~ .scene .flame {
+  animation:
+    ignite 7.2s .45s forwards,
+    flicker .15s infinite alternate;
+}
+
+@keyframes ignite {
+  4%, 95% { scale: 1; }
+  to { scale: 0; }
+}
+
+@keyframes flicker {
+  to { rotate: 4deg; translate: 0 2px; }
+}
+
+.smoke {
+  position: absolute;
+  left: -6px;
+  top: -20px;
+  width: 22px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #a8a29e;
+  filter: blur(4px);
+  opacity: 0;
+}
+
+#lit:checked ~ .scene .smoke {
+  animation: smoke 2s calc(7.6s + var(--d))
+    ease-out 2;
+}
+
+@keyframes smoke {
+  20% { opacity: .7; }
+  to { translate: 14px -120px;
+    scale: 3; opacity: 0; }
+}

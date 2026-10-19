@@ -1,0 +1,88 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #111827;
+}
+
+#go { display: none; }
+
+.cradle {
+  position: relative;
+  display: flex;
+  padding: 0 70px;
+  border-top: 12px solid #64748b;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* string + ball, swinging from the top */
+i {
+  position: relative;
+  width: 62px;
+  height: 250px;
+  transform-origin: top center;
+}
+
+i::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  width: 2px;
+  height: 200px;
+  background: #94a3b8;
+}
+
+i::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 62px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    #fff, #cbd5e1 25%, #475569 70%, #1e293b);
+}
+
+/* pulled back, waiting */
+i:first-child { rotate: 40deg; }
+
+.cradle::after {
+  content: 'click to release';
+  position: absolute;
+  top: 290px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font: 600 22px system-ui;
+  color: #64748b;
+  transition: opacity .3s;
+}
+
+#go:checked + .cradle::after { opacity: 0; }
+
+#go:checked + .cradle i:first-child {
+  animation: left 1.4s infinite;
+}
+
+#go:checked + .cradle i:last-child {
+  animation: right 1.4s infinite;
+}
+
+/* fall in, rest, swing back out */
+@keyframes left {
+  0% { rotate: 40deg;
+    animation-timing-function: ease-in; }
+  25%, 75% { rotate: 0deg;
+    animation-timing-function: ease-out; }
+  100% { rotate: 40deg; }
+}
+
+@keyframes right {
+  0%, 25% { rotate: 0deg;
+    animation-timing-function: ease-out; }
+  50% { rotate: -40deg;
+    animation-timing-function: ease-in; }
+  75%, 100% { rotate: 0deg; }
+}

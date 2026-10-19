@@ -1,0 +1,42 @@
+body {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  margin: 0;
+  background: #0d0b16;
+  text-align: center;
+  font-family: system-ui;
+}
+
+.word {
+  margin: 0;
+  font: 900 76px system-ui;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.word span {
+  display: inline-block;
+  color: hsl(calc(var(--i) * 40) 90% 65%);
+  transition: .7s cubic-bezier(.2, .9, .3, 1.3);
+  transition-delay: calc(var(--i) * 30ms);
+}
+
+/* every letter flies its own way */
+.word:hover span {
+  --a: calc(var(--i) * 137.5deg);
+  /* pull to the center, then burst out */
+  translate:
+    calc((4.5 - var(--i)) * 70px
+      + cos(var(--a)) * 200px)
+    calc(sin(var(--a)) * 130px);
+  rotate: calc(var(--i) * 75deg);
+  scale: .7;
+}
+
+p {
+  color: #6b6684;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}

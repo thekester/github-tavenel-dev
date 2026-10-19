@@ -1,0 +1,72 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 34px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3b0764, #0c0a09);
+  font: 800 24px system-ui;
+}
+
+#go { display: none; }
+
+.scope {
+  position: relative;
+  width: 340px;
+  aspect-ratio: 1;
+  border: 14px solid #292524;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #1e1b4b;
+  box-shadow: 0 0 50px #a855f766;
+}
+
+/* one 30deg slice, rotated 12 times */
+.scope i {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 50%, 36% 0, 64% 0);
+  transform: rotate(calc(var(--i) * 30deg))
+    scale(var(--s, 1), 1);
+}
+
+/* every other slice is a mirror image */
+.scope i:nth-child(even) { --s: -1; }
+
+/* the same coloured bits in every slice */
+.scope b {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(#f43f5e 0 16px, #0000 17px)
+      0 0 / 96px 92px,
+    radial-gradient(#facc15 0 9px, #0000 10px)
+      13px 21px / 67px 71px,
+    radial-gradient(#22d3ee 0 22px, #0000 23px)
+      30px 7px / 131px 119px,
+    radial-gradient(#fff 0 5px, #0000 6px)
+      5px 33px / 53px 59px,
+    repeating-linear-gradient(60deg,
+      #4c1d95 0 44px, #db2777 0 56px);
+}
+
+/* move the bits: every slice follows */
+:checked + .scope b {
+  animation: tumble 5s ease-in-out forwards;
+}
+
+@keyframes tumble {
+  50% { rotate: 50deg; translate: 0 8%; }
+  to {
+    rotate: 110deg;
+    filter: hue-rotate(60deg);
+  }
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 12px;
+  background: #db2777;
+  color: #fff;
+}

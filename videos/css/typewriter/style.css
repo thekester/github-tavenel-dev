@@ -1,0 +1,123 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #78350f;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.machine {
+  position: relative;
+  width: 380px;
+  height: 360px;
+}
+
+.machine > * { position: absolute; margin: 0; }
+
+/* text starts at the center of the machine */
+.carriage {
+  top: 40px;
+  left: 170px;
+  font: 700 34px/44px monospace;
+}
+
+.paper {
+  width: 240px;
+  height: 110px;
+  padding: 16px 20px;
+  background: #fffbeb;
+  box-shadow: 0 4px 12px #0004;
+}
+
+.paper b {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #1c1917;
+}
+
+.body {
+  bottom: 0;
+  width: 380px;
+  height: 190px;
+  box-sizing: border-box;
+  padding: 36px 30px 70px;
+  border-radius: 30px 30px 12px 12px;
+  /* keys only inside the content box */
+  background: radial-gradient(circle,
+    #cbd5e1 11px, #0000 12px) 0 0 / 40px 42px,
+    #334155;
+  background-clip: content-box, border-box;
+  background-origin: content-box;
+}
+
+/* the platen roller */
+.body::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  border-radius: 12px;
+  background: #111827;
+}
+
+.key {
+  bottom: 18px;
+  left: 120px;
+  width: 140px;
+  border-radius: 10px;
+  background: #dc2626;
+  color: #fff;
+  font: 800 22px/44px system-ui;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ding {
+  top: 0;
+  right: -10px;
+  color: #fde047;
+  font: italic 900 34px system-ui;
+  opacity: 0;
+}
+
+/* one letter per step, 11 letters per line */
+#go:checked + .machine .l1 {
+  animation: type 2.2s steps(11) forwards;
+}
+
+#go:checked + .machine .l2 {
+  animation: type 2.2s 2.8s steps(11) forwards;
+}
+
+@keyframes type { to { width: 11ch; } }
+
+/* the carriage moves left as you type,
+   then returns for the second line */
+#go:checked + .machine .carriage {
+  animation: carriage 5s forwards;
+}
+
+@keyframes carriage {
+  0% { animation-timing-function: steps(11); }
+  44% { translate: -11ch 0;
+    animation-timing-function: ease-in-out; }
+  56% { translate: 0 -44px;
+    animation-timing-function: steps(11); }
+  100% { translate: -11ch -44px; }
+}
+
+#go:checked + .machine .ding {
+  animation: ding .6s 2.2s;
+}
+
+@keyframes ding {
+  from { opacity: 1; scale: .5; }
+  to { opacity: 1; rotate: 10deg; }
+}

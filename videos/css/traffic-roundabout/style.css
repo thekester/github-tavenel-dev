@@ -1,0 +1,100 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+}
+
+#go { display: none; }
+
+/* grass + two crossing roads */
+.scene {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(#0000 0 12px,
+      #fff 0 22px) 50% / 3px 100% no-repeat,
+    repeating-linear-gradient(90deg, #0000 0 12px,
+      #fff 0 22px) 50% / 100% 3px no-repeat,
+    linear-gradient(#52525b 0 0) 50% / 54px 100%
+      no-repeat,
+    linear-gradient(#52525b 0 0) 50% / 100% 54px
+      no-repeat,
+    #4d7c0f;
+}
+
+/* ring road with a kerbed island */
+.scene::before {
+  content: '';
+  position: absolute;
+  inset: 45px;
+  border-radius: 50%;
+  background: radial-gradient(#65a30d 98px,
+    #fff 0 104px, #52525b 0);
+}
+
+.cars { position: absolute; inset: 0; }
+
+.scene i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #0000 55%,
+    #0f172a 0 72%, #0000 0), var(--c);
+  box-shadow: 0 2px 4px #0006;
+  /* ride the circle, facing forward */
+  offset-path: circle(130px at 50% 50%);
+  offset-rotate: auto;
+  animation: lap 8s var(--d) linear infinite;
+}
+
+@keyframes lap { to { offset-distance: 100%; } }
+
+.r {
+  opacity: 0;
+  transition: opacity .6s;
+}
+
+/* exit car: enter west, exit south */
+.scene .exit {
+  offset-path:
+    path('M-30 200H70A130 130 0 1 1 200 330V430');
+  animation: none;
+}
+
+:checked + * .r { opacity: 1; }
+
+/* spin the whole fleet = everyone speeds up */
+:checked + * .cars {
+  animation: up 2s ease-in,
+    spin 2s 2s linear infinite;
+}
+
+:checked + * .exit {
+  animation: lap 4s 1s linear forwards;
+}
+
+@keyframes up { to { rotate: .5turn; } }
+
+@keyframes spin {
+  from { rotate: .5turn; }
+  to { rotate: 1.5turn; }
+}
+
+label {
+  padding: 12px 36px;
+  border-radius: 12px;
+  background: #f59e0b;
+  color: #1c1917;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

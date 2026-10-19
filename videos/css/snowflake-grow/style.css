@@ -1,0 +1,113 @@
+@keyframes grow { to { scale: 1; } }
+@keyframes spin { to { rotate: 1turn; } }
+@keyframes twinkle {
+  50% { scale: 1; opacity: 1; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+}
+
+#go { display: none; }
+
+.sky {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  border-radius: 24px;
+  background:
+    radial-gradient(#1e3a8a, #0b1437 70%);
+}
+
+.flake {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 0 6px #7dd3fc);
+}
+
+/* one arm, rotated six times */
+.flake p {
+  position: absolute;
+  left: 177px;
+  bottom: 50%;
+  width: 6px;
+  height: 140px;
+  margin: 0;
+  transform-origin: bottom;
+  rotate: var(--a);
+}
+
+.flake p::before,
+.flake i::before,
+.flake i::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 3px;
+  background: #e0f2fe;
+  transform-origin: bottom;
+  scale: 0;
+}
+
+.flake p::before { height: 100%; }
+
+/* side branches anchored on the stem */
+.flake i {
+  position: absolute;
+  left: 1px;
+  width: 4px;
+  bottom: var(--y);
+}
+
+.flake i::before,
+.flake i::after {
+  height: var(--l);
+  rotate: 55deg;
+}
+
+.flake i::after { rotate: -55deg; }
+
+i:nth-child(1) { --y: 40px; --l: 46px; --d: .5s; }
+i:nth-child(2) { --y: 78px; --l: 34px; --d: .9s; }
+i:last-child { --y: 110px; --l: 20px; --d: 1.3s; }
+
+.sky b {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%,
+    60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  scale: 0;
+  opacity: 0;
+}
+
+:has(#go:checked) .flake {
+  animation: spin 16s linear infinite;
+}
+:has(#go:checked) .flake p::before {
+  animation: grow .8s ease-out forwards;
+}
+:has(#go:checked) .flake i::before,
+:has(#go:checked) .flake i::after {
+  animation: grow .6s var(--d) ease-out forwards;
+}
+:has(#go:checked) .sky b {
+  animation: twinkle 1.4s var(--d) infinite;
+}
+
+label {
+  padding: 12px 40px;
+  border: 2px solid #7dd3fc;
+  border-radius: 10px;
+  color: #e0f2fe;
+  font: 700 24px system-ui;
+  cursor: pointer;
+}

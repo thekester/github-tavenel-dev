@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS minesweeper</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type=checkbox id=a>
+<input type=checkbox id=b>
+<input type=checkbox id=c>
+<input type=checkbox id=m>
+<div class="game">
+  <div class="top">
+    <span>005</span><i class="face"></i>
+  </div>
+  <div class="grid">
+    <label for=a data-n=1></label><i></i><i></i>
+    <i></i><s></s><i></i>
+    <i></i><s></s><i></i>
+    <label for=m class=x></label>
+    <label for=b data-n=3></label><i></i>
+    <p style=--d:3>
+      <b data-n=1></b><b data-n=2></b><i></i>
+      <i></i><i></i><s></s>
+    </p>
+    <p style=--d:2>
+      <b></b><b data-n=1></b><s></s>
+      <b data-n=1></b><b data-n=1></b>
+      <b data-n=1></b>
+    </p>
+    <p style=--d:1>
+      <b></b><b data-n=1></b><b data-n=1></b>
+      <b data-n=1></b><b></b><b></b>
+    </p>
+    <p style=--d:0>
+      <label for=c></label><b></b><b></b><b></b>
+      <b></b><b></b>
+    </p>
+  </div>
+  <p class="boom">BOOM</p>
+</div>
+</body>
+</html>

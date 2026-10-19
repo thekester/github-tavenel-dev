@@ -1,0 +1,125 @@
+@keyframes sweep {
+  from { rotate: -70deg; opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes wake { to { --e: #facc15; } }
+@keyframes flip { to { rotate: 0deg; } }
+@keyframes flap {
+  from { scale: 1; }
+  to { scale: .2 1; }
+}
+@keyframes fly { to { offset-distance: 100%;
+  scale: 1.7; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: #000;
+}
+
+#go { display: none; }
+
+.cave {
+  position: relative;
+  width: 360px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 20px;
+  background:
+    conic-gradient(from 135deg at 50% 0,
+      #292524 0 90deg, #0000 0)
+      0 0 / 40px 50px repeat-x,
+    #0c0a12;
+}
+
+.cave > * { position: absolute; }
+
+/* the beam is a rotating conic gradient */
+.cone {
+  inset: 0;
+  background: conic-gradient(from -22deg
+    at 50% 100%, #fef9c366 0 44deg, #0000 0);
+  transform-origin: 50% 100%;
+  opacity: 0;
+}
+
+.cave i {
+  top: 48px;
+  left: var(--x);
+  offset-path: var(--p);
+  offset-rotate: 0deg;
+}
+
+/* hanging: the bat is flipped upside down */
+.cave i b {
+  --e: #3b3450;
+  position: absolute;
+  width: 30px;
+  height: 36px;
+  border-radius: 50% 50% 45% 45%;
+  background:
+    radial-gradient(circle at 32% 38%,
+      var(--e) 3px, #0000 4px),
+    radial-gradient(circle at 68% 38%,
+      var(--e) 3px, #0000 4px),
+    #1c1726;
+  rotate: 180deg;
+}
+
+/* wings: folded = squeezed with scale */
+.cave i b::before,
+.cave i b::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 24px;
+  width: 50px;
+  height: 30px;
+  background: #1c1726;
+  clip-path: polygon(100% 0, 0 30%, 15% 100%,
+    40% 70%, 65% 100%, 100% 60%);
+  transform-origin: right;
+  scale: .25 1;
+}
+
+.cave i b::after {
+  right: auto;
+  left: 24px;
+  transform-origin: left;
+  clip-path: polygon(0 0, 100% 30%, 85% 100%,
+    60% 70%, 35% 100%, 0 60%);
+}
+
+:checked + .cave .cone {
+  animation: sweep 1s forwards;
+}
+:checked + .cave i {
+  animation: fly 2.2s calc(1.8s + var(--d))
+    ease-in forwards;
+}
+:checked + .cave i b {
+  animation: wake .1s 1s forwards,
+    flip .4s 1.3s forwards;
+}
+:checked + .cave i b::before,
+:checked + .cave i b::after {
+  animation: flap .15s 1.6s alternate infinite;
+}
+
+/* flashlight */
+label {
+  width: 44px;
+  height: 80px;
+  border-radius: 8px 8px 12px 12px;
+  background: linear-gradient(#d4d4d8 0 20px,
+    #52525b 0 22px, #3f3f46 0);
+  cursor: pointer;
+}
+
+:checked ~ label {
+  box-shadow: 0 -12px 20px #fef08a;
+}

@@ -1,0 +1,113 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3b2a20, #140c08);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 380px;
+}
+
+/* a disc squashed = seen from above */
+.wheel {
+  position: absolute;
+  top: 140px;
+  left: 10px;
+  width: 320px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: scaleY(.3);
+  box-shadow: 0 40px #57534e, 0 80px 40px #0008;
+  overflow: hidden;
+}
+
+.wheel b {
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    #a8a29e 0 15deg, #78716c 0 30deg);
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin { to { rotate: 1turn; } }
+
+.clay {
+  position: absolute;
+  bottom: 84px;
+  left: 90px;
+  width: 160px;
+  height: 230px;
+  /* moving grooves fake the rotation */
+  background:
+    repeating-linear-gradient(90deg,
+      #0000 0 9px, #5c2d1555 0 12px)
+      0 0 / 24px 100%,
+    linear-gradient(90deg, #5c2d15,
+      #c8784a 30%, #eaa877 42%, #6b3519);
+  animation: turn .3s linear infinite;
+  /* same number of points = smooth morph */
+  clip-path: polygon(
+      16px 230px, 16px 219px, 17px 207px,
+      18px 196px, 19px 184px, 21px 173px,
+      24px 162px, 28px 150px, 33px 139px,
+      41px 127px, 80px 116px, 80px 116px,
+      119px 127px, 127px 139px, 132px 150px,
+      136px 162px, 139px 173px, 141px 184px,
+      142px 196px, 143px 207px, 144px 219px,
+      144px 230px);
+  transition: clip-path 2.4s ease-in-out;
+}
+
+@keyframes turn {
+  to { background-position: 24px 0, 0 0; }
+}
+
+#go:checked + .scene .clay {
+  clip-path: polygon(
+      42px 228px, 33px 205px, 22px 182px,
+      15px 160px, 14px 137px, 20px 114px,
+      34px 91px, 50px 68px, 57px 46px,
+      56px 23px, 50px 0px, 110px 0px,
+      104px 23px, 103px 46px, 110px 68px,
+      126px 91px, 140px 114px, 146px 137px,
+      145px 160px, 138px 182px, 127px 205px,
+      118px 228px);
+}
+
+.btn {
+  padding: 12px 44px;
+  border-radius: 30px;
+  background: #c8784a;
+  color: #fff7ed;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked ~ .btn { background: #57534e; }
+
+/* the opening appears at the end */
+.scene::after {
+  content: '';
+  position: absolute;
+  top: 59px;
+  left: 140px;
+  width: 60px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3b1a0a;
+  box-shadow: 0 0 0 3px #b8693d;
+  opacity: 0;
+  transition: opacity .5s 2.2s;
+}
+
+#go:checked + .scene::after { opacity: 1; }

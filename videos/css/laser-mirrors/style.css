@@ -1,0 +1,140 @@
+@keyframes win {
+  to { content: 'UNLOCKED'; color: #4ade80; }
+}
+
+@keyframes lit {
+  to {
+    background: radial-gradient(#fff 25%,
+      #22c55e 0 45%, #bbf7d0 0 65%, #22c55e 0);
+    box-shadow: 0 0 30px 8px #22c55e;
+  }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1020;
+  font: 900 34px monospace;
+}
+
+input { display: none; }
+
+/* inner room, walls = inset shadow */
+.scene {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  background:
+    repeating-linear-gradient(90deg,
+      #ffffff08 0 1px, #0000 0 30px) #111827;
+  box-shadow: inset 0 0 0 20px #334155;
+}
+
+.scene > * { position: absolute; }
+
+.gun {
+  left: 14px;
+  top: 62px;
+  width: 40px;
+  height: 36px;
+  border-radius: 6px;
+  background: #64748b;
+}
+
+.beam {
+  width: 4px;
+  height: 4px;
+  background: #fb7185;
+  box-shadow: 0 0 10px #f43f5e,
+    0 0 24px #f43f5e;
+  transition: .4s .5s linear;
+  transition-property: width, height, opacity;
+}
+
+/* glowing dot where the beam ends */
+.beam::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 14px 5px #f43f5e;
+}
+
+.s1 { left: 54px; top: 78px; width: 286px; }
+.s1::after { right: -7px; top: -5px; }
+
+.s2, .s3 { opacity: 0; }
+.s2 { left: 278px; top: 80px; height: 0; }
+.s2::after { bottom: -7px; left: -5px; }
+
+.s3 { right: 80px; top: 278px; width: 0; }
+.s3::after { left: -7px; top: -5px; }
+
+/* mirror bases stay put, the glass turns */
+label {
+  left: calc(var(--x) - 28px);
+  top: calc(var(--y) - 28px);
+  width: 56px;
+  height: 56px;
+  border: 2px dashed #475569;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+label::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 23px;
+  width: 60px;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(#e0f2fe, #64748b);
+  rotate: calc(var(--o, 0deg) + var(--a, 0deg));
+  transition: rotate .5s;
+}
+
+/* each click turns a mirror 45deg */
+#m1:checked ~ [for=m1],
+#m2:checked ~ [for=m2] { --a: 45deg; }
+
+/* the path, segment by segment */
+.scene:has(#m1:checked) .s1 { width: 226px; }
+.scene:has(#m1:checked) .s2 {
+  height: 260px;
+  opacity: 1;
+}
+.scene:has(#m2:checked) .s2 { height: 200px; }
+.scene:has(#m2:checked) .s3 {
+  width: 198px;
+  opacity: 1;
+}
+
+.target {
+  left: 38px;
+  top: 258px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(#94a3b8 25%,
+    #1e293b 0 45%, #94a3b8 0 65%, #1e293b 0);
+}
+
+.scene:has(#m2:checked) .target {
+  animation: lit .3s .9s both;
+}
+
+.msg::after {
+  content: 'LOCKED';
+  color: #f87171;
+}
+
+.scene:has(#m2:checked) + .msg::after {
+  animation: win 0s 1s forwards;
+}

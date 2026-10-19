@@ -1,0 +1,85 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+  font-family: system-ui;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(4, 86px);
+  gap: 14px;
+  perspective: 900px;
+}
+
+.msg {
+  grid-column: 1 / -1;
+  margin: 0 0 6px;
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.msg::after { content: 'Find the pairs'; }
+
+input { display: none; }
+
+.card {
+  position: relative;
+  height: 116px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: rotate .5s;
+}
+
+.card:has(:checked) { rotate: y 180deg; }
+
+/* two faces, back to back */
+.card::before,
+.card i {
+  content: '';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  backface-visibility: hidden;
+}
+
+.card::before {
+  border: 4px solid #fff;
+  background: repeating-linear-gradient(45deg,
+    #6366f1 0 10px, #818cf8 10px 20px);
+}
+
+.card i {
+  rotate: y 180deg;
+  background: #fff;
+  color: #111;
+  font: normal 56px serif;
+  transition: background .3s;
+}
+
+.a i, .c i { color: #e11d48; }
+
+/* a pair is found when both are flipped */
+.game:has(#a1:checked):has(#a2:checked)
+  .a i { background: #bbf7d0; }
+
+.game:has(#b1:checked):has(#b2:checked)
+  .b i { background: #bbf7d0; }
+
+.game:has(#c1:checked):has(#c2:checked)
+  .c i { background: #bbf7d0; }
+
+.game:has(#d1:checked):has(#d2:checked)
+  .d i { background: #bbf7d0; }
+
+.game:not(:has(input:not(:checked)))
+  .msg::after {
+  content: 'You win!';
+  color: #4ade80;
+}

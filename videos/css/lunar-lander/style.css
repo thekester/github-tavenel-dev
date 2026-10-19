@@ -1,0 +1,179 @@
+@keyframes down { to { translate: 0 182px; } }
+@keyframes wob {
+  25% { rotate: -4deg; } 75% { rotate: 4deg; }
+}
+@keyframes squash { 40% { scale: 1.1 .8; } }
+@keyframes flick { to { scale: .7 1.3; } }
+@keyframes cut { 0%, 97% { opacity: 1; } }
+@keyframes puff {
+  from { opacity: 1; scale: .3; }
+  to { scale: 2; translate: var(--x) -14px; }
+}
+@keyframes pop { 60% { scale: 1.3; } to {
+  scale: 1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #000;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #05060f;
+}
+
+/* one dot, many shadows = stars */
+.scene::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  color: #fff;
+  box-shadow: 40px 60px, 120px 30px, 90px 150px,
+    30px 210px, 200px 110px, 260px 190px,
+    170px 230px, 310px 140px, 230px 20px;
+}
+
+.scene * { position: absolute; }
+
+.earth {
+  top: 26px;
+  right: 34px;
+  width: 54px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 35%,
+    #4ade80 9px, #0000 10px), #2563eb;
+  box-shadow: inset -14px -6px #0009;
+}
+
+/* moon with elliptic craters */
+.ground {
+  bottom: 0;
+  left: -20px;
+  width: 380px;
+  height: 110px;
+  border-radius: 50% 50% 0 0 / 24px;
+  background:
+    radial-gradient(30px 9px at 18% 45%,
+      #6b7280 80%, #0000),
+    radial-gradient(40px 11px at 85% 70%,
+      #6b7280 80%, #0000), #9ca3af;
+}
+
+.lander {
+  top: 40px;
+  left: 120px;
+  width: 100px;
+  height: 110px;
+}
+
+.craft { inset: 0; transform-origin: bottom; }
+
+.cabin {
+  left: 22px;
+  width: 56px;
+  height: 50px;
+  border-radius: 50% 50% 10px 10px;
+  background: radial-gradient(circle at 50% 45%,
+    #7dd3fc 7px, #0369a1 10px, #0000 11px),
+    #d1d5db;
+}
+
+/* gold foil descent stage */
+.stage {
+  top: 46px;
+  left: 10px;
+  width: 80px;
+  height: 30px;
+  background: repeating-linear-gradient(80deg,
+    #facc15 0 9px, #ca8a04 0 16px);
+}
+
+.leg {
+  top: 66px;
+  width: 4px;
+  height: 42px;
+  background: #ddd;
+  rotate: var(--r);
+  transform-origin: top;
+}
+
+.flame {
+  top: 70px;
+  left: 38px;
+  width: 24px;
+  height: 46px;
+  border-radius: 50% / 20% 20% 80% 80%;
+  background: linear-gradient(#fff, #fde047,
+    #f97316, #0000);
+  transform-origin: top;
+  opacity: 0;
+}
+
+.dust {
+  bottom: 80px;
+  width: 70px;
+  height: 30px;
+  background: radial-gradient(#eee, #0000 70%);
+  opacity: 0;
+}
+
+.flag {
+  left: 262px;
+  bottom: 68px;
+  width: 3px;
+  height: 52px;
+  background: #eee;
+  scale: 0;
+  transform-origin: bottom;
+}
+
+.flag::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  width: 30px;
+  height: 18px;
+  background: #ef4444;
+}
+
+/* descend, then touchdown effects */
+:has(#go:checked) .lander {
+  animation: down 4s cubic-bezier(.3,.5,.4,1)
+    forwards;
+}
+:has(#go:checked) .craft {
+  animation: wob 2s ease-in-out 2,
+    squash .5s 4s;
+}
+:has(#go:checked) .flame {
+  animation: flick .08s infinite alternate,
+    cut 4s;
+}
+:has(#go:checked) .dust {
+  animation: puff 1.3s 3.8s;
+}
+:has(#go:checked) .flag {
+  animation: pop .5s 4.8s forwards;
+}
+
+label {
+  padding: 12px 44px;
+  border: 2px solid;
+  border-radius: 10px;
+  color: #eee;
+  font: 700 24px system-ui;
+  cursor: pointer;
+}

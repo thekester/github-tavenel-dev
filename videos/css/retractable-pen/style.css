@@ -1,0 +1,162 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#312e81, #1e1b4b);
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 440px;
+}
+
+.scene > * { position: absolute; }
+
+.paper {
+  left: 30px;
+  top: 240px;
+  width: 320px;
+  height: 170px;
+  border-radius: 6px;
+  background: #fefce8;
+  box-shadow: 0 14px 30px #0008;
+}
+
+.paper::before {
+  content: 'X';
+  position: absolute;
+  left: 22px;
+  top: 64px;
+  width: 270px;
+  border-bottom: 2px dashed #aaa;
+  color: #aaa;
+  font: 700 22px system-ui;
+}
+
+/* the signature: two rows of half rings */
+.ink {
+  --g: #0000 9px, #1d4ed8 10px 12px, #0000 13px;
+  position: absolute;
+  left: 50px;
+  top: 60px;
+  width: 220px;
+  height: 24px;
+  background:
+    radial-gradient(circle at 50% 100%, var(--g))
+      22px 0 / 44px 12px repeat-x,
+    radial-gradient(circle at 50% 0, var(--g))
+      0 12px / 44px 12px repeat-x;
+  clip-path: inset(0 100% 0 0);
+}
+
+.pen { left: 80px; top: 251px; }
+
+.body {
+  position: absolute;
+  left: -17px;
+  bottom: 16px;
+  width: 34px;
+  height: 240px;
+  transform-origin: 50% calc(100% + 16px);
+  rotate: 28deg;
+}
+
+.body > * { position: absolute; }
+
+.barrel {
+  inset: 0;
+  border-radius: 17px 17px 0 0;
+  background: linear-gradient(90deg,
+    #be123c, #fb7185 35%, #be123c);
+  clip-path: polygon(0 0, 100% 0, 100% 78%,
+    62% 100%, 38% 100%, 0 78%);
+}
+
+.clip {
+  right: -5px;
+  top: 18px;
+  width: 8px;
+  height: 90px;
+  border-radius: 4px;
+  background: #e2e8f0;
+}
+
+/* behind the barrel until pushed out */
+.plunger, .tip { z-index: -1; }
+
+.plunger {
+  left: 9px;
+  top: -22px;
+  width: 16px;
+  height: 30px;
+  border-radius: 8px 8px 2px 2px;
+  background: #cbd5e1;
+}
+
+.tip {
+  left: 13px;
+  bottom: -16px;
+  width: 8px;
+  height: 20px;
+  background: #334155;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  translate: 0 -20px;
+  transition: translate .2s .15s;
+}
+
+#c1:checked ~ .scene .tip { translate: 0; }
+#c2:checked ~ .scene .tip { translate: 0 -20px; }
+
+#c2:checked ~ .scene .plunger {
+  animation: up .3s;
+}
+
+@keyframes up { from { translate: 0 7px; } }
+
+#c1:checked ~ .scene .plunger {
+  animation: press .3s forwards;
+}
+
+@keyframes press {
+  50% { translate: 0 12px; }
+  to { translate: 0 7px; }
+}
+
+/* glide right while bobbing up and down */
+#c1:checked ~ .scene .pen {
+  animation: write 3.6s .5s;
+}
+
+#c1:checked ~ .scene .body {
+  animation: bob .2s ease-in-out .9s 10 alternate;
+}
+
+#c1:checked ~ .scene .ink {
+  animation: reveal 2s linear .9s forwards;
+}
+
+@keyframes write {
+  11% { translate: 0 50px;
+    animation-timing-function: linear; }
+  67% { translate: 220px 50px; }
+  78% { translate: 220px 0; }
+}
+
+@keyframes bob { to { translate: 0 22px; } }
+@keyframes reveal { to { clip-path: inset(0); } }
+
+label {
+  left: 178px;
+  top: 6px;
+  width: 54px;
+  height: 54px;
+  cursor: pointer;
+}
+
+[for=c1], :has(#c1:checked) [for=c2] {
+  z-index: 1;
+}

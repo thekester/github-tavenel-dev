@@ -1,0 +1,85 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+
+.bot {
+  position: relative;
+  width: 12em;
+  height: 14em;
+  font-size: 30px;
+  cursor: pointer;
+  --r: #f43f5e;
+  --g: #475569;
+  --w: #e2e8f0;
+  --e: #22d3ee;
+  --b: #64748b;
+}
+
+/* one element, one pixel... */
+.px {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  /* ...and one shadow per pixel */
+  box-shadow:
+    5em 0em var(--r), 5em 1em var(--g),
+    2em 2em var(--g), 3em 2em var(--g),
+    4em 2em var(--g), 5em 2em var(--g),
+    6em 2em var(--g), 7em 2em var(--g),
+    8em 2em var(--g), 9em 2em var(--g),
+    2em 3em var(--g), 3em 3em var(--w),
+    4em 3em var(--w), 5em 3em var(--w),
+    6em 3em var(--w), 7em 3em var(--w),
+    8em 3em var(--w), 9em 3em var(--g),
+    2em 4em var(--g), 3em 4em var(--w),
+    4em 4em var(--e), 5em 4em var(--w),
+    6em 4em var(--w), 7em 4em var(--e),
+    8em 4em var(--w), 9em 4em var(--g),
+    2em 5em var(--g), 3em 5em var(--w),
+    4em 5em var(--e), 5em 5em var(--w),
+    6em 5em var(--w), 7em 5em var(--e),
+    8em 5em var(--w), 9em 5em var(--g),
+    2em 6em var(--g), 3em 6em var(--w),
+    4em 6em var(--w), 5em 6em var(--w),
+    6em 6em var(--w), 7em 6em var(--w),
+    8em 6em var(--w), 9em 6em var(--g),
+    2em 7em var(--g), 3em 7em var(--w),
+    4em 7em var(--g), 5em 7em var(--g),
+    6em 7em var(--g), 7em 7em var(--g),
+    8em 7em var(--w), 9em 7em var(--g),
+    2em 8em var(--g), 3em 8em var(--g),
+    4em 8em var(--g), 5em 8em var(--g),
+    6em 8em var(--g), 7em 8em var(--g),
+    8em 8em var(--g), 9em 8em var(--g),
+    3em 9em var(--b), 4em 9em var(--b),
+    5em 9em var(--b), 6em 9em var(--b),
+    7em 9em var(--b), 8em 9em var(--b),
+    1em 10em var(--g), 2em 10em var(--g),
+    3em 10em var(--b), 4em 10em var(--b),
+    5em 10em var(--b), 6em 10em var(--b),
+    7em 10em var(--b), 8em 10em var(--b),
+    9em 10em var(--g), 10em 10em var(--g),
+    1em 11em var(--g), 3em 11em var(--b),
+    4em 11em var(--b), 5em 11em var(--b),
+    6em 11em var(--b), 7em 11em var(--b),
+    8em 11em var(--b), 10em 11em var(--g),
+    3em 12em var(--b), 8em 12em var(--b),
+    2em 13em var(--b), 3em 13em var(--b),
+    8em 13em var(--b), 9em 13em var(--b);
+  transition: box-shadow .4s;
+}
+
+/* hover: happy jump, new eye color */
+.bot:hover {
+  --e: #f472b6;
+  --r: #facc15;
+  animation: hop .5s ease-in-out infinite;
+}
+
+@keyframes hop {
+  50% { translate: 0 -.8em; }
+}

@@ -1,0 +1,85 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1020;
+  font-family: system-ui;
+}
+
+body:has(#wb:checked) { --s: b; }
+
+.card {
+  padding: 22px 26px 34px;
+  border-radius: 24px;
+  background: #141a2e;
+  color: #e2e8f0;
+}
+
+nav { display: flex; gap: 8px; margin-bottom: 26px; }
+
+label {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #1e2640;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+label:has(:checked) {
+  background: #818cf8;
+  color: #0b1020;
+}
+
+input { display: none; }
+
+.chart {
+  display: flex;
+  align-items: end;
+  gap: 14px;
+  height: 220px;
+}
+
+.chart i {
+  position: relative;
+  width: 34px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(#a5b4fc, #6366f1);
+  /* the data lives in the HTML */
+  height: if(style(--s: b):
+    attr(data-b %); else: attr(data-a %));
+  transition: height .7s
+    cubic-bezier(.3, 1.3, .5, 1);
+}
+
+/* day labels, also from the HTML */
+.chart i::after {
+  content: attr(data-d);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 8px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* value tooltip on hover */
+.chart i::before {
+  content: if(style(--s: b):
+    attr(data-b); else: attr(data-a));
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% -6px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #fff;
+  color: #0b1020;
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.chart i:hover::before { opacity: 1; }
+.chart i:hover { filter: brightness(1.25); }

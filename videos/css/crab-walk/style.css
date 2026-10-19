@@ -1,0 +1,163 @@
+@keyframes crab {
+  12% { translate: -90px -4px; }
+  25% { translate: -90px 0; }
+  37% { translate: 90px -4px; }
+  50%, 75% { translate: 0 0; }
+  80% { translate: -4px 30px; }
+  85% { translate: 4px 60px; }
+  90% { translate: -4px 90px; }
+  to { translate: 0 126px; }
+}
+@keyframes legs {
+  to { transform: rotate(-45deg); }
+}
+@keyframes snap { to { rotate: 0deg; } }
+@keyframes pile { to { scale: 1; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #082f49;
+}
+
+#go { display: none; }
+
+/* sky, sea, wet sand, dry sand */
+.beach {
+  position: relative;
+  width: 400px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 24px;
+  cursor: pointer;
+  background: linear-gradient(#7dd3fc 0 30%,
+    #0284c7 0 40%, #fff 0 42%, #fbbf24 0);
+}
+
+.beach * { position: absolute; }
+
+.crab {
+  top: 150px;
+  left: 100px;
+  width: 200px;
+  height: 150px;
+}
+
+/* shell */
+.crab u {
+  left: 35px;
+  top: 62px;
+  width: 130px;
+  height: 76px;
+  border-radius: 50% 50% 45% 45% /
+    65% 65% 35% 35%;
+  background: radial-gradient(circle at 50% 30%,
+    #f87171, #dc2626 55%, #991b1b);
+}
+
+/* eyes on stalks */
+.eye {
+  left: 66px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 55% 40%,
+    #111 4px, #fff 5px);
+  z-index: 1;
+}
+.eye.r { left: 114px; }
+
+.eye::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 7px;
+  width: 6px;
+  height: 52px;
+  background: #dc2626;
+  z-index: -1;
+}
+
+/* claw + upper pincer */
+.claw {
+  top: 54px;
+  left: 0;
+  width: 42px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+.claw.r { left: 158px; scale: -1 1; }
+
+/* arm */
+.claw::after {
+  content: '';
+  position: absolute;
+  left: 26px;
+  top: 26px;
+  width: 30px;
+  height: 10px;
+  rotate: 40deg;
+  background: #ef4444;
+}
+
+.claw::before {
+  content: '';
+  position: absolute;
+  bottom: 80%;
+  left: 10px;
+  width: 36px;
+  height: 18px;
+  border-radius: 100% 100% 10% 0;
+  background: #f87171;
+  transform-origin: 0 100%;
+  rotate: -50deg;
+}
+
+/* six legs as bars */
+.crab s {
+  top: 100px;
+  left: 0;
+  width: 60px;
+  height: 38px;
+  background: repeating-linear-gradient(
+    #b91c1c 0 6px, #0000 0 16px);
+  transform-origin: 100% 0;
+  transform: rotate(-25deg);
+}
+.crab s.r { left: 80px; scale: -1 1; }
+
+/* front sand hides the crab when it digs */
+.sand {
+  inset: 300px 0 0;
+  background: #fbbf24;
+}
+.sand::before {
+  content: '';
+  position: absolute;
+  left: 90px;
+  top: -14px;
+  width: 220px;
+  height: 30px;
+  border-radius: 50%;
+  background: #f59e0b;
+  scale: 0 0;
+}
+
+#go:checked + .beach .crab {
+  animation: crab 6s linear forwards;
+}
+
+#go:checked + .beach s {
+  animation: legs .15s 20 alternate;
+}
+
+#go:checked + .beach .claw::before {
+  animation: snap .25s 3.1s 6 alternate;
+}
+
+#go:checked + .beach .sand::before {
+  animation: pile 1.5s 4.5s forwards;
+}

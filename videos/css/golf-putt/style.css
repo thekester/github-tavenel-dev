@@ -1,0 +1,143 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 34px;
+  height: 100vh;
+  margin: 0;
+  background: #14532d;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.green {
+  position: relative;
+  width: 340px;
+  height: 400px;
+  border-radius: 48% 52% 46% 54%;
+  background:
+    radial-gradient(circle at 75% 60%,
+      #fff3, #0000 45%),
+    repeating-linear-gradient(#4ade80 0 40px,
+      #22c55e 0 80px);
+  box-shadow: 0 0 0 14px #15803d;
+}
+
+.green > * { position: absolute; margin: 0; }
+
+.hole {
+  left: 159px;
+  top: 73px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #052e16;
+  box-shadow: inset 0 4px #000, 0 0 0 2px #dcfce7;
+}
+
+.flag {
+  left: 169px;
+  top: 14px;
+  width: 3px;
+  height: 70px;
+  background: #f8fafc;
+}
+
+.flag::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  width: 44px;
+  height: 28px;
+  background: #ef4444;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform-origin: left;
+}
+
+/* the ball's path starts at its own spot */
+.track { left: 170px; top: 349px; }
+
+.ball {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    #fff 30%, #cbd5e1);
+  offset-path:
+  path('M0 0c99-80-99-180-9-265a9 9 0 1 1 9 9');
+  offset-distance: 0%;
+  offset-rotate: 0deg;
+}
+
+/* head + shaft, swinging from the grip */
+.putter {
+  left: 153px;
+  top: 362px;
+  width: 124px;
+  height: 10px;
+  background:
+    linear-gradient(#e2e8f0 0 0) 0 0 / 34px 100%,
+    linear-gradient(#334155 0 0) 0 50% / 100% 4px,
+    linear-gradient(#111 0 0) 100% 0 / 26px 100%;
+  background-repeat: no-repeat;
+  transform-origin: 100% 50%;
+}
+
+.msg {
+  top: 180px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 900;
+  scale: 0;
+}
+
+.putt {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #fff;
+  color: #14532d;
+  font-size: 26px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked + .green .putter {
+  animation: swing .8s;
+}
+
+/* decelerating roll, then the drop */
+#go:checked + .green .ball {
+  animation:
+    roll 2.6s .45s cubic-bezier(.2,.7,.4,1)
+      forwards,
+    drop .3s 3.05s ease-in forwards;
+}
+
+#go:checked + .green .flag::after {
+  animation: wave .5s 3.2s infinite alternate;
+}
+
+#go:checked + .green .msg {
+  animation: pop .5s 3.3s forwards;
+}
+
+@keyframes swing {
+  45% { rotate: -14deg; }
+  70% { rotate: 6deg; }
+}
+
+@keyframes roll { to { offset-distance: 100%; } }
+
+@keyframes drop {
+  to { translate: 0 -9px; scale: .3; opacity: 0; }
+}
+
+@keyframes wave {
+  to { transform: skewY(12deg) scaleX(.8); }
+}
+
+@keyframes pop { to { scale: 1; } }

@@ -1,0 +1,100 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fafafa;
+  font-family: system-ui;
+}
+
+.like {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 34px 18px 24px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 12px 40px #0001;
+  cursor: pointer;
+  counter-reset: n 1283;
+}
+
+input {
+  appearance: none;
+  margin: 0;
+}
+
+/* liking = +1 on the counter */
+input:checked { counter-increment: n; }
+
+.count::after { content: counter(n); }
+
+.count {
+  color: #27272a;
+  font-size: 34px;
+}
+
+.heart {
+  position: relative;
+  color: #d4d4d8;
+  font-size: 64px;
+  line-height: 1;
+  transition: color .2s;
+}
+
+/* shockwave ring */
+.heart::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 4px solid #f43f5e;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* 8 sparks around the heart */
+.like i {
+  position: absolute;
+  top: 50%;
+  left: 56px;
+  width: 11px;
+  height: 11px;
+  margin: -5px;
+  border-radius: 50%;
+  background: hsl(calc(var(--i) * 45) 90% 60%);
+  opacity: 0;
+}
+
+:checked ~ .heart {
+  color: #f43f5e;
+  animation: pop .45s;
+}
+
+:checked ~ .heart::after {
+  animation: ring .5s ease-out;
+}
+
+:checked ~ i {
+  --a: calc(var(--i) * 45deg);
+  animation: spark .6s ease-out;
+}
+
+@keyframes pop {
+  40% { scale: 1.35; }
+  70% { scale: .9; }
+}
+
+@keyframes ring {
+  from { scale: .3; opacity: 1; }
+  to { scale: 1.8; opacity: 0; }
+}
+
+@keyframes spark {
+  from { opacity: 1; }
+  to {
+    opacity: 0;
+    translate: calc(cos(var(--a)) * 70px)
+      calc(sin(var(--a)) * 70px);
+  }
+}

@@ -1,0 +1,164 @@
+@keyframes disk {
+  14%, 83% { translate: 0 140px; }
+}
+@keyframes blink { 50% { background: #f59e0b; } }
+@keyframes fill { to { width: 100%; } }
+@keyframes dots { to { width: 4ch; } }
+@keyframes on { 0%, 100% { opacity: 1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+  font: 700 22px monospace;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 320px;
+}
+
+.scene > * { position: absolute; }
+
+.pc {
+  top: 30px;
+  width: 270px;
+  height: 220px;
+  border-radius: 14px;
+  background: #e7dfc6;
+}
+
+/* pixel screen */
+.scr {
+  position: absolute;
+  inset: 18px 18px 40px;
+  padding: 18px;
+  background: #052e16;
+  color: #4ade80;
+}
+
+.scr p { position: absolute; margin: 0; }
+.sav, .ok { opacity: 0; }
+
+.sav::after {
+  content: '...';
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: dots 1s steps(4) infinite;
+}
+
+.bar {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 22px;
+  height: 26px;
+  border: 3px solid #4ade80;
+  padding: 3px;
+}
+
+.bar::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 100%;
+  background: repeating-linear-gradient(90deg,
+    #4ade80 0 14px, #0000 0 18px);
+}
+
+.drive {
+  top: 190px;
+  left: 290px;
+  width: 124px;
+  height: 120px;
+  border-radius: 10px;
+  background: #e7dfc6;
+}
+
+/* the slot + the LED */
+.drive::before, .drive::after {
+  content: '';
+  position: absolute;
+  inset: 12px 8px auto;
+  height: 8px;
+  border-radius: 4px;
+  background: #1c1917;
+}
+
+.drive::after {
+  inset: auto 12px 14px auto;
+  width: 12px;
+  height: 12px;
+  background: #3f3f46;
+}
+
+/* clips the disk at the slot line */
+.bay {
+  left: 296px;
+  width: 112px;
+  height: 206px;
+  overflow: hidden;
+}
+
+.disk {
+  position: absolute;
+  top: 80px;
+  left: 6px;
+  width: 100px;
+  height: 104px;
+  background:
+    linear-gradient(#1e293b 0 0) 54px 76px
+      / 10px 22px,
+    linear-gradient(#cbd5e1 0 0) 26px 70px
+      / 48px 34px,
+    repeating-linear-gradient(#fff 0 8px,
+      #cbd5e1 0 10px) 12px 8px / 76px 46px,
+    #1d4ed8;
+  background-repeat: no-repeat;
+  clip-path: polygon(10% 0, 100% 0,
+    100% 100%, 0 100%, 0 10%);
+}
+
+#go:checked + .scene .disk {
+  animation: disk 6.5s forwards;
+}
+
+#go:checked + .scene .drive::after {
+  animation: blink .25s 1s 14;
+}
+
+#go:checked + .scene .rdy {
+  opacity: 0;
+  transition: 0s 1s;
+}
+
+#go:checked + .scene .sav {
+  animation: on 3.6s 1s;
+}
+
+#go:checked + .scene .ok {
+  animation: on 1s 4.6s forwards;
+}
+
+#go:checked + .scene .bar::before {
+  animation: fill 3.4s 1.1s steps(10)
+    forwards;
+}
+
+.btn {
+  padding: 12px 44px;
+  border-radius: 10px;
+  background: #e7dfc6;
+  color: #1e1b4b;
+  box-shadow: 0 6px #a8a29e;
+  cursor: pointer;
+}

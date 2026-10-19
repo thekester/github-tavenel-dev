@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nesting dolls</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type=checkbox id=o1>
+<input type=checkbox id=o2>
+<input type=checkbox id=o3>
+<div class="shelf">
+  <div class="doll d4" style="--w:46px;
+    --c:#f59e0b"><i class="top"><b></b></i>
+    <i class="bot"></i></div>
+  <div class="doll d3" style="--w:66px;--x:80px;
+    --c:#16a34a;--z:2"><i class="top"><b></b></i>
+    <i class="bot"></i></div>
+  <div class="doll d2" style="--w:90px;--x:138px;
+    --c:#2563eb;--z:3"><i class="top"><b></b></i>
+    <i class="bot"></i></div>
+  <div class="doll d1" style="--w:116px;--x:205px;
+    --c:#dc2626;--z:4"><i class="top"><b></b></i>
+    <i class="bot"></i></div>
+</div>
+<div class="btns">
+  <label for=o3>OPEN ×1</label>
+  <label for=o2>OPEN ×2</label>
+  <label for=o1>OPEN ×3</label>
+</div>
+</body>
+</html>

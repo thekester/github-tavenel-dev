@@ -1,0 +1,158 @@
+@keyframes open {
+  to {
+    border-color: #bdbdbd;
+    outline: 1px solid #888;
+    background: var(--bg, #bdbdbd);
+    color: var(--c);
+  }
+}
+
+@keyframes boom {
+  from { scale: 0; }
+  20% { scale: 1.3; }
+  30%, 70% { scale: 1; opacity: 1; }
+  to { scale: 1.5; opacity: 0; }
+}
+
+@keyframes flash { 30% { opacity: .7; } }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0d7377;
+  font: 900 26px/36px monospace;
+}
+
+input { display: none; }
+
+/* retro bevel */
+.game, .grid :not(p) {
+  border: 4px solid;
+  border-color: #fff #777 #777 #fff;
+  background: #c0c0c0;
+}
+
+.game { position: relative; padding: 10px; }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.top span {
+  padding: 0 6px;
+  background: #000;
+  color: #f00;
+}
+
+.face {
+  position: relative;
+  width: 36px;
+  border-radius: 50%;
+  background: #facc15;
+  box-shadow: 0 0 0 2px #000;
+}
+
+/* eyes + smile */
+.face::before, .face::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 4px;
+  height: 5px;
+  background: #000;
+  box-shadow: 12px 0;
+}
+
+.face::after {
+  top: 19px;
+  width: 10px;
+  height: 5px;
+  border: 3px solid;
+  border-top: 0;
+  border-radius: 0 0 9px 9px;
+  background: none;
+  box-shadow: none;
+  transition: .3s .3s;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 44px);
+}
+
+/* row wrappers only carry the delay */
+.grid p { display: contents; }
+
+.grid :not(p) {
+  height: 44px;
+  outline-offset: -1px;
+  box-sizing: border-box;
+  color: #0000;
+  text-align: center;
+}
+
+.grid :not(p)::after { content: attr(data-n); }
+[data-n="1"] { --c: #1d4ed8; }
+[data-n="2"] { --c: #15803d; }
+[data-n="3"] { --c: #dc2626; }
+
+/* the cascade: each row waits a bit more */
+#a:checked ~ .game [for=a],
+#b:checked ~ .game [for=b],
+#c:checked ~ .game :is([for=c], b) {
+  animation: open .2s
+    calc(var(--d, 0) * .15s) both;
+}
+
+.grid :is(s, .x) { --c: #111; }
+.grid :is(s, .x)::after { content: '\25CF'; }
+
+#m:checked ~ .game :is(s, .x) {
+  animation: open .2s .5s both;
+}
+
+#m:checked ~ .game .x { --bg: #f33; }
+
+/* sad face */
+#m:checked ~ .game .face::after {
+  top: 22px;
+  border-width: 3px 3px 0;
+  border-radius: 9px 9px 0 0;
+}
+
+.boom {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  background: radial-gradient(closest-side,
+    #fde047 30%, #f97316 60%, #0000);
+  color: #fff;
+  font-size: 64px;
+  text-shadow: 0 4px #b91c1c;
+  scale: 0;
+}
+
+#m:checked ~ .game .boom {
+  animation: boom 1.8s .1s both;
+  rotate: -8deg;
+}
+
+/* red flash over the board */
+.game::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #f00;
+  opacity: 0;
+}
+
+#m:checked ~ .game::after {
+  animation: flash .6s;
+}

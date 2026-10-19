@@ -1,0 +1,119 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #1f2937;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.lot {
+  position: relative;
+  width: 380px;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 20px;
+  /* sky + road with dashes */
+  background:
+    linear-gradient(90deg, #fff 0 30px, #0000 0)
+      0 225px / 60px 4px repeat-x,
+    linear-gradient(#93c5fd 0 190px, #374151 0);
+}
+
+.lot > * { position: absolute; }
+
+.car {
+  bottom: 50px;
+  left: 20px;
+  width: 150px;
+  height: 46px;
+  border-radius: 16px 22px 10px 10px;
+  background: #2563eb;
+}
+
+/* cabin with a window */
+.car::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 28px;
+  width: 80px;
+  height: 32px;
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(#bfdbfe, #93c5fd)
+    content-box, #2563eb;
+  padding: 6px 8px 0;
+  box-sizing: border-box;
+}
+
+.car i {
+  position: absolute;
+  bottom: -16px;
+  width: 36px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  /* spokes so you can see it roll */
+  background:
+    radial-gradient(#d1d5db 5px, #0000 6px),
+    repeating-conic-gradient(#111 0 30deg,
+      #4b5563 0 60deg);
+}
+
+.car i:first-child { left: 16px; }
+.car i:last-child { right: 16px; }
+
+.post {
+  bottom: 50px;
+  left: 330px;
+  width: 16px;
+  height: 90px;
+  background: #e5e7eb;
+}
+
+/* the arm pivots on the post */
+.arm {
+  bottom: 120px;
+  left: 190px;
+  width: 150px;
+  height: 12px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(90deg,
+    #dc2626 0 20px, #fff 0 40px);
+  transform-origin: right;
+}
+
+/* ticket: up, car goes, down */
+#go:checked + .lot .arm {
+  animation: gate 4s forwards;
+}
+
+@keyframes gate {
+  15%, 70% { rotate: 80deg; }
+  85%, to { rotate: 0deg; }
+}
+
+#go:checked + .lot .car {
+  animation: drive 2.4s .7s ease-in forwards;
+}
+
+@keyframes drive { to { translate: 420px 0; } }
+
+#go:checked + .lot .car i {
+  animation: roll .4s .7s linear 6;
+}
+
+@keyframes roll { to { rotate: 1turn; } }
+
+.ticket {
+  padding: 12px 34px;
+  border-radius: 12px;
+  background: #facc15;
+  color: #422006;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}

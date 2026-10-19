@@ -1,0 +1,150 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #c4b5fd;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 380px;
+}
+
+.scene > * { position: absolute; }
+
+/* barrel, nozzle (::before), handle (::after) */
+.dryer {
+  top: 120px;
+  width: 175px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.dryer b {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  width: 136px;
+  height: 66px;
+  border-radius: 33px;
+  background: repeating-radial-gradient(
+    circle at 33px, #0f766e 0 3px, #0000 0 7px)
+    0 0 / 66px 100% no-repeat, #14b8a6;
+}
+
+.dryer b::before,
+.dryer b::after {
+  content: '';
+  position: absolute;
+  background: #0f766e;
+}
+
+.dryer b::before {
+  top: 9px;
+  right: -26px;
+  width: 34px;
+  height: 48px;
+  border-radius: 6px 12px 12px 6px;
+}
+
+.dryer b::after {
+  top: 52px;
+  left: 54px;
+  width: 38px;
+  height: 100px;
+  border-radius: 12px 12px 18px 18px;
+  rotate: -14deg;
+  z-index: -1;
+}
+
+.scene s {
+  top: var(--y);
+  left: 180px;
+  width: 54px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,
+    #fb923c, #fde047);
+  opacity: 0;
+}
+
+.hair { top: 64px; left: 252px; }
+
+/* each strand hangs from the top of the head */
+.hair i {
+  position: absolute;
+  left: var(--x);
+  width: 26px;
+  height: var(--h);
+  border-radius: 11px / 11px 11px 40px 40px;
+  background: linear-gradient(90deg,
+    #92400e, #b45309);
+  transform-origin: 50% 10px;
+  rotate: var(--r, 0deg);
+  transition: rotate .5s var(--d) ease-out;
+}
+
+.hair i:nth-child(-n+3) { --r: 6deg; }
+.hair i:nth-child(n+6) { --r: -6deg; }
+
+.head {
+  top: 70px;
+  left: 260px;
+  width: 116px;
+  height: 140px;
+  border-radius: 50% 50% 46% 46%;
+  background:
+    radial-gradient(circle at 34% 55%,
+      #1e1b4b 6px, #0000 7px),
+    radial-gradient(circle at 66% 55%,
+      #1e1b4b 6px, #0000 7px),
+    linear-gradient(#b45309 0 0)
+      0 0 / 100% 30px no-repeat,
+    radial-gradient(14px 7px at 50% 78%,
+      #be123c 90%, #0000),
+    #fcd7b6;
+}
+
+/* neck + shoulders */
+.scene::before {
+  content: '';
+  position: absolute;
+  top: 196px;
+  left: 250px;
+  width: 136px;
+  height: 160px;
+  border-radius: 64px 64px 24px 24px;
+  background: linear-gradient(#fcd7b6 0 0)
+    50% 0 / 36px 34px no-repeat, #f472b6;
+}
+
+/* blow: hair turns away and waves */
+#go:checked + .scene .hair i {
+  rotate: -32deg;
+  animation: wave .3s var(--d)
+    ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+  from { transform: skewX(12deg); }
+  to { transform: skewX(-12deg); }
+}
+
+#go:checked + .scene s {
+  animation: blow .55s var(--d) linear infinite;
+}
+
+@keyframes blow {
+  30% { opacity: 1; }
+  to { translate: 80px; opacity: 0; }
+}
+
+#go:checked + .scene .dryer b {
+  animation: buzz .07s infinite alternate;
+}
+
+@keyframes buzz { to { translate: 1px -1.5px; } }

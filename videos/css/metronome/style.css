@@ -1,0 +1,127 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  color: #fde68a;
+  font-family: system-ui;
+}
+
+/* each tempo = duration + fresh keyframes */
+body:has(#b1:checked) {
+  --d: 1s; --n: s1; --f: f1;
+  --w: 30px; --bpm: '60';
+}
+body:has(#b2:checked) {
+  --d: .5s; --n: s2; --f: f2;
+  --w: 85px; --bpm: '120';
+}
+body:has(#b3:checked) {
+  --d: .333s; --n: s3; --f: f3;
+  --w: 135px; --bpm: '180';
+}
+
+.met {
+  position: relative;
+  width: 240px;
+  height: 300px;
+}
+
+/* wooden trapezoid */
+.met::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(32% 0, 68% 0, 100% 100%,
+    0 100%);
+  background: linear-gradient(90deg, #7c2d12,
+    #c2410c 50%, #7c2d12);
+}
+
+/* tempo scale */
+.met::after {
+  content: '';
+  position: absolute;
+  inset: 30px 82px 70px;
+  clip-path: polygon(20% 0, 80% 0, 100% 100%,
+    0 100%);
+  background: repeating-linear-gradient(
+    #0000 0 20px, #92400e88 0 22px), #fef3c7;
+}
+
+.arm, .light { z-index: 1; }
+
+.arm {
+  position: absolute;
+  bottom: 60px;
+  left: 117px;
+  width: 6px;
+  height: 260px;
+  border-radius: 3px;
+  background: #e7e5e4;
+  transform-origin: 50% 100%;
+  rotate: var(--r, 0deg);
+  animation: var(--n) var(--d) ease-in-out
+    infinite alternate;
+}
+
+body:has(:checked) .arm { --r: -28deg; }
+
+/* the sliding weight */
+.arm b {
+  position: absolute;
+  top: var(--w, 60px);
+  left: -15px;
+  width: 36px;
+  height: 26px;
+  border-radius: 5px;
+  background: linear-gradient(#fcd34d, #b45309);
+  transition: top .5s;
+}
+
+.light {
+  position: absolute;
+  bottom: 18px;
+  left: 108px;
+  width: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 24px #ef4444;
+  opacity: .2;
+  animation: var(--f) var(--d) infinite;
+}
+
+@keyframes s1 { to { rotate: 28deg; } }
+@keyframes s2 { to { rotate: 28deg; } }
+@keyframes s3 { to { rotate: 28deg; } }
+@keyframes f1 { from { opacity: 1; } }
+@keyframes f2 { from { opacity: 1; } }
+@keyframes f3 { from { opacity: 1; } }
+
+.bpm {
+  margin: 18px 0 10px;
+  font: 900 64px/1 monospace;
+}
+.bpm::before { content: var(--bpm, '--'); }
+.bpm::after { content: ' BPM'; font-size: 20px; }
+
+nav { display: flex; gap: 12px; }
+
+label {
+  padding: 10px 20px;
+  border: 2px solid #f59e0b;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+label:has(:checked) {
+  background: #f59e0b;
+  color: #1c1917;
+}
+
+input { display: none; }

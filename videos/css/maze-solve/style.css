@@ -1,0 +1,141 @@
+@keyframes grow { from { scale: var(--s); } }
+@keyframes run { to { offset-distance: 100%; } }
+@keyframes wave {
+  50% { scale: 1.4; rotate: -12deg; }
+}
+@keyframes burst {
+  from { scale: .2; opacity: 1; }
+  to { scale: 3; opacity: 0; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 34px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+/* 5x5 grid of 60px cells */
+.maze {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background: #1e293b;
+  box-shadow: 0 0 0 6px #a78bfa;
+}
+
+.maze > * { position: absolute; margin: 0; }
+
+/* walls sit on grid lines */
+.maze i {
+  left: calc(var(--x) * 60px - 3px);
+  top: calc(var(--y) * 60px - 3px);
+  width: calc(var(--w, 0) * 60px + 6px);
+  height: calc(var(--h, 0) * 60px + 6px);
+  border-radius: 3px;
+  background: #a78bfa;
+}
+
+/* openings: entrance and exit */
+.maze::before, .maze::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 48px;
+  background: #0f172a;
+}
+.maze::before { left: -7px; top: 6px; }
+.maze::after { right: -7px; bottom: 6px; }
+
+/* path segments, cell center to center */
+.maze b {
+  --s: 0 1;
+  left: calc(var(--x) * 60px + 25px);
+  top: calc(var(--y) * 60px + 25px);
+  width: calc(var(--w, 0) * 60px + 10px);
+  height: calc(var(--h, 0) * 60px + 10px);
+  border-radius: 5px;
+  background: #22d3ee;
+  box-shadow: 0 0 14px #22d3ee;
+  transform-origin: var(--o, 5px 5px);
+  scale: 0;
+}
+
+/* each one grows when the previous ends */
+#go:checked + .maze b {
+  scale: 1;
+  animation: grow calc((var(--w, 0) +
+    var(--h, 0)) * .25s) var(--d) linear both;
+}
+
+.runner {
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px #fff, 0 0 4px #22d3ee;
+  offset-path: path('M30 30H210V150H90V270H270');
+}
+
+.flag {
+  left: 262px;
+  top: 236px;
+  width: 4px;
+  height: 46px;
+  background: #e2e8f0;
+  transform-origin: bottom;
+}
+
+.flag::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  width: 26px;
+  height: 18px;
+  background: #facc15;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.flag::after {
+  content: '';
+  position: absolute;
+  left: -18px;
+  bottom: -18px;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #facc15;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+#go:checked + .maze .runner {
+  animation: run 3s linear forwards;
+}
+
+#go:checked + .maze .flag {
+  animation: wave .4s 3s 4;
+}
+
+#go:checked + .maze .flag::after {
+  animation: burst .8s 3s 2;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 10px;
+  background: #a78bfa;
+  color: #1e1b4b;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked ~ label { background: #22d3ee; }

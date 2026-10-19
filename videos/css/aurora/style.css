@@ -1,0 +1,111 @@
+@property --h {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 140deg;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+}
+
+#on { display: none; }
+
+.sky {
+  position: relative;
+  width: 340px;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(#020617, #1e1b4b);
+}
+
+/* two star layers that blink in turn */
+.sky::before, .sky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1.5px 1.5px,
+    #fff 99%, #0000) 0 0 / 47px 39px;
+  animation: blink 1.6s infinite alternate;
+}
+
+.sky::after {
+  background-size: 71px 53px;
+  background-position: 20px 12px;
+  animation-delay: -.8s;
+}
+
+@keyframes blink { to { opacity: .2; } }
+
+/* ribbons: soft rays, blurred */
+.sky i {
+  position: absolute;
+  left: -40px;
+  top: var(--y);
+  width: 420px;
+  height: 80px;
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg,
+      #0000 0 6px, #fff3 0 9px),
+    linear-gradient(#0000,
+      hsl(calc(var(--h) + var(--o) * 1deg)
+        90% 60% / .75) 70%, #0000);
+  filter: blur(6px);
+  mix-blend-mode: screen;
+  transform: rotate(var(--r));
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+:has(#on:checked) .sky {
+  animation: hue 4s infinite alternate;
+}
+
+:has(#on:checked) .sky i {
+  opacity: 1;
+  animation: wave 2.8s calc(var(--o) * -.03s)
+    ease-in-out infinite alternate;
+}
+
+@keyframes hue { to { --h: 230deg; } }
+
+@keyframes wave {
+  from { transform: rotate(var(--r))
+    skewX(-25deg) translateX(-25px) scaleY(.8); }
+  to { transform: rotate(var(--r))
+    skewX(25deg) translateX(25px) scaleY(1.15); }
+}
+
+/* snowy peaks */
+.mtn {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 190px;
+  background: linear-gradient(#f8fafc, #94a3b8);
+  clip-path: polygon(0 45%, 22% 10%, 38% 40%,
+    60% 0, 82% 35%, 100% 20%, 100% 100%, 0 100%);
+}
+
+.btn {
+  padding: 12px 36px;
+  border: 2px solid #4ade80;
+  border-radius: 999px;
+  color: #4ade80;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#on:checked ~ .btn {
+  background: #4ade80;
+  color: #022c22;
+}

@@ -1,0 +1,85 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 34px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: monospace;
+}
+
+#go { display: none; }
+
+/* rings + crosshair */
+.radar {
+  position: relative;
+  width: 320px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    linear-gradient(#22c55e44 0 0) 50% / 2px 100%
+      no-repeat,
+    linear-gradient(#22c55e44 0 0) 50% / 100% 2px
+      no-repeat,
+    repeating-radial-gradient(#0000 0 38px,
+      #22c55e44 0 40px),
+    #052e16;
+}
+
+/* the beam: a conic gradient that turns */
+.sweep {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(#0000 0deg,
+    #22c55e99 60deg, #0000 0);
+  opacity: 0;
+}
+
+/* each blip sits at its own angle */
+.radar i {
+  position: absolute;
+  top: calc(50% - 7px);
+  left: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 12px #4ade80;
+  transform: rotate(var(--a))
+    translateY(calc(var(--r) * -1));
+  opacity: 0;
+}
+
+/* blips flash when the beam passes them */
+#go:checked + .radar .sweep {
+  opacity: 1;
+  animation: turn 3s linear infinite;
+}
+
+#go:checked + .radar i {
+  animation: ping 3s var(--d) infinite;
+}
+
+@keyframes turn { to { rotate: 1turn; } }
+
+@keyframes ping {
+  from { opacity: 1; scale: 1.5; }
+  to { opacity: 0; scale: 1; }
+}
+
+.scan {
+  padding: 12px 40px;
+  border: 2px solid #22c55e;
+  border-radius: 10px;
+  color: #4ade80;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#go:checked ~ .scan {
+  background: #22c55e;
+  color: #052e16;
+}

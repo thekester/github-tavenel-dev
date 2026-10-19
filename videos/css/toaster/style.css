@@ -1,0 +1,93 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fde68a;
+}
+
+#go { display: none; }
+
+.toaster {
+  position: relative;
+  width: 300px;
+  height: 190px;
+  margin-top: 120px;
+  border-radius: 46px 46px 22px 22px;
+  background: linear-gradient(#e2e8f0, #94a3b8);
+  box-shadow: 0 18px 0 -6px #475569;
+}
+
+/* the slot, glowing when hot */
+.toaster::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 70px;
+  width: 160px;
+  height: 14px;
+  border-radius: 7px;
+  background: #1e293b;
+}
+
+.toast {
+  position: absolute;
+  /* slides behind the body */
+  z-index: -1;
+  left: 80px;
+  bottom: 130px;
+  width: 140px;
+  height: 140px;
+  border: 9px solid #d6a15e;
+  border-radius: 44px 44px 10px 10px;
+  background: #fbe3b5;
+}
+
+.lever {
+  position: absolute;
+  top: 46px;
+  right: -34px;
+  width: 40px;
+  height: 18px;
+  border-radius: 6px;
+  background: #334155;
+  cursor: pointer;
+}
+
+/* one click runs the whole timeline */
+#go:checked + .toaster .toast {
+  animation: cook 5s forwards,
+    brown 3.6s .6s forwards;
+}
+
+#go:checked + .toaster .lever {
+  animation: press 5s forwards;
+}
+
+#go:checked + .toaster::before {
+  animation: heat 5s;
+}
+
+@keyframes cook {
+  10%, 86% { translate: 0 110px; }
+  93% { translate: 0 -70px; }
+  100% { translate: 0 0; }
+}
+
+@keyframes press {
+  10%, 86% { translate: 0 80px; }
+}
+
+@keyframes heat {
+  10%, 86% {
+    background: #f97316;
+    box-shadow: 0 0 24px 6px #fb923c;
+  }
+}
+
+@keyframes brown {
+  to {
+    background: #c98a4b;
+    border-color: #7c4a1e;
+  }
+}

@@ -1,0 +1,167 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+
+#go { display: none; }
+
+.street {
+  position: relative;
+  width: 420px;
+  height: 340px;
+  overflow: hidden;
+  border-radius: 20px;
+  background:
+    linear-gradient(#0000 75%, #94a3b8 0 77%,
+      #334155 0),
+    linear-gradient(#312e81 0 0)
+      30px 110px / 80px 160px no-repeat,
+    linear-gradient(#312e81 0 0)
+      300px 80px / 70px 190px no-repeat,
+    radial-gradient(circle at 78% 16%,
+      #fde68a 20px, #0000 21px),
+    linear-gradient(#fb923c, #7c3aed);
+}
+
+.street > * { position: absolute; }
+
+.ride {
+  left: 90px;
+  bottom: 70px;
+  width: 240px;
+  height: 60px;
+  perspective: 500px;
+}
+
+/* speed lines behind the board */
+.ride::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  width: 120px;
+  height: 60px;
+  background: repeating-linear-gradient(
+    #fff9 0 3px, #0000 0 14px);
+  opacity: 0;
+}
+
+:checked + .street .ride::before {
+  animation: streak 1.6s 1s;
+}
+
+@keyframes streak { 10%, 50% { opacity: 1; } }
+
+/* the deck lies flat, tilted toward us */
+.board {
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(65deg);
+}
+
+.board::before, .board::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  backface-visibility: hidden;
+}
+
+/* grip tape on top, graphic below */
+.board::before {
+  background: radial-gradient(#fff3 1px, #0000 0)
+    0 0 / 5px 5px, #18181b;
+  transform: translateZ(3px);
+}
+
+.board::after {
+  background: repeating-linear-gradient(90deg,
+    #facc15 0 30px, #ec4899 0 60px);
+  transform: translateZ(-3px) rotateX(180deg);
+}
+
+.board i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: conic-gradient(#f8fafc 50%,
+    #cbd5e1 0);
+  transform: translateZ(-14px) rotateX(-90deg);
+}
+
+.shadow {
+  left: 90px;
+  bottom: 62px;
+  width: 240px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0006;
+}
+
+.whoosh {
+  left: 70px;
+  bottom: 160px;
+  width: 280px;
+  height: 130px;
+  border: 4px solid;
+  border-color: #0000 #fff;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+:checked + .street .ride {
+  animation: hop 1s, roll 1.6s 1s ease-in;
+}
+
+:checked + .street .board {
+  animation: flip .55s .15s ease-in-out;
+}
+
+:checked + .street .shadow {
+  animation: shade 1s, roll 1.6s 1s ease-in;
+}
+
+:checked + .street .whoosh {
+  animation: whoosh .6s .15s;
+}
+
+@keyframes hop {
+  10% { translate: 0 8px; scale: 1.05 .9; }
+  45% { translate: 0 -150px; scale: 1; }
+  80% { translate: 0 0; scale: 1; }
+  88% { scale: 1.1 .8; }
+}
+
+@keyframes flip {
+  from { transform: rotateX(65deg); }
+  to { transform: rotateX(425deg); }
+}
+
+@keyframes shade { 45% { scale: .4; } }
+
+@keyframes whoosh {
+  50% { opacity: 1; }
+  to { rotate: 40deg; }
+}
+
+/* off to the right, back from the left */
+@keyframes roll {
+  60% { transform: translateX(440px); }
+  60.1% { transform: translateX(-440px); }
+}
+
+label {
+  padding: 12px 34px;
+  border-radius: 12px;
+  background: #ec4899;
+  color: #fff;
+  font: 900 24px system-ui;
+  cursor: pointer;
+}

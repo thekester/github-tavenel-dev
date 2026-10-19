@@ -1,0 +1,66 @@
+:root { interpolate-size: allow-keywords; }
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+.faq {
+  display: grid;
+  gap: 10px;
+  width: 420px;
+}
+
+details {
+  border-radius: 16px;
+  background: #1e293b;
+  color: #e2e8f0;
+  transition: background .3s;
+}
+
+details[open] { background: #26344d; }
+
+summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 20px;
+  font-size: 19px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+summary::after {
+  content: '+';
+  color: #38bdf8;
+  font-size: 26px;
+  line-height: 1;
+  transition: rotate .3s;
+}
+
+details[open] summary::after {
+  rotate: 45deg;
+}
+
+/* finally: animating to height auto */
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size .45s ease,
+    content-visibility .45s allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: #94a3b8;
+  font-size: 17px;
+}

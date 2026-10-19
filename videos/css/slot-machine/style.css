@@ -1,0 +1,78 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1a1025;
+  font-family: system-ui;
+}
+
+#spin { display: none; }
+
+.machine {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  padding: 26px;
+  border-radius: 28px;
+  background: linear-gradient(#ef4444, #9f1239);
+  box-shadow: 0 24px 50px #0008;
+}
+
+.reels {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #1c1917;
+}
+
+.reel {
+  width: 92px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(#fff, #e7e5e4);
+}
+
+/* min-content stacks the symbols */
+.reel b {
+  display: block;
+  width: min-content;
+  margin: auto;
+  color: #be123c;
+  font: 900 62px/100px system-ui;
+  text-align: center;
+  animation: roll .5s steps(6) infinite;
+  animation-play-state: paused;
+}
+
+.reel:nth-child(2) b { animation-duration: .65s; }
+.reel:nth-child(3) b { animation-duration: .8s; }
+
+@keyframes roll {
+  to { translate: 0 -600px; }
+}
+
+/* spinning = the animation runs */
+#spin:checked + .machine b {
+  animation-play-state: running;
+  filter: blur(1.5px);
+}
+
+label {
+  padding: 14px 50px;
+  border-radius: 999px;
+  background: #facc15;
+  box-shadow: 0 6px 0 #a16207;
+  color: #422006;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+label::after { content: 'SPIN'; }
+
+#spin:checked + .machine label::after {
+  content: 'STOP';
+}

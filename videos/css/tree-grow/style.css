@@ -1,0 +1,146 @@
+@keyframes grow { to { scale: 1; } }
+@keyframes trunk { to { scale: 1; } }
+@keyframes fly {
+  from { translate: 260px -220px; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 22px;
+  height: 100vh;
+  margin: 0;
+  background: #082f49;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 380px;
+  height: 430px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(#38bdf8, #e0f2fe);
+}
+
+.scene * { position: absolute; }
+
+.hill {
+  left: -40px;
+  bottom: -70px;
+  width: 460px;
+  height: 180px;
+  border-radius: 50%;
+  background: #65a30d;
+}
+
+/* a sapling: the trunk starts small */
+.t {
+  left: 181px;
+  bottom: 105px;
+  width: 16px;
+  height: 105px;
+  border-radius: 6px;
+  background: #78350f;
+  transform-origin: bottom;
+  scale: .3;
+}
+
+/* the sprout fades as the tree grows */
+.t::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  bottom: 90%;
+  width: 90px;
+  height: 50px;
+  background: radial-gradient(closest-side,
+    #4ade80 96%, #0000) 0 0 / 50% 100% repeat-x;
+  transition: opacity .6s;
+}
+
+#go:checked ~ .scene .t::before { opacity: 0; }
+
+/* each branch: 75% of its parent, rotated */
+.t i {
+  --d: 1s;
+  left: 15%;
+  bottom: 90%;
+  width: 70%;
+  height: 72%;
+  border-radius: inherit;
+  background: inherit;
+  transform-origin: bottom;
+  rotate: var(--r);
+  scale: 0;
+}
+.t i i { --d: 1.5s; }
+.t i i i { --d: 2s; }
+
+/* leaf clusters: three radial gradients */
+u {
+  left: -34px;
+  bottom: 50%;
+  width: 76px;
+  height: 76px;
+  background:
+    radial-gradient(circle at 30% 40%,
+      #4ade80 18px, #0000 19px),
+    radial-gradient(circle at 70% 35%,
+      #22c55e 20px, #0000 21px),
+    radial-gradient(circle at 50% 68%,
+      #15803d 23px, #0000 24px);
+  scale: 0;
+}
+
+#go:checked ~ .scene .t {
+  animation: trunk 1.2s forwards;
+}
+
+#go:checked ~ .scene .t i {
+  animation: grow .6s var(--d) forwards;
+}
+
+#go:checked ~ .scene u {
+  animation: grow .5s calc(var(--d) + .5s)
+    cubic-bezier(.3, 1.8, .6, 1) forwards;
+}
+
+/* a little bird lands on top */
+.bird {
+  left: 200px;
+  top: 25px;
+  width: 30px;
+  height: 20px;
+  border-radius: 50% 60% 40% 50%;
+  background: radial-gradient(circle at 25% 35%,
+    #000 2px, #0000 3px), #dc2626;
+  opacity: 0;
+}
+
+.bird::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 6px;
+  border: 5px solid #0000;
+  border-right: 9px solid #f59e0b;
+}
+
+#go:checked ~ .scene .bird {
+  opacity: 1;
+  animation: fly 1.2s 3s ease-out backwards;
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 99px;
+  background: #a3e635;
+  color: #1a2e05;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

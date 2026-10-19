@@ -1,0 +1,100 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0e0f16;
+}
+
+input { display: none; }
+
+/* one variable drives everything */
+body:has(#sun:checked) { --w: sun; }
+body:has(#rain:checked) { --w: rain; }
+body:has(#snow:checked) { --w: snow; }
+
+.card {
+  position: relative;
+  display: grid;
+  width: 300px;
+  height: 380px;
+  padding: 28px;
+  box-sizing: border-box;
+  border-radius: 28px;
+  overflow: hidden;
+  color: #fff;
+  font-family: system-ui;
+  background: if(
+    style(--w: rain): #3d4c66;
+    style(--w: snow): #8fa9cc;
+    else: #f4a340);
+  transition: background .6s;
+}
+
+.fx {
+  position: absolute;
+  inset: -20%;
+  rotate: if(style(--w: rain): 12deg;
+    else: 0deg);
+  background: if(
+    style(--w: rain):
+      radial-gradient(1px 11px,
+        #fffc 98%, #0000) 0 0 / 34px 44px,
+      radial-gradient(1px 8px at 30% 20%,
+        #fff8 98%, #0000) 0 0 / 21px 88px;
+    style(--w: snow):
+      radial-gradient(circle 4px,
+        #fff 98%, #0000) 0 0 / 44px 44px,
+      radial-gradient(circle 2.5px at 30% 70%,
+        #fffc 98%, #0000) 0 0 / 62px 88px;
+    else:
+      radial-gradient(circle at 75% 30%,
+        #fff9 0 55px, #fff3 56px 95px,
+        #0000 96px));
+  animation: fall linear infinite;
+  animation-name: if(style(--w: sun): none;
+    else: fall);
+  animation-duration: if(
+    style(--w: snow): 3s; else: .5s);
+}
+
+@keyframes fall {
+  to { background-position: 0 88px; }
+}
+
+.temp {
+  position: relative;
+  font-size: 96px;
+  font-weight: 200;
+}
+
+.temp::before {
+  content: if(style(--w: rain): '12°';
+    style(--w: snow): '-3°';
+    else: '27°');
+}
+
+nav {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  align-self: end;
+  padding: 6px;
+  border-radius: 14px;
+  background: #0003;
+}
+
+label {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#sun:checked ~ .card [for=sun],
+#rain:checked ~ .card [for=rain],
+#snow:checked ~ .card [for=snow] {
+  background: #fff3;
+}

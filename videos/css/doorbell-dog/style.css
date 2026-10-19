@@ -1,0 +1,161 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1e293b;
+}
+
+#ring { display: none; }
+
+.house {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  background: repeating-linear-gradient(
+    #fb7185 0 26px, #e11d48 0 28px);
+}
+
+.house > * { position: absolute; }
+
+.doorway {
+  left: 80px;
+  bottom: 0;
+  width: 170px;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(90deg,
+    #451a03, #fbbf24);
+  /* 3D depth for the door */
+  perspective: 600px;
+}
+
+.door {
+  position: absolute;
+  inset: 0;
+  background: #92400e;
+  box-shadow: inset 0 0 0 16px #78350f;
+  transform-origin: left;
+  transition: transform 1s .5s;
+}
+
+/* door knob */
+.door::after {
+  content: '';
+  position: absolute;
+  top: 150px;
+  right: 22px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fde047;
+}
+
+#ring:checked + .house .door {
+  transform: rotateY(70deg);
+}
+
+.dog {
+  position: absolute;
+  right: 6px;
+  bottom: 0;
+  width: 120px;
+  height: 130px;
+  translate: -60px;
+  transition: translate .6s 1.2s;
+}
+
+#ring:checked + .house .dog { translate: 0; }
+
+/* face: eyes + nose in one gradient */
+.head {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 96px;
+  height: 86px;
+  border-radius: 50% 50% 46% 46%;
+  rotate: 12deg;
+  background:
+    radial-gradient(circle at 30% 45%,
+      #1c1917 6px, #0000 7px),
+    radial-gradient(circle at 70% 45%,
+      #1c1917 6px, #0000 7px),
+    radial-gradient(10px 7px at 50% 70%,
+      #1c1917 99%, #0000),
+    #d6a46b;
+}
+
+/* floppy ears hang from the top */
+.head::before, .head::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 2px;
+  width: 28px;
+  height: 50px;
+  border-radius: 50%;
+  background: #7c2d12;
+  transform-origin: 50% 0;
+  rotate: 25deg;
+  transition: rotate .4s 1.9s;
+}
+
+.head::after { left: 66px; rotate: -25deg; }
+
+/* ears perk up */
+#ring:checked + .house .head::before {
+  rotate: 160deg;
+}
+
+#ring:checked + .house .head::after {
+  rotate: -160deg;
+}
+
+.tail {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  width: 12px;
+  height: 46px;
+  border-radius: 6px;
+  background: #b7814b;
+  transform-origin: bottom;
+  rotate: 20deg;
+}
+
+#ring:checked + .house .tail {
+  animation: wag .25s 1.9s infinite alternate;
+}
+
+@keyframes wag { to { rotate: -30deg; } }
+
+.bell {
+  top: 190px;
+  left: 286px;
+  width: 30px;
+  height: 30px;
+  border: 8px solid #e2e8f0;
+  border-radius: 50%;
+  background: #f59e0b;
+  cursor: pointer;
+}
+
+.ding {
+  top: 130px;
+  left: 214px;
+  margin: 0;
+  color: #fff;
+  font: 900 30px system-ui;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+#ring:checked + .house .ding {
+  animation: ding 2.4s;
+}
+
+@keyframes ding {
+  10%, 70% { opacity: 1; scale: 1.15; }
+  20% { scale: 1; }
+}

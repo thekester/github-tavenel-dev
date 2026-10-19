@@ -1,0 +1,150 @@
+@keyframes slide {
+  15% { translate: 0; }
+  90% { translate: 140px; }
+  to { translate: 175px -12px; }
+}
+@keyframes press {
+  15%, 90% { scale: .7 .92; }
+  to { scale: .85 1; }
+}
+@keyframes flow {
+  12% { scale: 1 0; }
+  18%, 88% { scale: 1; }
+  95%, to { scale: 1 0; }
+}
+@keyframes pop { to { scale: 1; } }
+@keyframes tw { 50% { scale: 1; rotate: 45deg; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #134e4a conic-gradient(from 90deg
+    at 2px 2px, #0000 25%, #fff1 0) 0 0/56px 56px;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 320px;
+}
+
+.scene > *, .tube b,
+.scene ::before,
+.scene ::after { position: absolute; }
+
+.brush {
+  left: 100px;
+  top: 280px;
+  width: 300px;
+  height: 22px;
+  border-radius: 6px 11px 11px 14px;
+  background: #ec4899;
+}
+
+.brush::before {
+  content: '';
+  left: 15px;
+  top: -32px;
+  width: 170px;
+  height: 34px;
+  background: repeating-linear-gradient(90deg,
+    #e0f2fe 0 6px, #7dd3fc 0 9px);
+}
+
+/* striped paste: one gradient, many blobs */
+i {
+  left: var(--x);
+  top: 220px;
+  width: 34px;
+  height: 32px;
+  translate: -50%;
+  rotate: var(--r);
+  border-radius: 50%;
+  background: linear-gradient(#fff 25%,
+    #ef4444 0 38%, #fff 0 58%, #3b82f6 0 71%,
+    #fff 0);
+  scale: 0;
+}
+
+.tube { left: 95px; top: 0; }
+
+.tube::before {
+  content: '';
+  width: 90px;
+  height: 170px;
+  border-radius: 6px 6px 40px 40px;
+  background: repeating-linear-gradient(90deg,
+    #cbd5e1 0 4px, #64748b 0 8px) 0 0 / 100% 14px
+    no-repeat, linear-gradient(#0000 45%, #fff 0
+    60%, #0000 0), linear-gradient(90deg,
+    #1e40af, #3b82f6 40%, #1e40af);
+}
+
+.tube::after {
+  content: '';
+  left: 30px;
+  top: 166px;
+  width: 30px;
+  height: 26px;
+  border-radius: 4px;
+  background: #e5e7eb;
+}
+
+/* the stream leaving the nozzle */
+.tube b {
+  left: 34px;
+  top: 190px;
+  width: 22px;
+  height: 48px;
+  background: linear-gradient(90deg, #fff 25%,
+    #ef4444 0 38%, #fff 0 58%, #3b82f6 0 71%,
+    #fff 0);
+  transform-origin: top;
+  scale: 1 0;
+}
+
+s {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%,
+    62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  scale: 0;
+}
+
+#go:checked ~ .scene .tube {
+  animation: slide 2.4s forwards;
+}
+
+#go:checked ~ .scene .tube::before {
+  animation: press 2.4s forwards;
+}
+
+#go:checked ~ .scene .tube b {
+  animation: flow 2.4s forwards;
+}
+
+#go:checked ~ .scene i {
+  animation: pop .35s var(--d) forwards;
+}
+
+#go:checked ~ .scene s {
+  animation: tw 1.2s var(--d) infinite;
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #fff;
+  color: #1e40af;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

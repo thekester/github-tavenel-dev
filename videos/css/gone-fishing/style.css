@@ -1,0 +1,149 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #082f49;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.lake {
+  position: relative;
+  width: 360px;
+  height: 440px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #bae6fd;
+}
+
+.lake > * { position: absolute; margin: 0; }
+
+/* waves = a row of circles on top */
+.water {
+  inset: 200px 0 0;
+  background: #0284c7;
+}
+
+.water::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 200%;
+  height: 24px;
+  background: radial-gradient(circle at 15px 24px,
+    #0284c7 14px, #0000 15px) 0 0 / 30px 24px;
+  animation: waves 2s linear infinite;
+}
+
+@keyframes waves { to { translate: -30px 0; } }
+
+.rod {
+  top: 60px;
+  left: 20px;
+  width: 210px;
+  height: 6px;
+  border-radius: 3px;
+  background: #78350f;
+  transform-origin: right;
+  rotate: 18deg;
+}
+
+.line {
+  top: 94px;
+  left: 228px;
+  width: 2px;
+  height: 40px;
+  background: #1e293b;
+}
+
+/* the hook */
+.line::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -10px;
+  width: 10px;
+  height: 12px;
+  border: 3px solid #475569;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.fish {
+  top: 296px;
+  left: 148px;
+  width: 80px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 75% 40%,
+    #111 4px, #0000 5px), #fb923c;
+  transform-origin: right;
+  translate: -300px 0;
+}
+
+/* tail */
+.fish::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: -26px;
+  width: 32px;
+  height: 32px;
+  background: #f97316;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* one 4s timeline, shared percentages */
+#go:checked + .lake .line {
+  animation: reel 4s forwards;
+}
+
+@keyframes reel {
+  25%, 65% { height: 220px; }
+  90%, to { height: 20px; }
+}
+
+#go:checked + .lake .fish {
+  animation: bite 4s forwards;
+}
+
+@keyframes bite {
+  55% { translate: 0 0; }
+  60% { translate: 0 0; rotate: 8deg; }
+  65% { translate: 0 0; rotate: -8deg; }
+  90%, to { translate: 0 -200px;
+    rotate: -70deg; }
+}
+
+.caught {
+  top: 320px;
+  width: 100%;
+  text-align: center;
+  color: #fde047;
+  font-size: 40px;
+  font-weight: 900;
+  opacity: 0;
+}
+
+#go:checked + .lake .caught {
+  animation: pop .4s 3.6s forwards;
+}
+
+@keyframes pop {
+  from { opacity: 1; scale: 0; }
+  to { opacity: 1; scale: 1; }
+}
+
+.cast {
+  padding: 12px 40px;
+  border-radius: 999px;
+  background: #facc15;
+  color: #422006;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

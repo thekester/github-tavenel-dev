@@ -1,0 +1,106 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#b91c1c, #450a0a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.scene * { position: absolute; margin: 0; }
+
+.plate {
+  left: 20px;
+  bottom: 30px;
+  width: 360px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(#fff 55%,
+    #e7e5e4 56% 62%, #fff 63%);
+  box-shadow: 0 14px 0 #d6d3d1, 0 30px 40px #0007;
+}
+
+.cookie {
+  left: 90px;
+  top: 150px;
+  width: 220px;
+  height: 150px;
+  cursor: pointer;
+}
+
+/* two lobes + the dark fold, drawn twice */
+.half {
+  inset: 0;
+  background:
+    radial-gradient(7% 30% at 50% 70%,
+      #78350f 60%, #0000 80%),
+    radial-gradient(20% 30% at 50% 78%,
+      #fbbf24 80%, #0000 85%),
+    radial-gradient(42% 46% at 32% 52%,
+      #fde68a, #d97706 95%, #0000 97%),
+    radial-gradient(42% 46% at 68% 52%,
+      #fde68a, #d97706 95%, #0000 97%);
+  transform-origin: 50% 100%;
+}
+
+/* jagged crack: two complementary polygons */
+.l { clip-path: polygon(0 0, 52% 0, 46% 30%,
+  55% 55%, 47% 78%, 51% 100%, 0 100%); }
+.r { clip-path: polygon(52% 0, 100% 0,
+  100% 100%, 51% 100%, 47% 78%, 55% 55%,
+  46% 30%); }
+
+:checked + * .l {
+  animation: crack .7s forwards;
+  --x: -46px; --r: -22deg;
+}
+:checked + * .r {
+  animation: crack .7s forwards;
+  --x: 46px; --r: 22deg;
+}
+
+@keyframes crack {
+  to { translate: var(--x) 10px;
+    rotate: var(--r); }
+}
+
+/* the slip slides up, then unrolls */
+.paper {
+  left: -60px;
+  top: 40px;
+  width: 340px;
+  padding: 10px 0;
+  background: #fffbeb;
+  box-shadow: 0 4px 10px #0005;
+  color: #b91c1c;
+  font: italic 17px/1.3 serif;
+  text-align: center;
+  scale: .03 1;
+  opacity: 0;
+}
+
+.paper small {
+  position: static;
+  display: block;
+  color: #57534e;
+  font: 12px system-ui;
+}
+
+:checked + * .paper {
+  animation: slip 1.6s .5s forwards;
+}
+
+@keyframes slip {
+  15% { opacity: 1; }
+  45% { scale: .03 1; translate: 0 -120px; }
+  to { opacity: 1; scale: 1;
+    translate: 0 -130px; }
+}

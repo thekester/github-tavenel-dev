@@ -1,0 +1,139 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#fb923c,
+    #fde68a 70%);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.scene::after {
+  content: '';
+  position: absolute;
+  inset: 100% -130px auto -30px;
+  height: 20px;
+  background: #57534e;
+}
+
+.scene > * { position: absolute; }
+
+/* crane lattice */
+.mast, .boom {
+  left: 20px;
+  top: 40px;
+  border: 4px solid #ca8a04;
+  background: repeating-linear-gradient(45deg,
+    #0000 0 10px, #ca8a04 0 13px);
+}
+
+.mast { width: 18px; height: 352px; }
+.boom { width: 196px; height: 12px; }
+
+/* pendulum: chain + ball, pivot on top */
+.arm {
+  top: 60px;
+  left: 205px;
+  width: 6px;
+  height: 194px;
+  background: repeating-linear-gradient(
+    #334155 0 8px, #0000 0 10px);
+  transform-origin: top;
+}
+
+.ball {
+  position: absolute;
+  bottom: -68px;
+  left: -32px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    #94a3b8, #1e293b 60%);
+}
+
+.wall {
+  right: 8px;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  gap: 2px;
+}
+
+.wall i {
+  height: 26px;
+  border-radius: 3px;
+  background: #b91c1c;
+  box-shadow: inset 0 -5px #7f1d1d;
+}
+
+/* dust puff at the impact point */
+.scene s {
+  left: calc(256px + var(--dx));
+  top: 260px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #d6d3d1;
+  opacity: 0;
+}
+
+#go:checked + .scene {
+  .arm { animation: swing 2.4s forwards; }
+  .wall i {
+    animation: fly 1.2s 1.38s forwards;
+  }
+  s { animation: puff 1s 1.38s; }
+}
+
+@keyframes swing {
+  35% {
+    rotate: 32deg;
+    animation-timing-function: ease-in;
+  }
+  55% { rotate: -5deg; }
+  70% { rotate: -16deg; }
+  85% { rotate: 6deg; }
+  to { rotate: 0deg; }
+}
+
+/* up first, then gravity pulls down */
+@keyframes fly {
+  30% {
+    translate: calc(var(--x, 0) * .4px)
+      calc(var(--y, 0) * 1px);
+    rotate: calc(var(--r, 0) * .4deg);
+    animation-timing-function: ease-in;
+  }
+  to {
+    translate: calc(var(--x, 0) * 1px)
+      calc(var(--e, 0) * 1px);
+    rotate: calc(var(--r, 0) * 1deg);
+  }
+}
+
+@keyframes puff {
+  from { opacity: .9; }
+  to { opacity: 0; scale: 3; }
+}
+
+.btn {
+  padding: 12px 44px;
+  border-radius: 30px;
+  background: #1e293b;
+  color: #fde68a;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

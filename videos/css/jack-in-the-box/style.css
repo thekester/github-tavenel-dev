@@ -1,0 +1,136 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f766e;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 460px;
+  /* hides the spring under the box */
+  overflow: hidden;
+}
+
+.scene > * { position: absolute; }
+
+.box {
+  bottom: 0;
+  left: 60px;
+  width: 200px;
+  height: 170px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(45deg,
+    #ef4444 0 20px, #facc15 0 40px);
+}
+
+.lid {
+  top: 276px;
+  left: 55px;
+  width: 210px;
+  height: 14px;
+  border-radius: 4px;
+  background: #b91c1c;
+  transform-origin: 0 100%;
+  transition: rotate .3s .3s;
+}
+
+.crank {
+  top: 340px;
+  left: 252px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  cursor: pointer;
+  transition: rotate .4s;
+}
+
+.crank::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+  background: #6b7280;
+}
+
+/* hidden in the box, behind the front */
+.jack {
+  z-index: -1;
+  top: 100px;
+  left: 135px;
+  width: 50px;
+  height: 220px;
+  translate: 0 230px;
+}
+
+/* the spring */
+.jack::after {
+  content: '';
+  position: absolute;
+  top: 66px;
+  left: 13px;
+  width: 24px;
+  height: 154px;
+  background: repeating-linear-gradient(#cbd5e1
+    0 5px, #0000 0 12px);
+}
+
+.head {
+  position: absolute;
+  z-index: 1;
+  left: -10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 58%,
+      #ef4444 8px, #0000 9px),
+    radial-gradient(circle at 32% 42%,
+      #111 4px, #0000 5px),
+    radial-gradient(circle at 68% 42%,
+      #111 4px, #0000 5px), #fff;
+}
+
+/* party hat */
+.head::before {
+  content: '';
+  position: absolute;
+  bottom: 60px;
+  left: 15px;
+  width: 40px;
+  height: 50px;
+  background: #8b5cf6;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* turn the crank... */
+#go:checked + .scene .crank { rotate: 2turn; }
+#go:checked + .scene .lid { rotate: -100deg; }
+
+/* ...and it springs out */
+#go:checked + .scene .jack {
+  animation: pop 1.3s .55s forwards
+    linear(0, 1.25 22%, .88 38%, 1.07 54%,
+      .97 70%, 1.01 85%, 1);
+}
+
+@keyframes pop { to { translate: 0 0; } }
+
+#go:checked + .scene .head {
+  animation: wobble 1.4s .7s;
+}
+
+@keyframes wobble {
+  20% { rotate: -14deg; }
+  40% { rotate: 10deg; }
+  60% { rotate: -6deg; }
+  80% { rotate: 2deg; }
+}

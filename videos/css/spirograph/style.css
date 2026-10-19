@@ -1,0 +1,92 @@
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes roll { to { --a: 720deg; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #0b1020;
+}
+
+#go { display: none; }
+
+/* the toothed ring, inner radius 150px */
+.toy {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 20px solid #475569;
+  border-radius: 50%;
+  outline: 5px dotted #94a3b8;
+  outline-offset: -22px;
+  background: #f8fafc;
+}
+
+.toy p { margin: 0; }
+
+.toy i, .gear {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+/* two dots per <i>, k = dot number */
+.toy i::before, .toy i::after {
+  --k: calc(var(--i) * 2);
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  border-radius: 50%;
+  background: hsl(calc(var(--k) * 3.6deg)
+    85% 55%);
+  /* same nested rotation as the gear */
+  transform: rotate(calc(var(--k) * 7.2deg))
+    translate(90px)
+    rotate(calc(var(--k) * -18deg))
+    translate(40px);
+  opacity: 0;
+  transition: opacity .2s calc(var(--k) * 80ms);
+}
+
+.toy i::after { --k: calc(var(--i) * 2 + 1); }
+
+/* gear r=60 rolls inside ring R=150:
+   it spins -150/60 = -2.5x the orbit */
+.gear {
+  width: 120px;
+  height: 120px;
+  margin: -60px;
+  border-radius: 50%;
+  outline: 5px dotted #f59e0b;
+  background: radial-gradient(
+    circle at calc(50% + 40px) 50%, #0f172a 5px,
+    #0000 6px), #fbbf24aa;
+  transform: rotate(var(--a)) translate(90px)
+    rotate(calc(var(--a) * -2.5));
+}
+
+:checked + .toy i::before,
+:checked + .toy i::after { opacity: 1; }
+
+:checked + .toy .gear {
+  animation: roll 8s linear forwards;
+}
+
+label {
+  padding: 12px 44px;
+  border-radius: 12px;
+  background: #f59e0b;
+  color: #0b1020;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

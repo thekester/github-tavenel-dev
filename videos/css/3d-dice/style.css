@@ -1,0 +1,122 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 60px;
+  height: 100vh;
+  margin: 0;
+  background: #14532d;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  perspective: 800px;
+}
+
+.dice {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-25deg) rotateY(30deg);
+}
+
+/* six faces around the center */
+.dice i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #fafafa;
+  box-shadow: inset 0 0 0 2px #d4d4d8;
+  color: #111;
+  transform: var(--r, none) translateZ(70px);
+}
+
+.f6 { --r: rotateY(180deg); }
+.f3 { --r: rotateY(90deg); }
+.f4 { --r: rotateY(-90deg); }
+.f5 { --r: rotateX(90deg); }
+.f2 { --r: rotateX(-90deg); }
+
+/* one pip + its shadows = every face */
+.dice i::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.f1::before { background: #dc2626 !important; }
+.f2::before, .f4::before, .f6::before {
+  background: #0000 !important;
+}
+
+.f2::before, .f3::before {
+  box-shadow: -36px -36px, 36px 36px;
+}
+.f4::before, .f5::before {
+  box-shadow: -36px -36px, 36px -36px,
+    -36px 36px, 36px 36px;
+}
+.f6::before {
+  box-shadow: -36px -36px, 36px -36px,
+    -36px 0, 36px 0, -36px 36px, 36px 36px;
+}
+
+.shadow {
+  position: absolute;
+  top: 170px;
+  left: 0;
+  width: 140px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0006;
+  filter: blur(6px);
+}
+
+.roll {
+  padding: 14px 44px;
+  border-radius: 999px;
+  background: #fde047;
+  color: #422006;
+  font-size: 26px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* tumble: whole turns + the angle of a six */
+#go:checked ~ .scene .dice {
+  animation:
+    tumble 1.8s cubic-bezier(.2, .7, .3, 1)
+      forwards,
+    hop 1.8s;
+}
+
+@keyframes tumble {
+  to {
+    transform: rotateX(695deg) rotateY(1290deg);
+  }
+}
+
+@keyframes hop {
+  30% { translate: 0 -140px; }
+  60%, 90% { translate: 0 0; }
+  75% { translate: 0 -30px; }
+}
+
+#go:checked ~ .scene .shadow {
+  animation: shrink 1.8s;
+}
+
+@keyframes shrink {
+  30% { scale: .5; opacity: .4; }
+  60%, 90% { scale: 1; opacity: 1; }
+  75% { scale: .85; }
+}

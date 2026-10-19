@@ -1,0 +1,108 @@
+@property --s {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --m {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1120;
+  font-family: monospace;
+}
+
+#go { display: none; }
+
+/* the cockpit window */
+.view {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  overflow: hidden;
+  border: 10px solid #334155;
+  border-bottom: 0;
+  border-radius: 60px 60px 0 0;
+  background: radial-gradient(#1e1b4b, #000 70%);
+}
+
+/* a star: a dot pushed out along its angle */
+.view i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 0 4px #a5b4fc;
+  transform-origin: left;
+  transform: rotate(var(--a))
+    translateX(calc(var(--r) * 1px + var(--m)))
+    scaleX(var(--s));
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(#fff, #c7d2fe 70%);
+  opacity: 0;
+}
+
+.dash {
+  display: grid;
+  place-items: center;
+  height: 80px;
+  border-radius: 0 0 20px 20px;
+  background: radial-gradient(circle at 12% 50%,
+    #22c55e 5px, #0000 6px), radial-gradient(
+    circle at 88% 50%, #f43f5e 5px, #0000 6px),
+    #334155;
+}
+
+label {
+  padding: 8px 30px;
+  border: 2px solid #38bdf8;
+  border-radius: 8px;
+  color: #7dd3fc;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* stretch into streaks + rush outward */
+#go:checked + .view i {
+  animation: stretch 3.6s forwards,
+    rush .3s .3s linear 10;
+  animation-delay: 0s,
+    calc(.3s - var(--r) * 1.5ms);
+}
+
+#go:checked + .view .flash {
+  animation: flash .6s .2s;
+}
+
+#go:checked ~ .dash label {
+  background: #38bdf8;
+  color: #0b1120;
+}
+
+@keyframes stretch {
+  12%, 85% { --s: 30; }
+}
+
+@keyframes rush {
+  from { opacity: .3; }
+  to { --m: 160px; }
+}
+
+@keyframes flash {
+  30% { opacity: .9; }
+}

@@ -1,0 +1,104 @@
+@property --s {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: #0b1026;
+  color: #e0e7ff;
+  font: 700 24px monospace;
+}
+
+#go { display: none; }
+
+.well {
+  position: relative;
+  display: grid;
+  grid: repeat(10, 30px) / repeat(8, 30px);
+  border: 6px solid #334;
+  border-top: 0;
+  overflow: hidden;
+  background: #111733;
+}
+
+/* blocks: span + 30px cell lines */
+.well i, .piece {
+  grid-area: var(--a);
+  background: linear-gradient(90deg,
+    #0005 2px, #0000 0) 0 0 / 30px,
+    var(--c);
+  box-shadow: inset 0 3px #fff6,
+    inset 0 -3px #0004;
+}
+
+/* the I piece, centred on column 6 */
+.piece {
+  --c: #2de;
+  position: absolute;
+  top: 225px;
+  left: 105px;
+  width: 120px;
+  height: 30px;
+  translate: 0 -210px;
+}
+
+:has(#go:checked) .piece {
+  animation:
+    fall 2.1s steps(7) forwards,
+    spin .1s .6s forwards,
+    cut .3s 2.7s forwards;
+}
+
+@keyframes fall { to { translate: 0; } }
+@keyframes spin { to { rotate: 90deg; } }
+@keyframes cut {
+  to {
+    rotate: 90deg;
+    translate: 0 30px;
+    clip-path: inset(0 30px 0 0);
+  }
+}
+
+/* full row: flash, then clear */
+:has(#go:checked) .b {
+  animation: clear .6s 2.1s forwards;
+}
+
+@keyframes clear {
+  20%, 60% { background: #fff; }
+  40% { background: var(--c); }
+  to { background: #fff; scale: 1 0; }
+}
+
+/* the rest falls one row */
+:has(#go:checked) i:not(.b) {
+  transition: translate .3s 2.7s;
+  translate: 0 30px;
+}
+
+.score {
+  margin: 0;
+  counter-reset: s var(--s);
+}
+
+.score::after { content: 'SCORE ' counter(s); }
+
+:has(#go:checked) .score {
+  transition: --s .6s 2.6s;
+  --s: 100;
+}
+
+.btn {
+  padding: 10px 40px;
+  border: 3px solid #2de;
+  border-radius: 8px;
+  color: #2de;
+  cursor: pointer;
+}

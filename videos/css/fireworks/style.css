@@ -1,0 +1,94 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #02030a;
+}
+
+#fire { display: none; }
+
+.sky {
+  position: relative;
+  display: block;
+  width: 600px;
+  height: 440px;
+  overflow: hidden;
+  border-radius: 20px;
+  background:
+    radial-gradient(#fff6 1px, #0000 2px)
+      0 0 / 44px 44px,
+    linear-gradient(#050816, #1e1b4b);
+  cursor: pointer;
+}
+
+/* city skyline */
+.sky::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 90px;
+  background: #0b0f1f;
+  clip-path: polygon(0 100%, 0 40%, 8% 40%,
+    8% 10%, 16% 10%, 16% 55%, 26% 55%,
+    26% 25%, 34% 25%, 34% 60%, 46% 60%,
+    46% 0, 54% 0, 54% 45%, 66% 45%, 66% 20%,
+    76% 20%, 76% 50%, 86% 50%, 86% 15%,
+    94% 15%, 94% 45%, 100% 45%, 100% 100%);
+}
+
+/* the rising shell */
+.sky i {
+  position: absolute;
+  bottom: 0;
+  left: var(--x);
+  width: .15em;
+  height: .15em;
+  border-radius: 50%;
+}
+
+/* 16 sparks in one box-shadow (em = size) */
+.sky i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    1em 0 var(--c), 0.92em 0.38em var(--c),
+    0.71em 0.71em var(--c), 0.38em 0.92em var(--c),
+    0 1em var(--c), -0.38em 0.92em var(--c),
+    -0.71em 0.71em var(--c), -0.92em 0.38em var(--c),
+    -1em 0 var(--c), -0.92em -0.38em var(--c),
+    -0.71em -0.71em var(--c), -0.38em -0.92em var(--c),
+    0 -1em var(--c), 0.38em -0.92em var(--c),
+    0.71em -0.71em var(--c), 0.92em -0.38em var(--c);
+  filter: drop-shadow(0 0 6px var(--c));
+  scale: 0;
+}
+
+#fire:checked + .sky i {
+  animation: rise 2.6s var(--d) infinite;
+}
+
+#fire:checked + .sky i::after {
+  animation: burst 2.6s var(--d) infinite;
+}
+
+@keyframes rise {
+  0% { translate: 0; background: var(--c); }
+  35% { background: var(--c); }
+  35%, 100% {
+    translate: 0 calc(var(--h) * -1);
+  }
+  36%, 100% { background: #0000; }
+}
+
+@keyframes burst {
+  0%, 35% { scale: 0; opacity: 1; }
+  65% { scale: 1; opacity: 1; }
+  100% {
+    scale: 1.15;
+    opacity: 0;
+    translate: 0 .4em;
+  }
+}

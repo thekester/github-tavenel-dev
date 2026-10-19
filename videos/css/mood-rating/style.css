@@ -1,0 +1,102 @@
+@property --m {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #101018;
+  font-family: system-ui;
+}
+
+.card {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 30px 34px;
+  border-radius: 24px;
+  background: #1b1b28;
+  color: #e5e5f0;
+  transition: --m .6s ease;
+}
+
+.card p { margin: 0; font-size: 20px; }
+
+/* mood: -1 (awful) to 1 (great) */
+.card:has(#r1:checked) { --m: -1; }
+.card:has(#r2:checked) { --m: -.5; }
+.card:has(#r3:checked) { --m: 0; }
+.card:has(#r4:checked) { --m: .5; }
+.card:has(#r5:checked) { --m: 1; }
+
+.face {
+  position: relative;
+  width: 140px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 38%,
+      #2b1d0e 8px, #0000 9px),
+    radial-gradient(circle at 65% 38%,
+      #2b1d0e 8px, #0000 9px),
+    hsl(calc(50 + var(--m) * 45) 85% 58%);
+}
+
+/* the mouth flips with the mood */
+.face::after {
+  content: '';
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 67%;
+  height: 22px;
+  border: 6px solid #2b1d0e;
+  border-top: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform-origin: top;
+  scale: 1 var(--m);
+}
+
+.face::before {
+  content: '';
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 67%;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 3px;
+  background: #2b1d0e;
+}
+
+.stars { display: flex; gap: 4px; }
+
+label {
+  color: #3b3b52;
+  font-size: 52px;
+  cursor: pointer;
+  transition: color .2s, scale .2s;
+}
+
+input { appearance: none; margin: 0; }
+
+/* selected star + every star before it */
+label:has(:checked),
+label:has(~ label :checked) {
+  color: #fbbf24;
+}
+
+/* while hovering: preview instead */
+.stars:has(label:hover) label {
+  color: #3b3b52;
+}
+
+label:hover,
+label:has(~ label:hover) {
+  color: #fde68a !important;
+  scale: 1.12;
+}

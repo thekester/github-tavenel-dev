@@ -1,0 +1,82 @@
+/* hover sets it to 0, leaving eases to 1 */
+@property --t {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e293b, #020617);
+}
+
+.x {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 440px;
+  padding-top: 80px;
+}
+
+/* two slanted rails */
+.x::before, .x::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 221px;
+  width: 348px;
+  height: 10px;
+  border-radius: 5px;
+  background: #78350f;
+  rotate: 10deg;
+}
+
+.x::after { top: 369px; rotate: -10deg; }
+
+.x i {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: var(--h);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% 25px,
+      #0006 4px, #0000 5px),
+    radial-gradient(circle at 50%
+      calc(100% - 25px), #0006 4px, #0000 5px),
+    linear-gradient(90deg, #fff5, #0000 40%,
+      #0003), var(--c);
+  transition: --t 1.8s ease-out;
+  /* pressed for a split second */
+  translate: 0 calc(5px
+    * clamp(0, 1 - var(--t) * 6, 1));
+}
+
+.x i:hover {
+  --t: 0;
+  transition: --t 0s;
+}
+
+/* the note: head + stem + flag */
+.x i::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 2px;
+  width: 32px;
+  height: 46px;
+  background:
+    radial-gradient(11px 8px at 11px 37px,
+      var(--c) 95%, #0000),
+    linear-gradient(var(--c) 0 0) 19px 2px
+      / 3px 35px no-repeat,
+    linear-gradient(var(--c) 0 0) 19px 2px
+      / 12px 8px no-repeat;
+  translate: calc(sin(var(--t) * 540deg) * 12px)
+    calc(var(--t) * -120px);
+  opacity: calc(1 - var(--t));
+}

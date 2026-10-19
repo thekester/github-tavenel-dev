@@ -1,0 +1,128 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.map {
+  position: relative;
+  width: 380px;
+  height: 410px;
+  border-radius: 20px;
+  background: #f1f5f9;
+}
+
+.map > * { position: absolute; margin: 0; }
+
+/* one box, two borders, one rounded corner */
+.line {
+  left: 40px;
+  top: 70px;
+  width: 280px;
+  height: 290px;
+  box-sizing: border-box;
+  border: 10px solid #e11d48;
+  border-width: 10px 10px 0 0;
+  border-top-right-radius: 50px;
+}
+
+i {
+  left: calc(var(--x) * 1px - 40px);
+  top: calc(var(--y) * 1px + 18px);
+  width: 80px;
+  text-align: center;
+  color: #64748b;
+  font: normal 400 15px system-ui;
+  transition: .3s var(--t);
+}
+
+i.v {
+  left: auto;
+  right: 82px;
+  top: calc(var(--y) * 1px - 9px);
+  text-align: right;
+}
+
+/* the station dot */
+i::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: -30px;
+  width: 12px;
+  height: 12px;
+  border: 4px solid #e11d48;
+  border-radius: 50%;
+  background: #fff;
+  transition: inherit;
+}
+i.v::before { left: 82px; top: -1px; }
+
+/* each station lights up on its own delay */
+#go:checked + .map i {
+  color: #0f172a;
+  font-weight: 800;
+}
+#go:checked + .map i::before {
+  background: #facc15;
+  box-shadow: 0 0 0 6px #facc1566;
+}
+
+/* the train follows the same path */
+.train {
+  width: 30px;
+  height: 16px;
+  border-radius: 8px;
+  background: #1e293b;
+  border: 3px solid #fff;
+  offset-path:
+    path('M40 75H270A45 45 0 0 1 315 120V360');
+  offset-distance: 0%;
+  z-index: 1;
+}
+
+#go:checked + .map .train {
+  animation: ride 6s linear forwards;
+}
+@keyframes ride { to { offset-distance: 100%; } }
+
+.next {
+  left: 40px;
+  top: 200px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #facc15;
+  font: 700 18px monospace;
+}
+.next::after { content: 'Ready'; }
+
+#go:checked + .map .next::after {
+  animation: next 6s forwards steps(1);
+}
+
+@keyframes next {
+  0% { content: 'Next: Market'; }
+  18% { content: 'Next: Museum'; }
+  37% { content: 'Next: Park'; }
+  63% { content: 'Next: Stadium'; }
+  82% { content: 'Next: Airport'; }
+  100% { content: 'Terminus'; }
+}
+
+label {
+  padding: 12px 40px;
+  border-radius: 12px;
+  background: #e11d48;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,115 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #e0e7ff;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.phone {
+  display: grid;
+  width: 340px;
+  height: 500px;
+  overflow: hidden;
+  border: 10px solid #111827;
+  border-radius: 40px;
+  background: #fff;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 800;
+}
+
+header i {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #6366f1;
+  color: #fff;
+  font: normal 700 14px monospace;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.chat p {
+  position: relative;
+  max-width: 75%;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 16px;
+  opacity: 0;
+}
+
+.me {
+  align-self: end;
+  background: #3b82f6;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.css {
+  align-self: start;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-bottom-left-radius: 4px;
+}
+
+.code { font-family: monospace; }
+
+/* each message waits for its turn */
+#go:checked + .phone p {
+  animation: pop .35s calc(var(--d) * 1s)
+    cubic-bezier(.3, 1.6, .5, 1) both;
+}
+
+@keyframes pop {
+  from { opacity: 0; scale: .5; }
+  to { opacity: 1; }
+}
+
+/* "typing..." dots cover the reply first */
+.css::after {
+  content: '\2022 \2022 \2022';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  background: inherit;
+  color: #94a3b8;
+}
+
+#go:checked + .phone .css::after {
+  animation: done 0s calc(var(--d) * 1s + .9s)
+    forwards;
+}
+
+@keyframes done { to { opacity: 0; } }
+
+label {
+  margin: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #6366f1;
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+}

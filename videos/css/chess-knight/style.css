@@ -1,0 +1,96 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+}
+
+#go { display: none; }
+
+/* 8x8 checker: one conic tile, repeated */
+.board {
+  position: relative;
+  width: 352px;
+  height: 352px;
+  border: 12px solid #44291a;
+  border-radius: 6px;
+  background: repeating-conic-gradient(
+    #b58863 0 25%, #f0d9b5 0 50%) 0 0 / 88px 88px;
+}
+
+.board > * {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+}
+
+/* the 8 L-move targets */
+.board i {
+  left: calc(var(--c) * 44px);
+  top: calc(var(--r) * 44px);
+  background: radial-gradient(#16a34a 30%,
+    #22c55e55 32%);
+  scale: 0;
+}
+
+/* horse head silhouette */
+.knight::before {
+  content: '';
+  position: absolute;
+  inset: 2px 4px 1px;
+  background: radial-gradient(circle at 46% 30%,
+    #1c1917 2px, #0000 3px), #fafaf9;
+  clip-path: polygon(40% 0, 52% 14%, 74% 16%,
+    90% 38%, 94% 70%, 92% 84%, 100% 100%,
+    10% 100%, 20% 84%, 34% 74%, 50% 58%,
+    36% 54%, 16% 60%, 4% 50%, 14% 32%,
+    34% 14%);
+}
+
+.knight {
+  translate: 132px 176px;
+  filter: drop-shadow(0 0 1px #000)
+    drop-shadow(0 3px 2px #0008);
+}
+
+label {
+  top: 176px;
+  left: 132px;
+  cursor: pointer;
+}
+
+#go:checked + .board i {
+  animation: show 5s var(--d) forwards;
+}
+
+#go:checked + .board .knight {
+  animation: jump 5s forwards;
+}
+
+#go:checked + .board .knight::before {
+  animation: arc 5s forwards;
+}
+
+@keyframes show {
+  6%, 30% { scale: 1; }
+  40%, to { scale: 0; }
+}
+
+/* the path, then the hop height */
+@keyframes jump {
+  0%, 36% { translate: 132px 176px; }
+  50%, 70% { translate: 220px 132px; }
+  84%, to { translate: 264px 44px; }
+}
+
+@keyframes arc {
+  0%, 36%, 50%, 70%, 84% {
+    translate: 0;
+    scale: 1;
+  }
+  43%, 77% {
+    translate: 0 -38px;
+    scale: 1.4;
+  }
+}

@@ -1,0 +1,133 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 22px;
+  height: 100vh;
+  margin: 0;
+  background: #0f0a1e;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.room {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  overflow: hidden;
+  border-top: 26px solid #3b3054;
+  border-radius: 8px;
+  background: linear-gradient(90deg,
+    #241b38 0 40px, #2e2447 0);
+}
+
+/* a corner web: rays + rings */
+.web {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 220px;
+  height: 220px;
+  background:
+    repeating-conic-gradient(from 90deg at 0 0,
+      #fff6 0 1deg, #0000 0 18deg),
+    repeating-radial-gradient(circle at 0 0,
+      #0000 0 26px, #fff5 27px 28px);
+  mask: radial-gradient(circle at 0 0, #000 55%,
+    #0000 72%);
+}
+
+/* the thread grows; the spider hangs below */
+.silk {
+  position: absolute;
+  left: 230px;
+  top: 0;
+  width: 2px;
+  height: 30px;
+  background: #e2e8f0aa;
+  transform-origin: top;
+}
+
+.spider {
+  position: absolute;
+  top: 100%;
+  left: -23px;
+  width: 48px;
+  height: 56px;
+}
+
+/* body drawn last, over the legs */
+.spider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 72%, #111 3px,
+      #fff 4px 8px, #0000 9px),
+    radial-gradient(circle at 65% 72%, #111 3px,
+      #fff 4px 8px, #0000 9px),
+    radial-gradient(circle at 40% 25%, #4c4466,
+      #18122b 60%);
+}
+
+/* legs: 4 arches = 8 legs */
+.spider b {
+  position: absolute;
+  left: 50%;
+  top: var(--t);
+  width: var(--w);
+  height: 34px;
+  translate: -50%;
+  border: 4px solid #18122b;
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0;
+}
+
+:checked + .room .silk {
+  animation: drop 7s forwards,
+    sway 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes drop {
+  20% {
+    height: 260px;
+    animation-timing-function: ease-in-out;
+  }
+  70% { height: 260px; }
+  0% {
+    /* overshoot + bounce on the way down */
+    animation-timing-function: linear(0, .5 20%,
+      1 38%, 1.12 48%, 1 60%, .96 70%, 1 82%,
+      1.01 90%, 1);
+  }
+}
+
+@keyframes sway {
+  from { rotate: -4deg; }
+  to { rotate: 4deg; }
+}
+
+:checked + .room .spider {
+  animation: spin 3.4s 1.5s ease-in-out;
+}
+
+@keyframes spin { to { rotate: y 1turn; } }
+
+:checked + .room b {
+  animation: wiggle .3s var(--d) infinite
+    alternate;
+}
+
+@keyframes wiggle { to { rotate: 10deg; } }
+
+label {
+  padding: 10px 36px;
+  border-radius: 99px;
+  background: #a855f7;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: pointer;
+}

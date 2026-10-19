@@ -1,0 +1,107 @@
+/* direction ±1, one turn takes n × .3s */
+@keyframes spin {
+  to { rotate: calc(var(--o) + var(--s) * 1turn);
+  }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+#go { display: none; }
+
+.box {
+  position: relative;
+  width: 440px;
+  height: 320px;
+}
+.box > * { position: absolute; }
+
+.g {
+  left: var(--x);
+  top: var(--y);
+  /* pitch diameter: 8px per tooth */
+  --d: calc(var(--n) * 8px + 12px);
+}
+.g > *, .g::before, .g::after {
+  position: absolute;
+  width: var(--d);
+  height: var(--d);
+  left: calc(var(--d) / -2);
+  top: calc(var(--d) / -2);
+  rotate: var(--o);
+}
+
+/* teeth = conic wedges + a solid inner disc */
+.g i {
+  border-radius: 50%;
+  background:
+    radial-gradient(#0f172a 0 7px, #fff5 8px 14px,
+      #0000 15px),
+    radial-gradient(circle at 50% 26%,
+      #0f172a 5px, #0000 6px),
+    var(--c);
+  mask:
+    radial-gradient(closest-side,
+      #000 calc(100% - 12px), #0000 0),
+    repeating-conic-gradient(
+      #000 0 calc(180deg / var(--n)),
+      #0000 0 calc(360deg / var(--n)));
+}
+
+.crank {
+  --o: 0deg;
+  background: linear-gradient(#e2e8f0 0 0)
+    50% 34% / 8px 30% no-repeat;
+}
+.crank::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: calc(50% - 12px);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f8fafc;
+}
+
+/* direction arrows, mirrored by --s */
+.g::before, .g::after {
+  content: '';
+  margin: -12px;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity .5s;
+}
+.g::after {
+  border: 3px solid #0000;
+  border-top-color: #fff;
+  border-radius: 50%;
+  transform: rotate(var(--t));
+}
+.g::before {
+  background: #fff;
+  clip-path: polygon(calc(50% - 3px) -6px,
+    calc(50% + 9px) 1.5px, calc(50% - 3px) 9px);
+  transform: rotate(var(--t))
+    scale(var(--s), 1) rotate(45deg);
+}
+
+label {
+  top: 34px;
+  left: 76px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#go:checked + .box .g > * {
+  animation: spin calc(var(--n) * .3s)
+    linear infinite;
+}
+#go:checked + .box .g::before,
+#go:checked + .box .g::after { opacity: 1; }

@@ -1,0 +1,166 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#3f6212, #14250a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 400px;
+}
+
+.scene > * { position: absolute; }
+
+/* the twig */
+.scene::before {
+  content: '';
+  position: absolute;
+  inset: 54px 20px auto;
+  height: 14px;
+  border-radius: 7px;
+  background: #57361f;
+  rotate: -4deg;
+}
+
+.pod {
+  left: 145px;
+  top: 64px;
+  width: 70px;
+  height: 150px;
+  transform-origin: top;
+}
+
+.pod b {
+  position: absolute;
+  inset: 20px 0 0;
+  border-radius: 50% 50% 46% 46%;
+  background: repeating-linear-gradient(
+    #0000 0 9px, #0002 0 12px),
+    linear-gradient(90deg, #a3a36b, #6b6b3a);
+  transform-origin: 50% 0;
+  transition: rotate .6s 1s, translate .6s 1s;
+  clip-path: polygon(0 0, 50% 0, 42% 25%,
+    58% 50%, 42% 75%, 50% 100%, 0 100%);
+}
+
+.pod b + b { scale: -1 1; --k: -1; }
+
+/* silk thread */
+.pod::before {
+  content: '';
+  position: absolute;
+  left: 34px;
+  width: 2px;
+  height: 24px;
+  background: #e7e5e4;
+}
+
+/* butterfly rides a curvy path */
+.fly {
+  width: 112px;
+  height: 80px;
+  offset-path:
+    path('M140 190C420 340-180-20 620 30');
+  offset-rotate: 0deg;
+  opacity: 0;
+}
+
+.wings {
+  height: 100%;
+  perspective: 300px;
+  transform-style: preserve-3d;
+  scale: .5;
+}
+
+/* body */
+.wings::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 10px;
+  width: 8px;
+  height: 58px;
+  border-radius: 4px;
+  background: #1c1917;
+  translate: 0 0 9px;
+}
+
+.wings i {
+  position: absolute;
+  width: 56px;
+  height: 80px;
+  background:
+    radial-gradient(circle at 22% 12%,
+      #fff 3px, #0000 4px),
+    /* veins fan out from the body */
+    repeating-conic-gradient(at 100% 45%,
+      #0000 0 13deg, #1c1917 0 16deg),
+    linear-gradient(#f97316 55%, #fbbf24 0);
+  clip-path: polygon(100% 18%, 0 0, 14% 52%,
+    70% 56%, 30% 94%, 80% 100%, 100% 75%);
+  transform-origin: right;
+  rotate: y calc(var(--s) * 85deg);
+}
+
+/* right wing = mirrored left wing */
+.wings i + i { scale: -1 1; }
+
+#go:checked + .scene .pod {
+  animation: shake .1s 8 alternate;
+}
+
+@keyframes shake {
+  from { rotate: -4deg; }
+  to { rotate: 4deg; }
+}
+
+#go:checked + .scene .pod b {
+  rotate: calc(var(--k, 1) * 35deg);
+  translate: calc(var(--k, 1) * -6px);
+}
+
+#go:checked + .scene .fly {
+  animation: away 3.4s 3.4s ease-in forwards;
+  opacity: 1;
+  transition: opacity .3s 1.2s;
+}
+
+@keyframes away {
+  to { offset-distance: 100%; }
+}
+
+#go:checked + .scene .wings {
+  scale: 1.4;
+  transition: scale 1s 1.3s;
+}
+
+/* unfold, then flap */
+#go:checked + .scene .wings i {
+  animation: open .8s 1.6s forwards,
+    flap .2s 2.6s infinite alternate;
+}
+
+@keyframes open { to { rotate: y 0deg; } }
+
+@keyframes flap {
+  from { rotate: y 0deg; }
+  to { rotate: y calc(var(--s) * 65deg); }
+}
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 99px;
+  background: #ea580c;
+  color: #fff7ed;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}

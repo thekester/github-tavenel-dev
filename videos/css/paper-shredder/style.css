@@ -1,0 +1,133 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0e7490;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 440px;
+}
+
+.scene > * { position: absolute; }
+
+/* the sheet disappears below this box */
+.feed {
+  top: 0;
+  left: 100px;
+  width: 160px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.doc, .scene > i {
+  width: 160px;
+  height: 170px;
+  background: repeating-linear-gradient(
+    #0000 0 12px, #64748b 0 15px)
+    0 34px / 100% 120px no-repeat, #fff;
+}
+
+.doc {
+  margin-top: 10px;
+  box-shadow: inset 16px 0 #fff,
+    inset -16px 0 #fff;
+}
+
+.shredder {
+  z-index: 2;
+  top: 140px;
+  left: 40px;
+  width: 280px;
+  height: 110px;
+  border-radius: 16px 16px 6px 6px;
+  background: linear-gradient(#475569, #1e293b);
+}
+
+.shredder::before {
+  content: '';
+  position: absolute;
+  inset: 8px 50px auto;
+  height: 8px;
+  border-radius: 4px;
+  background: #020617;
+}
+
+label {
+  position: absolute;
+  bottom: 20px;
+  left: 90px;
+  width: 100px;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* one sheet sliced into strips by a mask */
+.scene > i {
+  top: 250px;
+  left: calc(100px + var(--i) * 40px);
+  width: 40px;
+  mask: repeating-linear-gradient(90deg,
+    #000 0 8px, #0000 0 10px);
+  clip-path: inset(100% 0 0);
+}
+
+.bin {
+  z-index: 1;
+  top: 250px;
+  left: 60px;
+  width: 234px;
+  height: 184px;
+  border: 3px solid #fff5;
+  border-top: 0;
+  border-radius: 0 0 18px 18px;
+  background: #fff2;
+}
+
+#go:checked + .scene {
+  .doc { animation: feed 2.4s .3s linear both; }
+  .shredder {
+    animation: buzz .1s .3s 24 alternate;
+  }
+  > i {
+    animation: emerge 2.4s .3s linear both,
+      fall .7s calc(2.8s + var(--d)) ease-in
+        forwards;
+  }
+}
+
+@keyframes feed {
+  to { translate: 0 170px; }
+}
+
+/* slides out while the clip reveals it */
+@keyframes emerge {
+  from {
+    translate: 0 -170px;
+    clip-path: inset(100% 0 0);
+  }
+  to { clip-path: inset(0); }
+}
+
+@keyframes buzz { to { translate: 2px 1px; } }
+
+@keyframes fall {
+  from { clip-path: inset(0); }
+  to {
+    clip-path: inset(0);
+    translate: var(--x) var(--y);
+    rotate: var(--r);
+  }
+}

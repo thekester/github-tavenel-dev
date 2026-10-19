@@ -1,0 +1,112 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#0f766e, #134e4a);
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.toy {
+  position: relative;
+  width: 360px;
+  height: 420px;
+}
+
+.hand {
+  position: absolute;
+  top: 70px;
+  left: 145px;
+  width: 70px;
+  height: 80px;
+  border-radius: 30px 30px 26px 26px;
+  /* curled fingers */
+  background: repeating-linear-gradient(90deg,
+    #fcd9b6 0 16px, #e8b48a 0 18px);
+}
+
+/* the finger the string is tied to */
+.hand::after {
+  content: '';
+  position: absolute;
+  top: 60px;
+  left: 24px;
+  width: 22px;
+  height: 46px;
+  border-radius: 11px;
+  background: #f5c39a;
+}
+
+/* the string grows down from the finger */
+.str {
+  position: absolute;
+  top: 170px;
+  left: 179px;
+  width: 2px;
+  height: 30px;
+  background: #f8fafc;
+  transform-origin: top;
+}
+
+.yo {
+  position: absolute;
+  bottom: -32px;
+  left: -31px;
+  width: 52px;
+  aspect-ratio: 1;
+  border: 6px solid #be123c;
+  border-radius: 50%;
+  background: radial-gradient(#fde047 7px,
+    #0000 8px), repeating-conic-gradient(
+    #f43f5e 0 30deg, #fda4af 0 60deg);
+}
+
+#t1:checked ~ .toy .str {
+  animation: drop 3.4s ease-in-out;
+}
+
+/* fall, sleep at the bottom, climb back */
+@keyframes drop {
+  30%, 65% { height: 190px; }
+}
+
+#t2:checked ~ .toy .str {
+  animation: loop 3.6s ease-in-out;
+}
+
+/* around the world: full turn at max length */
+@keyframes loop {
+  25% { height: 150px; rotate: 0turn; }
+  75% { height: 150px; rotate: -1turn; }
+  to { rotate: -1turn; }
+}
+
+#t1:checked ~ .toy .yo {
+  animation: spin 3.4s linear;
+}
+
+#t2:checked ~ .toy .yo {
+  animation: spin2 3.6s linear;
+}
+
+@keyframes spin { to { rotate: 12turn; } }
+@keyframes spin2 { to { rotate: -14turn; } }
+
+nav {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+label {
+  padding: 12px 28px;
+  border-radius: 12px;
+  background: #fde047;
+  color: #134e4a;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}

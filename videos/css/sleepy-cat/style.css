@@ -1,0 +1,140 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #312e81;
+  font-family: system-ui;
+}
+
+.cat {
+  position: relative;
+  width: 260px;
+  height: 250px;
+  cursor: pointer;
+}
+
+.cat > * { position: absolute; margin: 0; }
+
+.body {
+  bottom: 0;
+  width: 260px;
+  height: 130px;
+  border-radius: 130px 130px 40px 40px;
+  background: #f59e0b;
+}
+
+.head {
+  top: 10px;
+  left: 40px;
+  width: 180px;
+  height: 150px;
+  border-radius: 50%;
+  /* two cheeks + fur */
+  background:
+    radial-gradient(circle at 22% 72%,
+      #fb7185aa 14px, #0000 15px),
+    radial-gradient(circle at 78% 72%,
+      #fb7185aa 14px, #0000 15px), #fbbf24;
+}
+
+/* ears droop while asleep */
+.head::before,
+.head::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -26px;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  background: #fbbf24;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  rotate: -25deg;
+  transition: rotate .3s;
+}
+
+.head::after { left: 110px; rotate: 25deg; }
+
+.eye {
+  position: absolute;
+  top: 66px;
+  width: 34px;
+  height: 6px;
+  border-radius: 6px;
+  background: #451a03;
+  transition: .25s;
+}
+
+.eye.l { left: 36px; }
+.eye.r { right: 36px; }
+
+.mouth {
+  position: absolute;
+  top: 88px;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  color: #451a03;
+}
+
+.tail {
+  bottom: 10px;
+  right: -46px;
+  width: 80px;
+  height: 80px;
+  border: 18px solid #0000;
+  border-right-color: #f59e0b;
+  border-radius: 50%;
+  transform-origin: left center;
+}
+
+.zzz { top: -40px; right: -20px; }
+
+.zzz i {
+  display: inline-block;
+  color: #c7d2fe;
+  font: 800 28px system-ui;
+  animation: snore 2s infinite;
+}
+
+.zzz i:nth-child(2) { animation-delay: .4s; }
+.zzz i:nth-child(3) { animation-delay: .8s; }
+
+@keyframes snore {
+  50% { translate: 0 -14px; opacity: .3; }
+}
+
+/* pet it: it wakes up */
+.cat:hover .eye {
+  top: 50px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 62% 35%,
+    #fff 5px, #451a03 6px);
+}
+
+.cat:hover .head::before,
+.cat:hover .head::after { rotate: 0deg; }
+
+.cat:hover .zzz { opacity: 0; }
+
+.cat:hover .tail {
+  animation: wag .3s infinite alternate;
+}
+
+@keyframes wag { to { rotate: -25deg; } }
+
+.cat:hover::after {
+  content: '♥';
+  position: absolute;
+  top: -70px;
+  left: 112px;
+  color: #f43f5e;
+  font-size: 50px;
+  animation: love 1s ease-out forwards;
+}
+
+@keyframes love {
+  from { scale: 0; translate: 0 40px; }
+}

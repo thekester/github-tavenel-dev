@@ -1,0 +1,90 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: #fef3c7;
+  font-family: system-ui;
+  counter-reset: left 4;
+}
+
+/* hidden, but still counted */
+input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+input:checked { counter-increment: left -1; }
+
+.plate {
+  position: relative;
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 10px 20px #0002;
+}
+
+/* bites start far away, off the cookie */
+.cookie {
+  --p1: -99px -99px; --p2: -99px -99px;
+  --p3: -99px -99px; --p4: -99px -99px;
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%,
+      #422006 9px, #0000 10px),
+    radial-gradient(circle at 65% 40%,
+      #422006 8px, #0000 9px),
+    radial-gradient(circle at 45% 70%,
+      #422006 10px, #0000 11px),
+    #d97706;
+  /* four round holes, intersected */
+  mask:
+    radial-gradient(circle at var(--p1),
+      #0000 46px, #000 47px),
+    radial-gradient(circle at var(--p2),
+      #0000 46px, #000 47px),
+    radial-gradient(circle at var(--p3),
+      #0000 46px, #000 47px),
+    radial-gradient(circle at var(--p4),
+      #0000 46px, #000 47px);
+  mask-composite: intersect;
+}
+
+:has(#b1:checked) .cookie { --p1: 100% 35%; }
+:has(#b2:checked) .cookie { --p2: 30% 0%; }
+:has(#b3:checked) .cookie { --p3: 0% 75%; }
+:has(#b4:checked) .cookie { --p4: 75% 100%; }
+
+/* stacked labels: the next bite is on top */
+label {
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+[for=b1],
+:has(#b1:checked) [for=b2],
+:has(#b2:checked) [for=b3],
+:has(#b3:checked) [for=b4] { z-index: 1; }
+
+.left {
+  margin: 0;
+  color: #92400e;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.left::after {
+  content: 'Bites left: ' counter(left);
+}
+
+:has(#b4:checked) .left::after {
+  content: 'Yum!';
+}

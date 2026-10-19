@@ -1,0 +1,139 @@
+@keyframes spin {
+  30% { transform: rotateY(90deg);
+    animation-timing-function: ease-out; }
+  to { transform: rotateY(180deg); }
+}
+/* the walker follows his compartment */
+@keyframes walk {
+  15% { transform: translate3d(0, 0, 55px); }
+  30% { transform: translate3d(52px, 0, 19px); }
+  55% { transform: translate3d(48px,0,-28px); }
+  80% { transform: translate3d(14px,0,-53px); }
+  to { transform: translate3d(0,0,-150px);
+    opacity: 0; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 360px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(#1e3a8a, #6d28d9);
+  perspective: 800px;
+}
+
+.scene * {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.stage {
+  left: 200px;
+  top: 210px;
+  transform: rotateX(-14deg);
+}
+
+.wall {
+  left: -240px;
+  top: -240px;
+  width: 480px;
+  height: 315px;
+  /* a wall with a hole for the drum */
+  background:
+    linear-gradient(#7c2d12 0 0) top / 100% 150px
+      no-repeat,
+    linear-gradient(90deg, #9a3412
+      calc(50% - 84px), #0000 0
+      calc(50% + 84px), #9a3412 0);
+}
+
+.wall::before {
+  content: 'HOTEL';
+  position: absolute;
+  inset: 96px 0 auto;
+  text-align: center;
+  color: #fde68a;
+  font: 800 26px system-ui;
+  letter-spacing: 8px;
+}
+
+.room {
+  inset: -110px -150px auto;
+  height: 175px;
+  background: radial-gradient(#fde68a, #78350f);
+  transform: translateZ(-170px);
+}
+
+.floor {
+  left: -230px;
+  top: -125px;
+  width: 460px;
+  height: 400px;
+  background: radial-gradient(circle,
+    #475569 80px, #334155 82px 120px, #1e293b 0);
+  transform: rotateX(90deg);
+}
+
+/* 4 glass wings around one axis */
+.rotor { border-left: 6px solid #fbbf24;
+  top: -78px; left: -3px; height: 153px; }
+
+.rotor i {
+  left: 0;
+  width: 80px;
+  height: 100%;
+  box-sizing: border-box;
+  border: 4px solid #e2e8f0;
+  background: #bae6fd44;
+  transform-origin: left;
+  transform: rotateY(var(--a));
+}
+
+.guy {
+  left: -12px;
+  top: 7px;
+  width: 24px;
+  height: 46px;
+  border-radius: 12px 12px 3px 3px;
+  background: #10b981;
+  transform: translate3d(0, 0, 140px);
+}
+
+.guy::before {
+  content: '';
+  position: absolute;
+  top: -22px;
+  left: 2px;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #78350f;
+}
+
+#go:checked + .scene .rotor {
+  animation: spin 5s ease-in forwards;
+}
+
+#go:checked + .scene .guy {
+  animation: walk 5s linear forwards;
+}
+
+.btn {
+  justify-self: center;
+  padding: 12px 42px;
+  border-radius: 99px;
+  background: #fbbf24;
+  font: 800 24px system-ui;
+}

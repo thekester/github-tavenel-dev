@@ -1,0 +1,35 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0a0a10;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 56px);
+  gap: 5px;
+}
+
+.grid i {
+  --h: calc(sibling-index() * 6deg);
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: #17171f;
+  transition: 3.5s ease-in;
+  animation: pop .5s backwards
+    calc(sibling-index() * 15ms);
+}
+
+@keyframes pop {
+  from { scale: 0; opacity: 0; }
+}
+
+.grid i:hover {
+  background: hsl(var(--h) 90% 62%);
+  box-shadow:
+    0 0 26px hsl(var(--h) 90% 60%);
+  scale: 1.12;
+  transition: 0s;
+}

@@ -1,0 +1,125 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fef3c7;
+  font-family: system-ui;
+}
+
+#open { display: none; }
+
+.gift {
+  position: relative;
+  width: 200px;
+  height: 190px;
+  margin-top: 120px;
+  cursor: pointer;
+}
+
+.gift i { position: absolute; }
+
+/* red with a yellow ribbon */
+.box, .lid {
+  background:
+    linear-gradient(90deg, #0000 42%,
+      #fde047 42% 58%, #0000 58%),
+    #ef4444;
+}
+
+.box {
+  bottom: 0;
+  left: 10px;
+  width: 180px;
+  height: 130px;
+  border-radius: 6px;
+}
+
+.lid {
+  top: 30px;
+  width: 200px;
+  height: 40px;
+  border-radius: 6px;
+  transition: .7s cubic-bezier(.3, 1.4, .5, 1);
+}
+
+/* the bow: two rings */
+.lid::before,
+.lid::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 62px;
+  width: 38px;
+  height: 30px;
+  border: 8px solid #fde047;
+  border-radius: 50% 50% 0 50%;
+  rotate: 10deg;
+}
+
+.lid::after {
+  left: 100px;
+  border-radius: 50% 50% 50% 0;
+  rotate: -10deg;
+}
+
+/* closed: it wiggles now and then */
+#open:not(:checked) + .gift {
+  animation: wiggle 1.8s infinite;
+}
+
+@keyframes wiggle {
+  84% { rotate: 6deg; }
+  88% { rotate: -6deg; }
+  92% { rotate: 4deg; }
+  96% { rotate: -2deg; }
+}
+
+b {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  translate: -50%;
+  white-space: nowrap;
+  color: #be123c;
+  font-size: 30px;
+  font-weight: 900;
+  opacity: 0;
+  scale: .4;
+  transition: .6s .2s cubic-bezier(.3, 1.4, .5, 1);
+}
+
+.confetti {
+  top: 60px;
+  left: 96px;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  box-shadow:
+    -80px -60px #22c55e, 70px -70px #3b82f6,
+    -40px -110px #f59e0b, 50px -120px #ec4899,
+    -100px -10px #8b5cf6, 100px -20px #14b8a6,
+    0 -140px #ef4444, -20px -80px #eab308;
+  opacity: 0;
+}
+
+/* open! */
+#open:checked + .gift .lid {
+  translate: -60px -150px;
+  rotate: -28deg;
+}
+
+#open:checked + .gift b {
+  translate: -50% -130px;
+  opacity: 1;
+  scale: 1;
+}
+
+#open:checked + .gift .confetti {
+  animation: burst 1.1s ease-out;
+}
+
+@keyframes burst {
+  from { scale: .2; opacity: 1; }
+  to { scale: 1.5; opacity: 0; }
+}

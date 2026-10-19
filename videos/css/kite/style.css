@@ -1,0 +1,140 @@
+@property --h {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+@property --amp {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  height: 100vh;
+  margin: 0;
+  background: #0c4a6e;
+  font: 700 22px system-ui;
+}
+
+input { display: none; }
+
+.sky {
+  --h: 170px; --amp: 3deg;
+  --t: 2.4s; --f: .7s; --cs: 22s;
+  position: relative;
+  width: 360px;
+  height: 390px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(130% 30% at
+    50% 100%, #4ade80 60%, #0000 61%),
+    linear-gradient(#38bdf8, #e0f2fe);
+  transition: --h 1.5s, --amp 1.5s;
+}
+
+/* the wind changes only variables */
+#windy:checked ~ .sky {
+  --h: 290px; --amp: 12deg;
+  --t: .8s; --f: .15s; --cs: 6s;
+}
+
+.cloud {
+  position: absolute;
+  top: var(--y);
+  width: 90px;
+  height: 30px;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 25px -15px 0 5px #fff;
+  animation: drift var(--cs) var(--d)
+    linear infinite;
+}
+
+@keyframes drift {
+  from { translate: 400px; }
+  to { translate: -160px; }
+}
+
+/* string pivots on the ground */
+.rig {
+  position: absolute;
+  left: 80px;
+  bottom: 60px;
+  width: 2px;
+  height: var(--h);
+  background: #fffb;
+  transform-origin: bottom;
+  animation: sway var(--t) ease-in-out
+    infinite alternate;
+}
+
+@keyframes sway {
+  from { rotate: calc(25deg - var(--amp)); }
+  to { rotate: calc(25deg + var(--amp)); }
+}
+
+.kite {
+  position: absolute;
+  left: -40px;
+  top: -55px;
+  width: 80px;
+  height: 100px;
+  rotate: -25deg;
+}
+
+/* diamond sail */
+.kite::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0, 100% 38%,
+    50% 100%, 0 38%);
+  background: conic-gradient(at 50% 38%,
+    #ef4444 25%, #facc15 0 50%,
+    #ef4444 0 75%, #facc15 0);
+}
+
+.tail {
+  position: absolute;
+  top: 100px;
+  left: 39px;
+  width: 2px;
+  height: 120px;
+  background: #fff;
+  transform-origin: top;
+  animation: flap var(--f) ease-in-out
+    infinite alternate;
+}
+
+.tail b {
+  display: block;
+  width: 26px;
+  height: 14px;
+  margin: 22px 0 0 -12px;
+  background: #3b82f6;
+  clip-path: polygon(0 0, 100% 100%,
+    100% 0, 0 100%);
+}
+
+@keyframes flap {
+  from { transform: skewX(18deg); }
+  to { transform: skewX(-18deg); }
+}
+
+label {
+  padding: 10px 26px;
+  border-radius: 99px;
+  background: #fff3;
+  color: #fff;
+  cursor: pointer;
+}
+
+#calm:checked ~ nav [for=calm],
+#windy:checked ~ nav [for=windy] {
+  background: #facc15;
+  color: #0c4a6e;
+}

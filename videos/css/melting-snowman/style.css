@@ -1,0 +1,131 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 460px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(#bae6fd 0 400px,
+    #f8fafc 0);
+}
+
+.scene > * { position: absolute; }
+
+.sun {
+  top: 30px;
+  right: 30px;
+  width: 70px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 0 0 #fde04766;
+  cursor: pointer;
+  transition: box-shadow 1s, scale 1s;
+}
+
+/* the snowman: three balls stacked */
+.snowman {
+  bottom: 50px;
+  left: 110px;
+  width: 140px;
+  display: grid;
+  justify-items: center;
+  transform-origin: bottom;
+}
+
+.snowman i {
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset -8px -6px 0 #e2e8f0;
+}
+
+.head {
+  width: 70px;
+  height: 70px;
+  margin-bottom: -10px;
+  /* coal eyes + carrot nose */
+  background:
+    radial-gradient(circle at 35% 40%,
+      #111 4px, #0000 5px),
+    radial-gradient(circle at 65% 40%,
+      #111 4px, #0000 5px),
+    linear-gradient(#f97316 0 0)
+      50% 60% / 24px 7px no-repeat,
+    #fff !important;
+}
+
+.mid { width: 100px; height: 100px;
+  margin-bottom: -14px; }
+.base { width: 140px; height: 130px; }
+
+.puddle {
+  bottom: 40px;
+  left: 180px;
+  width: 0;
+  height: 26px;
+  border-radius: 50%;
+  background: #7dd3fc;
+  translate: -50% 0;
+}
+
+.sprout {
+  bottom: 56px;
+  left: 172px;
+  width: 16px;
+  height: 0;
+  background: linear-gradient(90deg,
+    #0000 6px, #16a34a 0 10px, #0000 0);
+  opacity: 0;
+}
+
+/* a little pink flower on top */
+.sprout::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f472b6;
+  box-shadow: 0 0 0 4px #fbcfe8;
+}
+
+/* sun on: it melts */
+#go:checked + .scene .sun {
+  scale: 1.3;
+  box-shadow: 0 0 0 40px #fde04766;
+}
+
+#go:checked + .scene .snowman {
+  animation: melt 5s .5s ease-in forwards;
+}
+
+@keyframes melt {
+  60% { scale: 1.1 .55; }
+  to { scale: 1.6 0; }
+}
+
+#go:checked + .scene .puddle {
+  animation: spread 5s .5s ease-in forwards;
+}
+
+@keyframes spread { to { width: 300px; } }
+
+/* and spring arrives */
+#go:checked + .scene .sprout {
+  animation: grow 1s 5.5s ease-out forwards;
+}
+
+@keyframes grow {
+  from { opacity: 1; }
+  to { opacity: 1; height: 50px; }
+}

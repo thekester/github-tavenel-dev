@@ -1,0 +1,158 @@
+/* typed, so they can transition */
+@property --h {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 50%;
+}
+@property --c {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #a855f7;
+}
+@property --t {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 15;
+}
+
+:root {
+  transition: --h 1.5s, --c 1.5s, --t 1.5s;
+}
+
+/* set once on :root, children inherit */
+:root:has(#winter:checked) {
+  --h: 18%; --c: #3b82f6; --t: -5;
+}
+:root:has(#spring:checked) {
+  --h: 50%; --c: #a855f7; --t: 15;
+}
+:root:has(#summer:checked) {
+  --h: 88%; --c: #ef4444; --t: 35;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+  height: 100vh;
+  margin: 0;
+  background: color-mix(in srgb,
+    var(--c) 30%, #0f172a);
+  font: 800 18px system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  display: flex;
+  align-items: end;
+  gap: 50px;
+}
+
+.tube {
+  position: relative;
+  width: 44px;
+  height: 300px;
+  margin-bottom: 40px;
+  border-radius: 22px;
+  background:
+    repeating-linear-gradient(#0000 0 20px,
+    #64748b 0 22px) 34px 0 / 8px 100% no-repeat,
+    #e2e8f0;
+}
+
+/* the mercury column */
+.tube::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  width: 20px;
+  height: var(--h);
+  border-radius: 10px;
+  background: var(--c);
+}
+
+.bulb {
+  position: absolute;
+  left: -18px;
+  bottom: -50px;
+  width: 80px;
+  aspect-ratio: 1;
+  border: 8px solid #e2e8f0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.side { display: grid; justify-items: center; }
+
+.temp {
+  margin: 0;
+  color: #fff;
+  font-size: 64px;
+  counter-reset: t var(--t);
+}
+
+.temp::after { content: counter(t) '\b0 C'; }
+
+.icon {
+  width: 110px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+/* snowflake: 6 thin conic spokes */
+:has(#winter:checked) .icon {
+  background:
+    radial-gradient(#e0f2fe 12%, #0000 13%),
+    repeating-conic-gradient(#e0f2fe 0 7deg,
+      #0000 0 60deg);
+  animation: pop1 .6s;
+}
+
+/* flower: 4 petals around a dot */
+:has(#spring:checked) .icon {
+  --p: #f9a8d4 19%, #0000 20%;
+  background:
+    radial-gradient(#facc15 15%, #0000 16%),
+    radial-gradient(at 50% 22%, var(--p)),
+    radial-gradient(at 50% 78%, var(--p)),
+    radial-gradient(at 22% 50%, var(--p)),
+    radial-gradient(at 78% 50%, var(--p));
+  animation: pop2 .6s;
+}
+
+/* sun: disc + conic rays */
+:has(#summer:checked) .icon {
+  background:
+    radial-gradient(#facc15 30%, #0000 31%),
+    repeating-conic-gradient(#fde047 0 12deg,
+      #0000 0 30deg);
+  animation: pop3 .6s;
+}
+
+/* new names = the pop replays */
+@keyframes pop1 {
+  from { scale: 0; rotate: -1turn; }
+}
+@keyframes pop2 {
+  from { scale: 0; rotate: 1turn; }
+}
+@keyframes pop3 {
+  from { scale: 0; rotate: -1turn; }
+}
+
+.btns { display: flex; gap: 12px; }
+
+label {
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #e2e8f0;
+}
+
+label:has(:checked) {
+  background: var(--c);
+  color: #fff;
+}

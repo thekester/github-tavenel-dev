@@ -1,0 +1,164 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: conic-gradient(
+    from 90deg at 2px 2px,
+    #0000 25%, #67e8f9 0) 0 0 / 50px 50px #a5f3fc;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 400px;
+  height: 360px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.water {
+  top: 168px;
+  left: 20px;
+  width: 360px;
+  height: 56px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
+.bob {
+  top: 78px;
+  left: 130px;
+  width: 140px;
+  height: 110px;
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% { translate: 0 6px; rotate: -5deg; }
+}
+
+.duck, .duck::before, .duck::after {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+
+/* body with a wing, head with an eye */
+.duck::before {
+  content: '';
+  top: 42px;
+  border-radius: 50% / 60% 60% 40% 40%;
+  background: radial-gradient(40px 22px
+    at 45% 45%, #eab308 90%, #0000), #facc15;
+}
+
+.duck::after {
+  content: '';
+  left: 62px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 62% 40%,
+    #111 5px, #0000 6px), #facc15;
+}
+
+.duck i {
+  position: absolute;
+  top: 30px;
+  left: 112px;
+  z-index: 1;
+  width: 32px;
+  height: 18px;
+  border-radius: 40% 60% 60% 40%;
+  background: #f97316;
+}
+
+/* foam bubbles along the rim */
+.tub {
+  top: 196px;
+  left: 20px;
+  width: 360px;
+  height: 140px;
+  border-radius: 0 0 50% 50% / 0 0 70% 70%;
+  background: linear-gradient(90deg, #cbd5e1,
+    #fff 30% 70%, #cbd5e1);
+}
+
+.tub::before {
+  --f: radial-gradient(#fff 60%, #e0f2fe 68%,
+    #0000 70%);
+  content: '';
+  position: absolute;
+  inset: -22px -10px auto;
+  height: 40px;
+  background: var(--f) 2% 60% / 40px 40px,
+    var(--f) 12% 0 / 30px 30px,
+    var(--f) 22% 80% / 44px 44px,
+    var(--f) 70% 40% / 36px 36px,
+    var(--f) 82% 0 / 26px 26px,
+    var(--f) 94% 70% / 42px 42px;
+  background-repeat: no-repeat;
+}
+
+.scene s {
+  top: 170px;
+  left: calc(196px + var(--x));
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #fff5;
+  opacity: 0;
+}
+
+.squeak {
+  top: 20px;
+  left: 230px;
+  color: #db2777;
+  font: 900 36px system-ui;
+  rotate: 12deg;
+  scale: 0;
+}
+
+label {
+  top: 70px;
+  left: 130px;
+  width: 140px;
+  height: 110px;
+  cursor: pointer;
+}
+
+#go:checked + .scene .duck {
+  animation: squeak 1.5s forwards;
+}
+
+#go:checked + .scene .squeak {
+  animation: pop 1.2s forwards;
+}
+
+#go:checked + .scene s {
+  animation: rise 1.4s var(--d) forwards;
+}
+
+/* squash, then spin around once */
+@keyframes squeak {
+  15% { scale: 1.2 .7; }
+  30% { scale: 1; rotate: y 0deg; }
+  to { rotate: y 1turn; }
+}
+
+@keyframes pop {
+  20%, 70% { scale: 1; }
+}
+
+@keyframes rise {
+  10% { opacity: 1; }
+  90% { opacity: 1; scale: 1.4; }
+  to {
+    translate: calc(var(--x) * .5) -170px;
+    scale: 2;
+    opacity: 0;
+  }
+}

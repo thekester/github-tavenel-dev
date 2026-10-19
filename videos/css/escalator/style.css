@@ -1,0 +1,115 @@
+/* one step = 40px right, 23px up */
+@keyframes run {
+  to { background-position: 0 0, 40px -23px,
+    40px -23px; }
+}
+@keyframes run2 { to { background-position:
+  0 0, 40px -23px, 40px -23px; } }
+/* 1.2s walk, 3s ride (5 steps), 1.2s walk */
+@keyframes ride {
+  22% { translate: 0 0; }
+  78% { translate: 200px -115px; }
+  to { translate: 290px -115px; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #172554;
+}
+
+#go { display: none; }
+
+.mall {
+  position: relative;
+  width: 420px;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(#fde68a, #fdba74);
+}
+
+.mall * { position: absolute; }
+
+.esc, .rail {
+  left: 90px;
+  bottom: 17px;
+  width: 240px;
+  height: 138px;
+}
+
+.esc {
+  background:
+    linear-gradient(to bottom right,
+      #0000 50%, #475569 0),
+    linear-gradient(#facc15 0 3px, #0000 0),
+    linear-gradient(to bottom right,
+      #cbd5e1 50%, #0000 0);
+  background-size: 100%, 40px 23px, 40px 23px;
+  /* keep one row of teeth + the body */
+  mask: linear-gradient(to bottom right,
+    #0000 calc(50% - 20px), #000 0
+    calc(50% + 34px), #0000 0);
+  animation: run .6s linear infinite;
+}
+
+/* glass side + handrail */
+.rail {
+  background: linear-gradient(to bottom right,
+    #0000 calc(50% - 66px), #1e293b 0
+    calc(50% - 60px), #bae6fd55 0
+    calc(50% - 20px), #0000 0);
+}
+
+.floor {
+  inset: 280px 0 0;
+  background: #78350f;
+}
+
+.up {
+  inset: 165px 0 0 330px;
+  background: #92400e;
+}
+
+.guy {
+  left: 98px;
+  bottom: 40px;
+  width: 24px;
+  height: 46px;
+  border-radius: 12px 12px 3px 3px;
+  background: linear-gradient(#7c3aed 60%,
+    #1e1b4b 0);
+  translate: -76px 0;
+}
+
+/* head */
+.guy::before {
+  content: '';
+  position: absolute;
+  top: -22px;
+  left: 2px;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fcd34d;
+}
+
+/* restart the steps in phase with the rider */
+#go:checked + .mall .esc {
+  animation-name: run2;
+}
+
+#go:checked + .mall .guy {
+  animation: ride 5.4s linear forwards;
+}
+
+.btn {
+  justify-self: center;
+  padding: 12px 42px;
+  border-radius: 99px;
+  background: #facc15;
+  font: 800 24px system-ui;
+}

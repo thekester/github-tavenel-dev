@@ -1,0 +1,82 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#1e293b, #020617);
+  font-family: system-ui;
+}
+
+.screen {
+  width: 280px;
+  margin: 0 auto 28px;
+  padding: 26px 18px;
+  border: 10px solid #334155;
+  border-radius: 14px;
+  background: #0f172a;
+  box-shadow: 0 0 40px #38bdf833;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 2px solid #475569;
+  border-radius: 8px;
+  outline: none;
+  background: #020617;
+  color: #7dd3fc;
+  font: 700 22px monospace;
+}
+
+input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8;
+}
+
+.kb {
+  padding: 14px 12px 10px;
+  border-radius: 16px;
+  background: #1e293b;
+  box-shadow: 0 10px 0 #0b1220;
+}
+
+.kb p {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 0 0 7px;
+}
+
+.kb i {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  box-shadow: 0 4px 0 #94a3b8;
+  color: #334155;
+  font: 700 14px/34px system-ui;
+  text-align: center;
+}
+
+.kb .sp { width: 200px; }
+
+/* no :has(value) in CSS, so each key is
+   timed to the moment its letter lands */
+.desk:has(input:focus) i[style] {
+  animation: press .3s var(--d) var(--n, 1)
+    forwards;
+}
+
+@keyframes press {
+  from {
+    translate: 0 4px;
+    background: #7dd3fc;
+    box-shadow: 0 0 0 #0284c7,
+      0 0 20px #38bdf8;
+  }
+  to {
+    background: #bae6fd;
+    box-shadow: 0 4px 0 #38bdf8;
+  }
+}

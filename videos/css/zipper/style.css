@@ -1,0 +1,132 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fde68a;
+}
+
+#zip { display: none; }
+
+@property --s {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+.jacket {
+  --t: .2126; /* tan(12deg) */
+  position: relative;
+  width: 320px;
+  height: 420px;
+  border-radius: 60px 60px 12px 12px;
+  overflow: hidden;
+  transition: --s 2.5s ease-in-out;
+}
+
+:has(#zip:checked) .jacket { --s: 390px; }
+
+.jacket i { position: absolute; }
+
+.shirt {
+  inset: 0;
+  background:
+    radial-gradient(#f472b6 8px, #0000 9px)
+      0 0 / 40px 40px,
+    radial-gradient(#facc15 6px, #0000 7px)
+      20px 20px / 40px 40px,
+    repeating-linear-gradient(45deg,
+      #22d3ee 0 14px, #a78bfa 0 28px);
+}
+
+/* denim twill: two thin diagonal stripes */
+.half {
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(45deg,
+      #fff2 0 1px, #0000 0 4px),
+    repeating-linear-gradient(-45deg,
+      #0003 0 1px, #0000 0 3px),
+    #2f5596;
+  box-shadow: inset 0 0 0 6px #1e3a6e;
+}
+
+/* chest pocket with orange stitching */
+.half::before {
+  content: '';
+  position: absolute;
+  top: 110px;
+  left: 16px;
+  width: 80px;
+  height: 70px;
+  border: 2px dashed #f59e0b;
+  border-radius: 4px 4px 20px 20px;
+}
+
+/* each half opens in a V above the slider */
+.half.l {
+  clip-path: polygon(0 0,
+    calc(100% - var(--s) * var(--t)) 0,
+    100% var(--s), 100% 100%, 0 100%);
+}
+
+.half.r {
+  right: 0;
+  clip-path: polygon(100% 0,
+    calc(var(--s) * var(--t)) 0,
+    0 var(--s), 0 100%, 100% 100%);
+}
+
+/* closed teeth below the slider */
+.teeth,
+.side {
+  top: 0;
+  left: calc(50% - 7px);
+  width: 14px;
+  height: 100%;
+  background:
+    repeating-linear-gradient(#d4d4d8 0 4px,
+      #0000 0 8px) left / 50% 100% no-repeat,
+    repeating-linear-gradient(#0000 0 4px,
+      #d4d4d8 0 8px) right / 50% 100%
+      no-repeat;
+  clip-path: inset(var(--s) 0 0);
+}
+
+/* open teeth tilt around the slider */
+.side {
+  transform-origin: 50% var(--s);
+  clip-path: inset(0 50% calc(100% - var(--s))
+    0);
+  rotate: -12deg;
+}
+
+.side.r { scale: -1 1; rotate: 12deg; }
+.r::before { left: 64px; }
+
+.pull {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 70px;
+  cursor: pointer;
+}
+
+/* the slider moves, the label stays */
+.pull::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  width: 24px;
+  height: 66px;
+  translate: 0 calc(var(--s) - 30px);
+  border-radius: 6px 6px 12px 12px;
+  background:
+    radial-gradient(circle at 50% 75%,
+      #52525b 5px, #0000 6px),
+    linear-gradient(#e4e4e7, #71717a);
+  box-shadow: 0 4px 6px #0006;
+}

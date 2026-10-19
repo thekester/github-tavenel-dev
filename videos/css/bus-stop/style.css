@@ -1,0 +1,167 @@
+@keyframes wave { 50% { rotate: 200deg; } }
+@keyframes arrive { to { translate: 0; } }
+/* brake: the bus leans forward */
+@keyframes brake {
+  40% { transform: skewX(-9deg) scaleX(1.04); }
+}
+@keyframes doors {
+  20%, 75% { translate: calc(var(--s) * 100%); }
+}
+@keyframes board {
+  to { translate: -42px -36px; opacity: 0; }
+}
+@keyframes leave { to { translate: 520px; } }
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+}
+
+#go { display: none; }
+
+.street {
+  position: relative;
+  width: 400px;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 18px;
+  /* sidewalk, road, buildings, sky */
+  background:
+    linear-gradient(#0000 280px, #cbd5e1 0),
+    linear-gradient(#0000 190px, #374151 0),
+    linear-gradient(#0000 90px, #6366f1 0)
+      20px 0 / 90px no-repeat,
+    linear-gradient(#0000 50px, #4338ca 0)
+      140px 0 / 100px no-repeat,
+    linear-gradient(#f9a8d4, #c4b5fd);
+}
+
+.street * { position: absolute; }
+
+.bus {
+  left: 40px;
+  bottom: 66px;
+  width: 280px;
+  height: 120px;
+  border-radius: 16px 30px 8px 8px;
+  background:
+    repeating-linear-gradient(90deg,
+      #bae6fd 0 40px, #0000 0 52px)
+      14px 14px / 190px 40px no-repeat,
+    #f97316;
+  translate: -400px;
+  transform-origin: bottom;
+}
+
+/* wheels */
+.bus::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 -16px;
+  height: 34px;
+  background: radial-gradient(circle,
+    #9ca3af 6px, #111 7px 16px, #0000 17px)
+    -20px 0 / 160px 34px;
+}
+
+.door {
+  right: 26px;
+  bottom: 12px;
+  width: 44px;
+  height: 92px;
+  overflow: hidden;
+  background: #431407;
+  /* doors slide out of a clipped frame */
+}
+
+.door i {
+  --s: -1;
+  width: 50%;
+  height: 100%;
+  background: #7dd3fc;
+  box-shadow: inset 0 0 0 3px #c2410c;
+}
+
+.door .r { --s: 1; right: 0; }
+
+.sign {
+  left: 350px;
+  bottom: 20px;
+  width: 6px;
+  height: 160px;
+  background: #64748b;
+}
+
+.sign::before {
+  content: 'BUS';
+  position: absolute;
+  top: -16px;
+  left: -17px;
+  width: 40px;
+  border-radius: 50%;
+  background: #16a34a;
+  font: 800 12px/40px system-ui;
+  text-align: center;
+}
+
+.guy {
+  left: 300px;
+  bottom: 14px;
+  width: 24px;
+  height: 52px;
+  border-radius: 12px 12px 4px 4px;
+  background: #db2777;
+}
+
+/* head */
+.guy::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: 1px;
+  width: 22px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fcd34d;
+}
+
+.arm {
+  top: 6px;
+  left: 18px;
+  width: 7px;
+  height: 30px;
+  border-radius: 4px;
+  background: #db2777;
+  transform-origin: top;
+  rotate: 150deg;
+}
+
+#go:checked + .street .arm {
+  animation: wave .4s 3 both;
+}
+
+#go:checked + .street .bus {
+  animation: arrive 2s .6s ease-out forwards,
+    brake .6s 2.5s,
+    leave 1.6s 6s ease-in forwards;
+}
+
+#go:checked + .street .door i {
+  animation: doors 3s 3s;
+}
+
+#go:checked + .street .guy {
+  animation: board 1s 3.8s forwards;
+}
+
+.btn {
+  justify-self: center;
+  padding: 12px 42px;
+  border-radius: 99px;
+  background: #22c55e;
+  font: 800 24px system-ui;
+}

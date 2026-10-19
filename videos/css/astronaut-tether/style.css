@@ -1,0 +1,154 @@
+@property --w {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 90px;
+}
+@property --h {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 70px;
+}
+
+/* drift out, tether goes taut, reel in */
+@keyframes walk {
+  45%, 60% { --w: 225px; --h: 6px; }
+}
+@keyframes spin { to { rotate: 1turn; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.space {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%,
+      #fff 98%, #0000),
+    radial-gradient(1px 1px at 73% 9%,
+      #fff 98%, #0000),
+    radial-gradient(2px 2px at 88% 41%,
+      #cbd5e1 98%, #0000),
+    radial-gradient(1px 1px at 37% 47%,
+      #fff 98%, #0000),
+    radial-gradient(1.5px 1.5px at 56% 23%,
+      #e0f2fe 98%, #0000),
+    #0b1026;
+}
+
+.space > * { position: absolute; }
+
+/* Earth glows below */
+.earth {
+  left: -90px;
+  top: 320px;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background:
+    radial-gradient(9% 3% at 30% 4%,
+      #22c55e 90%, #0000),
+    radial-gradient(7% 4% at 66% 9%,
+      #16a34a 90%, #0000),
+    #2563eb;
+  box-shadow: 0 0 50px 10px #38bdf8,
+    inset 0 30px 40px #bae6fd88;
+}
+
+.station {
+  left: 30px;
+  top: 130px;
+  width: 80px;
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(#e2e8f0,
+    #94a3b8 70%, #64748b);
+}
+
+/* solar panels */
+.station::before,
+.station::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: -80px;
+  width: 36px;
+  height: 80px;
+  background:
+    linear-gradient(#94a3b8 0 0) 50% 100% /
+      4px 14px no-repeat,
+    repeating-linear-gradient(#1e40af 0 15px,
+      #60a5fa 0 17px) 0 0 / 100% 66px no-repeat;
+}
+
+.station::after { top: 60px; scale: 1 -1; }
+
+/* a half ellipse: only the bottom border */
+.tether {
+  left: 108px;
+  top: calc(160px - var(--h) / 2);
+  width: var(--w);
+  height: var(--h);
+  border-bottom: 3px solid #fde68a;
+  border-radius: 50%;
+}
+
+.astro {
+  left: calc(108px + var(--w));
+  top: 160px;
+  width: 44px;
+  height: 48px;
+  translate: -50% -50%;
+  border-radius: 14px 14px 10px 10px;
+  background:
+    linear-gradient(#475569 0 0) 50% 100% /
+      4px 14px no-repeat,
+    #f8fafc;
+  box-shadow: inset -6px -4px #cbd5e1;
+  animation: spin 9s linear infinite;
+}
+
+/* helmet + visor */
+.astro::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: -34px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%,
+    #fde68a 3px, #f59e0b 6px, #1e293b 13px,
+    #0000 14px) 0 0 / 100% 90%, #f8fafc;
+  background-repeat: no-repeat;
+}
+
+#go:checked + .space {
+  animation: walk 6s ease-in-out;
+}
+
+#go:checked + .space .astro {
+  animation: spin 3s linear 2;
+}
+
+label {
+  padding: 12px 34px;
+  border-radius: 99px;
+  background: #fde68a;
+  color: #1e293b;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

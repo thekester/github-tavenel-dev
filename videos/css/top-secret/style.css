@@ -1,0 +1,102 @@
+@property --x {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 30%;
+}
+
+@property --y {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 36%;
+}
+
+@property --r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #292524;
+}
+
+.doc {
+  position: relative;
+  width: 360px;
+  height: 300px;
+  border-radius: 6px;
+  background: #fef3c7;
+  font: 700 24px/42px monospace;
+  transition: --x .5s, --y .5s, --r .3s;
+}
+
+h1 {
+  margin: 0;
+  padding: 18px 24px 0;
+  color: #dc2626;
+  font: 900 30px system-ui;
+}
+
+.text {
+  position: absolute;
+  inset: 70px 24px 0;
+}
+
+.text p { margin: 0; }
+
+/* redacted: the text is there, but blacked out */
+.hidden span {
+  color: #0000;
+  background: #111;
+}
+
+/* the decoder lens: same text, clipped */
+.shown {
+  inset: 0;
+  padding: 70px 24px 0;
+  border-radius: 6px;
+  background: #fde68a;
+  color: #166534;
+  clip-path: circle(var(--r) at var(--x) var(--y));
+}
+
+/* the lens ring */
+.doc::after {
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 160px;
+  height: 160px;
+  border: 6px solid #44403c;
+  border-radius: 50%;
+  translate: -50% -50%;
+  pointer-events: none;
+  scale: 0;
+  transition: scale .3s;
+}
+
+/* lens only while hovering the file */
+.doc:has(i:hover) { --r: 80px; }
+
+.doc:has(i:hover)::after { scale: 1; }
+
+/* four invisible zones steer the lens */
+.zones {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.doc:has(i:nth-child(1):hover) { --x: 30%; }
+.doc:has(i:nth-child(2):hover) { --x: 70%; }
+.doc:has(i:nth-child(3):hover) { --x: 30%; }
+.doc:has(i:nth-child(4):hover) { --x: 70%; }
+
+.doc:has(i:nth-child(-n+2):hover) { --y: 36%; }
+.doc:has(i:nth-child(n+3):hover) { --y: 72%; }

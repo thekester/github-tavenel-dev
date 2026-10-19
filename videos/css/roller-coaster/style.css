@@ -1,0 +1,112 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 26px;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#7dd3fc, #fde68a);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.park {
+  position: relative;
+  width: 340px;
+  height: 250px;
+}
+
+.park > i {
+  position: absolute;
+  border: 8px solid #dc2626;
+}
+
+/* hill: half an ellipse, posts inside */
+.hill {
+  left: 35px;
+  top: 136px;
+  width: 72px;
+  height: 86px;
+  border-bottom: 0 !important;
+  border-radius: 44px 44px 0 0 / 94px 94px 0 0;
+  background: repeating-linear-gradient(90deg,
+    #0000 0 14px, #78350f 0 18px);
+}
+
+/* loop: a ring */
+.loop {
+  left: 145px;
+  top: 106px;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+}
+
+/* ground rail */
+.park::after {
+  content: '';
+  position: absolute;
+  inset: 226px 0 auto;
+  height: 8px;
+  background: #dc2626;
+}
+
+.track {
+  position: absolute;
+  left: 30px;
+  top: 230px;
+}
+
+/* the same track, as a motion path */
+.cart {
+  position: absolute;
+  offset-path: path(
+  'M0 0h9a40 90 0 0 1 80 0h90a60 60 0 1 0-1 0h70'
+  );
+  offset-anchor: 50% 37px;
+  offset-rotate: auto;
+  width: 46px;
+  height: 26px;
+  border-radius: 6px 6px 4px 4px;
+  background: #2563eb;
+  box-shadow: 0 0 0 3px #1e3a8a inset;
+}
+
+/* rider's head + wheels */
+.cart::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: -14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fcd34d;
+}
+
+.cart::after {
+  content: '';
+  position: absolute;
+  inset: auto 4px -7px;
+  height: 10px;
+  background: radial-gradient(circle,
+    #111 4px, #0000 5px) 0 0 / 50% 100%;
+}
+
+#go:checked + .park .cart {
+  animation: ride 4.5s
+    cubic-bezier(.45, .05, .55, .95) forwards;
+}
+
+@keyframes ride { to { offset-distance: 100%; } }
+
+.btn {
+  padding: 12px 46px;
+  border-radius: 12px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  cursor: pointer;
+}

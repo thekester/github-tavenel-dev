@@ -1,0 +1,91 @@
+@property --n {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0b1222;
+  font-family: system-ui;
+}
+
+.app:has(#l1:checked) { --n: 250; }
+.app:has(#l2:checked) { --n: 500; }
+.app:has(#l3:checked) { --n: 750; }
+.app:has(#l4:checked) { --n: 1000; }
+
+.app {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  color: #e0f2fe;
+  /* the number counts up on its own */
+  transition: --n 1.2s ease-out;
+  counter-reset: ml var(--n);
+}
+
+.ml { margin: 0; font: 800 46px system-ui; }
+
+.ml::after { content: counter(ml) ' ml'; }
+
+.glass {
+  position: relative;
+  width: 160px;
+  height: 250px;
+  overflow: hidden;
+  border: 5px solid #bae6fd88;
+  border-top: 0;
+  border-radius: 0 0 36px 36px;
+  background: #ffffff0a;
+}
+
+.water {
+  position: absolute;
+  inset: 0;
+  top: calc(100% - var(--n) * .1%);
+  background: #0ea5e9;
+}
+
+/* rotating blobs make the waves */
+.water::before,
+.water::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 470px);
+  width: 480px;
+  aspect-ratio: 1;
+  translate: -50%;
+  border-radius: 42%;
+  background: #38bdf8;
+  animation: spin 5s linear infinite;
+}
+
+.water::after {
+  bottom: calc(100% - 476px);
+  background: #0ea5e9;
+  animation-duration: 7s;
+}
+
+@keyframes spin { to { rotate: 360deg; } }
+
+nav { display: flex; gap: 6px; }
+
+label {
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #1e293b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+label:has(:checked) {
+  background: #38bdf8;
+  color: #0b1222;
+}
+
+input { appearance: none; margin: 0; }

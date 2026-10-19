@@ -1,0 +1,68 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(
+    #1e3a8a, #38bdf8);
+}
+
+#t { display: none; }
+
+/* one path for the trail AND the planes */
+.sky {
+  --p: path('M20,250 C200,20 420,420 620,170');
+  position: relative;
+  display: block;
+  width: 640px;
+  height: 400px;
+  cursor: pointer;
+}
+
+#t:checked + .sky {
+  --p: path('M20,250 C980,-250 -340,-250 620,170');
+}
+
+svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+path {
+  d: var(--p);
+  fill: none;
+  stroke: #fff8;
+  stroke-width: 3;
+  stroke-dasharray: 8 12;
+  animation: dash .8s linear infinite;
+  transition: d 1s ease-in-out;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -20; }
+}
+
+i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 30px;
+  background: linear-gradient(#fff, #c7dcff);
+  clip-path: polygon(0 0, 100% 50%,
+    0 100%, 22% 50%);
+  offset-path: var(--p);
+  offset-rotate: auto;
+  animation: fly 3.6s linear infinite;
+  transition: offset-path 1s ease-in-out;
+}
+
+i:nth-of-type(2) { animation-delay: -1.2s; }
+i:nth-of-type(3) { animation-delay: -2.4s; }
+
+@keyframes fly {
+  from { offset-distance: 0%; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  to { offset-distance: 100%; opacity: 0; }
+}

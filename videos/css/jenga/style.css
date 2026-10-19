@@ -1,0 +1,97 @@
+@keyframes pull {
+  40% { translate: calc(var(--o) * 1px) 0; }
+  to { translate: calc(var(--o) * 1px)
+    calc(var(--y) * 1px); }
+}
+@keyframes wobble {
+  25% { rotate: -3deg; }
+  75% { rotate: 4deg; }
+}
+@keyframes fall {
+  to {
+    translate: calc(var(--x) * 1px)
+      calc(var(--i) * 25px - 4px);
+    rotate: calc(var(--r) * 1deg);
+  }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+  font-family: system-ui;
+}
+
+input { display: none; }
+
+.scene {
+  position: relative;
+  width: 440px;
+  height: 440px;
+  background: linear-gradient(#0000 400px,
+    #7c2d12 0);
+}
+
+.scene > *, .tower i { position: absolute; }
+
+/* every block sits on its row index */
+.tower i, .scene > b, label {
+  left: 150px;
+  bottom: calc(40px + var(--i) * 26px);
+  width: 140px;
+  height: 24px;
+  border-radius: 3px;
+}
+.tower {
+  inset: 0;
+  transform-origin: 220px 400px;
+}
+
+/* long side: wood grain */
+.a, .scene > b {
+  background: repeating-linear-gradient(
+    #f0c38a 0 5px, #e2ab6e 0 7px);
+}
+
+/* short side: three block ends */
+.e {
+  background:
+    linear-gradient(90deg, #0000 44px,
+      #1e1b4b 0 48px, #0000 0 92px,
+      #1e1b4b 0 96px, #0000 0),
+    #d9a066;
+}
+
+/* hole left by a pulled block */
+.g { background: #8a5a2b; }
+
+label { cursor: pointer; z-index: 1; }
+
+:has(#p1:checked) .p1,
+:has(#p2:checked) .p2,
+:has(#p3:checked) .p3 {
+  animation: pull 1s ease-in forwards;
+}
+
+:has(#p3:checked) .tower {
+  animation: wobble .5s 1s 2;
+}
+
+:has(#p3:checked) .tower i {
+  animation: fall .8s 2s ease-in forwards;
+}
+
+.msg {
+  inset: 10px 0 auto;
+  margin: 0;
+  text-align: center;
+  color: #fde68a;
+  font-size: 32px;
+  font-weight: 900;
+}
+.msg::after { content: 'Pull three'; }
+:has(#p3:checked) .msg::after {
+  content: 'Timber!';
+}

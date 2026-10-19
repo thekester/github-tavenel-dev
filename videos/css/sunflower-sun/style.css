@@ -1,0 +1,113 @@
+@keyframes sky {
+  25%, 60% { background-color: #7dd3fc; }
+  85% { background-color: #fb923c; }
+  to { background-color: #312e81; }
+}
+@keyframes arc { to { offset-distance: 100%; } }
+@keyframes follow {
+  from { rotate: -16deg; }
+  to { rotate: 16deg; }
+}
+@keyframes droop { to { rotate: 115deg;
+  filter: brightness(.6); } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.field {
+  position: relative;
+  width: 360px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #1e1b4b;
+}
+
+/* ground in front of the sun */
+.field::after {
+  content: '';
+  position: absolute;
+  inset: 300px 0 0;
+  z-index: 1;
+  background: linear-gradient(#4d7c0f 8px,
+    #365314 0);
+}
+
+/* the sun rides an arc path */
+.sun {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 30px 8px #facc15;
+  offset-path: path('M30 340 Q180 -140 330 340');
+  offset-rotate: 0deg;
+}
+
+/* stem pivots from the ground */
+.f {
+  position: absolute;
+  bottom: 90px;
+  left: var(--x);
+  width: 8px;
+  height: var(--h);
+  background: #15803d;
+  z-index: 2;
+  transform-origin: bottom;
+  rotate: -16deg;
+}
+
+/* the head: petals + seeds */
+.f::before {
+  content: '';
+  position: absolute;
+  top: -66px;
+  left: -32px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background:
+    radial-gradient(#713f12 0 15px, #0000 16px),
+    repeating-conic-gradient(#facc15 0 12deg,
+      #f59e0b 0 20deg);
+  mask:
+    radial-gradient(#000 24px, #0000 25px),
+    repeating-conic-gradient(#000 0 12deg,
+      #0000 0 20deg);
+  transform-origin: 50% 100%;
+}
+
+/* same duration = heads track the sun */
+:checked + .field {
+  animation: sky 7s forwards;
+}
+:checked + .field .sun {
+  animation: arc 7s linear forwards;
+}
+:checked + .field .f {
+  animation: follow 7s linear forwards;
+}
+:checked + .field .f::before {
+  animation: droop 1s 7s forwards;
+}
+
+label {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #facc15;
+  color: #422006;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

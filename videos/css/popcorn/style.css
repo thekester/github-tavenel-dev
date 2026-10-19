@@ -1,0 +1,76 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 460px;
+}
+
+.bucket {
+  position: absolute;
+  bottom: 0;
+  left: 80px;
+  width: 200px;
+  height: 190px;
+  clip-path: polygon(0 0, 100% 0,
+    85% 100%, 15% 100%);
+  background: repeating-linear-gradient(90deg,
+    #ef4444 0 25px, #fff 0 50px);
+  cursor: pointer;
+}
+
+/* kernels wait inside, behind the bucket */
+.corn {
+  position: absolute;
+  top: 300px;
+  left: 180px;
+}
+
+.corn i {
+  position: absolute;
+  z-index: -1;
+  left: -22px;
+  width: 44px;
+  height: 40px;
+  scale: .3;
+  /* three blobs = one popcorn */
+  background:
+    radial-gradient(circle at 30% 40%,
+      #fff 0 30%, #0000 31%),
+    radial-gradient(circle at 68% 38%,
+      #fffbeb 0 32%, #0000 33%),
+    radial-gradient(circle at 50% 70%,
+      #fde68a 0 30%, #0000 31%);
+}
+
+/* each kernel has its own x, y, delay */
+#go:checked + .scene .corn i {
+  animation: pop .9s var(--d) forwards;
+}
+
+@keyframes pop {
+  45% {
+    translate: calc(var(--x) * .6) -230px;
+    scale: 1;
+    animation-timing-function: ease-in;
+  }
+  to {
+    translate: var(--x) var(--y);
+    scale: 1;
+    rotate: 1turn;
+  }
+}
+
+#go:checked + .scene .bucket {
+  animation: shake .08s 30 alternate;
+}
+
+@keyframes shake { to { rotate: 2deg; } }

@@ -1,0 +1,106 @@
+/* a typed colour can be animated */
+@property --c {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #a78bfa55;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+}
+
+#lit { display: none; }
+
+.sea {
+  position: relative;
+  width: 360px;
+  height: 460px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(#0c4a6e,
+    #082f49 40%, #020617);
+  transition: --c 1s;
+}
+
+.jelly {
+  position: absolute;
+  left: 100px;
+  top: 80px;
+  width: 160px;
+  height: 290px;
+  cursor: pointer;
+}
+
+.body { animation: swim 2s infinite; }
+
+/* squash & stretch */
+.bell {
+  height: 110px;
+  border-radius: 50% 50% 18% 18% /
+    90% 90% 25% 25%;
+  background: radial-gradient(
+    circle at 50% 85%, #fff6, var(--c));
+  box-shadow: 0 0 var(--g, 0) var(--c);
+  transform-origin: bottom;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 40% { scale: 1.14 .8; } }
+@keyframes swim { 50% { translate: 0 -20px; } }
+
+/* staggered waving tentacles */
+.body i {
+  position: absolute;
+  top: 100px;
+  left: var(--x);
+  width: 6px;
+  height: 160px;
+  border-radius: 6px;
+  background: linear-gradient(var(--c), #0000);
+  transform-origin: top;
+  animation: wave 1.4s var(--d)
+    ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+  from { transform: rotate(12deg) skewX(20deg); }
+  to { transform: rotate(-12deg) skewX(-20deg); }
+}
+
+/* plankton */
+.sea b {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 7px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff2;
+}
+
+/* lights on: colour drifts cyan -> pink */
+#lit:checked + .sea {
+  --c: #22d3ee;
+  animation: hue 2.5s 1s infinite alternate;
+}
+
+@keyframes hue { to { --c: #f0abfc; } }
+
+#lit:checked + .sea .bell { --g: 45px; }
+
+#lit:checked + .sea .body {
+  filter: drop-shadow(0 0 8px var(--c));
+}
+
+#lit:checked + .sea b {
+  background: var(--c);
+  box-shadow: 0 0 12px 3px var(--c);
+  animation: blink 1.2s var(--d)
+    infinite alternate;
+}
+
+@keyframes blink { to { opacity: .2; } }

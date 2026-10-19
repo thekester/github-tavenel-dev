@@ -1,0 +1,131 @@
+@property --p {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 100%;
+}
+@property --m {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 25;
+}
+@property --s {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.timer {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+/* the ring is a conic gradient */
+.ring {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 270px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side,
+      #292524 84%, #0000 85%),
+    conic-gradient(#ef4444 var(--p), #44403c 0);
+  box-shadow: 0 0 50px #ef444433;
+}
+
+.tomato {
+  position: relative;
+  width: 46px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 32%,
+    #fecaca 0 4px, #0000 5px), #ef4444;
+}
+
+.tomato::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  width: 22px;
+  height: 14px;
+  background: #22c55e;
+  clip-path: polygon(0 60%, 30% 50%, 50% 0,
+    70% 50%, 100% 60%, 50% 100%);
+}
+
+/* integers become text with counters */
+.time {
+  margin: 8px 0 0;
+  counter-reset: m var(--m) s var(--s);
+  color: #fafaf9;
+  font: 800 58px/1 system-ui;
+  font-variant-numeric: tabular-nums;
+}
+
+.time::after {
+  content: counter(m, decimal-leading-zero)
+    ':' counter(s, decimal-leading-zero);
+}
+
+.msg {
+  margin: 0;
+  color: #fca5a5;
+  font-size: 40px;
+  font-weight: 900;
+  opacity: 0;
+  scale: .4;
+}
+
+.start {
+  padding: 12px 46px;
+  border-radius: 99px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 25 minutes in 6 seconds */
+#go:checked + .timer .ring {
+  animation: drain 6s linear forwards,
+    mins 6s steps(25, jump-start) forwards,
+    secs .24s linear 25 forwards;
+}
+
+@keyframes drain { to { --p: 0%; } }
+@keyframes mins { to { --m: 0; } }
+@keyframes secs {
+  from { --s: 59; }
+  to { --s: 0; }
+}
+
+#go:checked + .timer .msg {
+  animation: pop .5s 6s forwards;
+}
+
+#go:checked + .timer .tomato {
+  animation: hop .5s 6s 3;
+}
+
+@keyframes pop { to { opacity: 1; scale: 1; } }
+@keyframes hop {
+  40% { translate: 0 -22px; scale: .9 1.1; }
+  80% { translate: 0; scale: 1.15 .85; }
+}
+
+#go:checked + .timer .start { opacity: .4; }

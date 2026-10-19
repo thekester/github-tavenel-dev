@@ -1,0 +1,149 @@
+@property --f {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+@keyframes press {
+  12%, 85% { translate: 0 76px; }
+}
+@keyframes squash {
+  12%, 85% { scale: 1.25 .6; }
+}
+@keyframes flow {
+  to { background-position-y: 36px; }
+}
+@keyframes show { from, to { opacity: 1; } }
+@keyframes fill { to { --f: 70%; } }
+@keyframes fall {
+  from { opacity: 1; }
+  to { opacity: 1; top: 398px; rotate: 1turn; }
+}
+@keyframes bob {
+  to { translate: 0 -6px; rotate: 12deg; }
+}
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#0d9488, #042f2e);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 340px;
+  height: 430px;
+}
+
+.scene > * { position: absolute; margin: 0; }
+
+.press {
+  left: 100px;
+  top: -30px;
+  width: 140px;
+  height: 100px;
+  background: linear-gradient(#94a3b8 0 0)
+    50% 0 / 20px 86px no-repeat,
+    linear-gradient(#e2e8f0, #64748b) 0 100% /
+    100% 14px no-repeat;
+}
+
+.lemon {
+  left: 110px;
+  top: 120px;
+  width: 120px;
+  height: 70px;
+  border-radius: 60px 60px 8px 8px /
+    70px 70px 8px 8px;
+  background: radial-gradient(
+    60px 20px at 50% 100%,
+    #fef9c3 70%, #facc15 72%),
+    #eab308;
+  transform-origin: 50% 100%;
+}
+
+.grid {
+  left: 95px;
+  top: 190px;
+  width: 150px;
+  height: 8px;
+  border-radius: 4px;
+  background: #cbd5e1;
+}
+
+/* falling juice = moving stripes */
+.stream {
+  left: 165px;
+  top: 198px;
+  width: 10px;
+  height: 220px;
+  background: repeating-linear-gradient(
+    #fde047 0 12px, #0000 0 18px);
+  opacity: 0;
+}
+
+.seed {
+  left: 186px;
+  top: 192px;
+  width: 9px;
+  height: 14px;
+  border-radius: 50% / 30% 30% 70% 70%;
+  background: #fefce8;
+  border: 2px solid #a16207;
+  opacity: 0;
+}
+
+/* liquid level is a typed percentage */
+.glass {
+  left: 100px;
+  top: 240px;
+  width: 130px;
+  height: 180px;
+  border: 5px solid #fff6;
+  border-top: 0;
+  border-radius: 0 0 22px 22px;
+  overflow: hidden;
+  background: linear-gradient(to top,
+    #facc15 var(--f), #fff1 0);
+}
+
+.glass i {
+  position: absolute;
+  left: var(--x);
+  bottom: max(4px, calc(var(--f) - 26px));
+  width: 36px;
+  height: 36px;
+  border: 2px solid #fff;
+  border-radius: 7px;
+  background: #e0f2fe88;
+  animation: bob .7s var(--d) infinite alternate;
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 99px;
+  background: #facc15;
+  color: #422006;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#go:checked + .scene {
+  .press { animation: press 4.6s; }
+  .lemon { animation: squash 4.6s; }
+  .stream { animation: flow .25s linear infinite,
+    show 3.4s .6s; }
+  .glass {
+    animation: fill 3.6s .8s linear forwards;
+  }
+  .seed {
+    animation: fall 1.2s 2s ease-in forwards;
+  }
+}

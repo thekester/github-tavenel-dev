@@ -1,0 +1,108 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0f1117;
+}
+
+#t { display: none; }
+
+.btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 72px;
+  border: 3px solid #22c55e;
+  border-radius: 40px;
+  color: #22c55e;
+  font: 700 24px system-ui;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: width .4s, background .3s;
+}
+
+.btn:hover { background: #22c55e22; }
+
+.btn span { transition: opacity .15s; }
+
+/* spinner ring */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 3px solid transparent;
+  border-top-color: #22c55e;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* check mark */
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 28px;
+  margin-top: -6px;
+  border: solid #fff;
+  border-width: 0 5px 5px 0;
+  rotate: 45deg;
+  scale: 0;
+}
+
+/* confetti */
+.burst {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow:
+    0 -70px #facc15, 50px -50px #f472b6,
+    70px 0 #38bdf8, 50px 50px #a78bfa,
+    0 70px #facc15, -50px 50px #f472b6,
+    -70px 0 #38bdf8, -50px -50px #a78bfa;
+  opacity: 0;
+}
+
+#t:checked + .btn {
+  width: 72px;
+  border-color: #2a2f3a;
+  animation: fill .3s 1.8s forwards;
+}
+
+#t:checked + .btn span { opacity: 0; }
+
+#t:checked + .btn::before {
+  animation: spin .7s .4s linear 2;
+}
+
+#t:checked + .btn::after {
+  animation: pop .35s 2s forwards
+    cubic-bezier(.3, 1.8, .6, 1);
+}
+
+#t:checked + .btn .burst {
+  animation: burst .7s 2s ease-out;
+}
+
+@keyframes spin {
+  from { opacity: 1; rotate: 0deg; }
+  to { opacity: 1; rotate: 360deg; }
+}
+
+@keyframes fill {
+  to {
+    background: #22c55e;
+    border-color: #22c55e;
+  }
+}
+
+@keyframes pop {
+  to { scale: 1; }
+}
+
+@keyframes burst {
+  from { opacity: 1; scale: .2; }
+  to { opacity: 0; scale: 1.4; }
+}

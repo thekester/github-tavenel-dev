@@ -1,0 +1,140 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#57341f, #1c0f08);
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 340px;
+}
+
+.scene > * { position: absolute; }
+
+.pizza {
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  height: 300px;
+}
+
+.pizza > * { position: absolute; }
+
+/* cheese + pepperoni dots + crust */
+.pizza::before, .slice::before {
+  --p: radial-gradient(#b91c1c 55%,
+    #7f1d1d 58% 68%, #0000 70%);
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 14px solid #d97706;
+  border-radius: 50%;
+  background: var(--p), var(--p), var(--p),
+    var(--p), var(--p), var(--p), var(--p),
+    var(--p), #fcd34d;
+  background-size: 46px 46px;
+  background-repeat: no-repeat;
+  background-position: 30% 12%, 72% 14%,
+    12% 48%, 46% 40%, 88% 52%, 28% 80%,
+    66% 74%, 58% 96%;
+  box-shadow: inset 0 0 18px #ea580c;
+}
+
+/* conic slice lines */
+.pizza::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 67.5deg, #9a3412 0 1deg, #0000 0 45deg);
+}
+
+/* the wedge, cut with clip-path */
+.slice, .hole {
+  inset: 0;
+  z-index: 1;
+  transform-origin: 80% 50%;
+}
+
+.slice::before, .hole {
+  clip-path: polygon(50% 50%,
+    100% 29%, 100% 71%);
+}
+
+.hole {
+  border-radius: 50%;
+  background: #3b2314;
+  opacity: 0;
+}
+
+/* stretchy cheese strings */
+.pizza i {
+  left: var(--x);
+  top: var(--y);
+  z-index: 1;
+  width: 72px;
+  height: 4px;
+  border-radius: 2px;
+  background: #fde68a;
+  scale: 0 1;
+  transform-origin: left;
+}
+
+.scene s {
+  top: 110px;
+  left: 312px;
+  width: 34px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(8px);
+  opacity: 0;
+}
+
+label {
+  top: 120px;
+  left: 220px;
+  width: 90px;
+  height: 80px;
+  cursor: pointer;
+}
+
+#go:checked + .scene .hole { opacity: 1; }
+
+#go:checked + .scene .slice {
+  animation: out 1.4s forwards;
+}
+
+#go:checked + .scene i {
+  animation: pull 1.4s forwards;
+}
+
+#go:checked + .scene s {
+  animation: steam 2.1s calc(1.2s + var(--d))
+    infinite;
+}
+
+@keyframes out {
+  60% { translate: 70px 0; }
+  to {
+    translate: 70px 0;
+    scale: 1.12;
+    filter: drop-shadow(8px 14px 8px #0008);
+  }
+}
+
+@keyframes pull {
+  60% { scale: 1 1; }
+  to { scale: 1.1 .5; }
+}
+
+@keyframes steam {
+  30% { opacity: .75; }
+  to { translate: 10px -110px; opacity: 0; }
+}

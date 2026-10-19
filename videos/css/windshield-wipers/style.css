@@ -1,0 +1,132 @@
+@property --a {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@property --c {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@property --k {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #020617;
+}
+
+#go { display: none; }
+
+.car {
+  position: relative;
+  width: 400px;
+  height: 330px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #18181b;
+}
+
+.glass {
+  position: absolute;
+  inset: 14px 14px 74px;
+  border-radius: 60px 60px 10px 10px;
+  overflow: hidden;
+}
+
+/* blurry city at night */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  filter: blur(6px);
+  background:
+    radial-gradient(circle at 22% 80%,
+      #f43f5e 0 6px, #0000 16px),
+    radial-gradient(circle at 34% 80%,
+      #f43f5e 0 6px, #0000 16px),
+    radial-gradient(circle at 66% 62%,
+      #fbbf24 0 7px, #0000 22px),
+    linear-gradient(#475569 0 0)
+      8% 100% / 60px 62% no-repeat,
+    linear-gradient(#334155 0 0)
+      40% 100% / 80px 88% no-repeat,
+    linear-gradient(#64748b 0 0)
+      74% 100% / 50px 52% no-repeat,
+    linear-gradient(#1e293b, #0f172a);
+}
+
+/* raindrops: dot grids of odd sizes */
+.rain {
+  --d: radial-gradient(circle at 40% 40%,
+    #fff 0 1px, #bfdbfe66 2px 4px, #0000 5px);
+  position: absolute;
+  inset: 0;
+  background: var(--d) 0 0 / 37px 41px,
+    var(--d) 13px 7px / 59px 53px,
+    var(--d) 21px 29px / 71px 67px,
+    var(--d) 45px 3px / 83px 97px;
+  /* wiped wedges follow the wiper angle */
+  mask:
+    conic-gradient(from calc(90deg - var(--c))
+      at 14% 100%, rgb(0 0 0 / var(--k))
+      var(--c), #000 0),
+    conic-gradient(from calc(90deg - var(--c))
+      at 56% 100%, rgb(0 0 0 / var(--k))
+      var(--c), #000 0);
+  mask-composite: intersect;
+}
+
+.glass i {
+  position: absolute;
+  bottom: -4px;
+  left: var(--x);
+  width: 6px;
+  height: 170px;
+  margin-left: -3px;
+  border-radius: 3px;
+  transform-origin: 50% 100%;
+  rotate: calc(90deg - var(--a));
+  background: #000;
+}
+
+#go:checked + .car .glass {
+  animation: swing 1.2s ease-in-out 4 alternate,
+    open 1.2s ease-in-out forwards,
+    refill 8s 4.8s both;
+}
+
+@keyframes swing { to { --a: 125deg; } }
+@keyframes open { to { --c: 125deg; } }
+@keyframes refill { from { --k: 0%; } }
+
+/* steering wheel */
+.car::after {
+  content: '';
+  position: absolute;
+  left: 90px;
+  bottom: -150px;
+  width: 220px;
+  aspect-ratio: 1;
+  border: 20px solid #27272a;
+  border-radius: 50%;
+}
+
+.stalk {
+  position: absolute;
+  right: 18px;
+  bottom: 36px;
+  width: 92px;
+  height: 14px;
+  border-radius: 7px;
+  background: #3f3f46;
+  cursor: pointer;
+}
+
+#go:checked + .car .stalk { background: #38bdf8; }

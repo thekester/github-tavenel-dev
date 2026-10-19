@@ -1,0 +1,140 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  height: 100vh;
+  margin: 0;
+  background: #1c1917;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 340px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(#fde68a, #fb923c);
+}
+
+.scene b, .scene i { position: absolute; }
+
+/* three layers, three speeds */
+.hills {
+  --t: 4s; --w: -260px;
+  inset: auto 0 40px;
+  height: 170px;
+  background: radial-gradient(circle at 50% 100%,
+    #65a30d 0 120px, #0000 121px) 0 0 / 260px;
+}
+
+.trees {
+  --t: 1s; --w: -150px;
+  inset: auto 0 40px;
+  height: 120px;
+  background:
+    radial-gradient(circle at 50% 35%,
+      #166534 0 32px, #0000 33px) 0 0 / 150px,
+    linear-gradient(90deg, #0000 72px,
+      #78350f 0 78px, #0000 0) 0 0 / 150px;
+}
+
+.road {
+  --t: .17s; --w: -48px;
+  inset: auto 0 0;
+  height: 40px;
+  background: linear-gradient(90deg,
+    #fef3c7 50%, #0000 0) 0 50% / 48px 4px
+    repeat-x, #44403c;
+}
+
+.bike { position: absolute; inset: 40px 0 0; }
+
+.wheel {
+  --t: 1.2s;
+  left: calc(var(--x) * 1px - 55px);
+  top: 150px;
+  width: 98px;
+  aspect-ratio: 1;
+  border: 6px solid #18181b;
+  border-radius: 50%;
+  background: radial-gradient(#d4d4d8 0 6px,
+    #0000 7px), repeating-conic-gradient(
+    #d4d4d8 0 2deg, #0000 0 30deg);
+}
+
+/* frame tubes from inline coordinates */
+.bike i {
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px - 3px);
+  width: calc(var(--l) * 1px);
+  height: 6px;
+  background: #2563eb;
+  transform-origin: 0 50%;
+  rotate: calc(var(--a) * 1deg);
+}
+
+.bike::before {
+  content: '';
+  position: absolute;
+  left: 166px;
+  top: 118px;
+  width: 34px;
+  height: 9px;
+  border-radius: 5px;
+  background: #18181b;
+}
+
+.chain {
+  left: 118px;
+  top: 194px;
+  width: 104px;
+  height: 26px;
+  border: 3px dashed #52525b;
+  border-radius: 16px;
+}
+
+.crank {
+  --t: 1.6s;
+  left: 165px;
+  top: 170px;
+  width: 80px;
+  height: 80px;
+  --p: linear-gradient(#18181b 0 0);
+  /* hub, arm and two pedals */
+  background: radial-gradient(#a1a1aa 0 14px,
+    #0000 15px), var(--p) 50% / 6px 100%,
+    var(--p) 50% 0 / 24px 7px,
+    var(--p) 50% 100% / 24px 7px;
+  background-repeat: no-repeat;
+}
+
+:has(#go:checked) :is(.wheel, .crank) {
+  animation: spin var(--t) linear infinite;
+}
+:has(#go:checked) :is(.hills, .trees, .road) {
+  animation: scroll var(--t) linear infinite;
+}
+:has(#go:checked) .chain {
+  animation: shift .2s steps(2) infinite;
+}
+:has(#go:checked) .bike {
+  animation: bounce .3s infinite alternate;
+}
+
+@keyframes spin { to { rotate: 1turn; } }
+@keyframes scroll {
+  to { background-position-x: var(--w); }
+}
+@keyframes shift { to { translate: 3px; } }
+@keyframes bounce { to { translate: 0 -3px; } }
+
+.ride {
+  padding: 12px 48px;
+  border-radius: 12px;
+  background: #fb923c;
+  font: 800 24px system-ui;
+  cursor: pointer;
+}

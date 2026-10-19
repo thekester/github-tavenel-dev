@@ -1,0 +1,141 @@
+@keyframes grow { to { height: 120px; } }
+@keyframes down { to { translate: 0 30px; } }
+@keyframes up { to { translate: 0 -90px; } }
+@keyframes zip { to { translate: 34px; } }
+@keyframes pop { to { opacity: 1; scale: 1; } }
+
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  height: 100vh;
+  margin: 0;
+  background: #0f172a;
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+/* frame: two posts + a base */
+.printer {
+  position: relative;
+  width: 380px;
+  height: 390px;
+  background:
+    linear-gradient(#334155 0 0) 40px 40px /
+      14px 330px no-repeat,
+    linear-gradient(#334155 0 0) 326px 40px /
+      14px 330px no-repeat,
+    linear-gradient(#1e293b 0 0) 20px 360px /
+      340px 22px no-repeat;
+}
+
+.printer > * { position: absolute; margin: 0; }
+
+.bed {
+  left: 90px;
+  top: 300px;
+  width: 200px;
+  height: 12px;
+  border-radius: 3px;
+  background: #94a3b8;
+}
+
+/* a vase revealed from the bottom up */
+.obj {
+  position: absolute;
+  left: 60px;
+  bottom: 100%;
+  width: 80px;
+  height: 0;
+  overflow: hidden;
+}
+
+.obj::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 80px;
+  height: 120px;
+  /* one stripe = one printed layer */
+  background: repeating-linear-gradient(0deg,
+    #f472b6 0 6px, #be185d 0 7.5px);
+  clip-path: polygon(25% 0, 75% 0, 68% 14%,
+    96% 52%, 78% 100%, 22% 100%, 4% 52%,
+    32% 14%);
+}
+
+.gantry {
+  left: 40px;
+  top: 258px;
+  width: 300px;
+  height: 14px;
+  background: #64748b;
+}
+
+.head {
+  position: absolute;
+  left: 130px;
+  top: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f59e0b;
+}
+
+/* nozzle tip, glowing hot */
+.head::after {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 40px;
+  width: 14px;
+  height: 12px;
+  background: #cbd5e1;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 4px 4px #fb923c);
+}
+
+.done {
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  color: #4ade80;
+  font-size: 40px;
+  font-weight: 900;
+  opacity: 0;
+  scale: .5;
+}
+
+/* every motion uses the same 16 steps */
+:checked + * .obj {
+  animation: grow 5s steps(16) forwards;
+}
+
+:checked + * .bed {
+  animation: down 5s steps(16) forwards;
+}
+
+:checked + * .gantry {
+  animation: up 5s steps(16) forwards;
+}
+
+:checked + * .head {
+  translate: -34px;
+  animation: zip .3125s 16 alternate;
+}
+
+:checked + * .done {
+  animation: pop .4s 5.1s forwards;
+}
+
+label {
+  padding: 10px 44px;
+  border-radius: 10px;
+  background: #f59e0b;
+  color: #1c1917;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+}

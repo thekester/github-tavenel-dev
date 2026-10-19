@@ -1,0 +1,112 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #fdf2f8;
+}
+
+input { display: none; }
+
+.party {
+  position: relative;
+  width: 360px;
+  height: 460px;
+  border-bottom: 6px solid #9d174d;
+}
+
+.party > * { position: absolute; }
+
+.rope {
+  left: 179px;
+  width: 3px;
+  height: 90px;
+  background: #78350f;
+}
+
+/* a star, plus up to two cracks */
+.pinata {
+  top: 70px;
+  left: 90px;
+  width: 180px;
+  height: 180px;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%,
+    68% 57%, 79% 91%, 50% 70%, 21% 91%,
+    32% 57%, 2% 35%, 39% 35%);
+  background:
+    var(--crack1, none),
+    var(--crack2, none),
+    repeating-linear-gradient(-30deg,
+      #f472b6 0 18px, #facc15 0 36px,
+      #38bdf8 0 54px);
+  transform-origin: 50% -20px;
+}
+
+/* the next hit's label sits on top */
+label {
+  z-index: 1;
+  top: 70px;
+  left: 90px;
+  width: 180px;
+  height: 180px;
+  cursor: pointer;
+}
+
+.party:not(:has(:checked)) [for=h1],
+:has(#h1:checked) [for=h2],
+:has(#h2:checked) [for=h3] { z-index: 2; }
+
+/* hit 1 and hit 2: swing + a new crack */
+:has(#h1:checked) .pinata {
+  --crack1: linear-gradient(60deg, #0000 47%,
+    #111 0 50%, #0000 0);
+  animation: swing1 .7s;
+}
+
+:has(#h2:checked, #h3:checked) .pinata {
+  --crack1: linear-gradient(60deg, #0000 47%,
+    #111 0 50%, #0000 0);
+  --crack2: linear-gradient(-50deg, #0000 50%,
+    #111 0 53%, #0000 0);
+  animation: swing2 .7s;
+}
+
+@keyframes swing1 {
+  30% { rotate: 25deg; } 70% { rotate: -12deg; }
+}
+@keyframes swing2 {
+  30% { rotate: -25deg; } 70% { rotate: 12deg; }
+}
+
+/* hit 3: it breaks, candy rains */
+:has(#h3:checked) .pinata {
+  animation: burst .4s forwards;
+}
+
+@keyframes burst {
+  to { scale: 1.5; rotate: 20deg; opacity: 0; }
+}
+
+.candy { top: 160px; left: 180px; }
+
+.candy i {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--c);
+  scale: 0;
+}
+
+:has(#h3:checked) .candy i {
+  animation: rain 1.2s var(--d) forwards;
+}
+
+@keyframes rain {
+  35% {
+    scale: 1;
+    translate: var(--x) -90px;
+    animation-timing-function: ease-in;
+  }
+  to { scale: 1; translate: var(--x) 270px; }
+}

@@ -1,0 +1,100 @@
+body {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(#44403c, #1c1917);
+  font-family: system-ui;
+}
+
+#go { display: none; }
+
+.clock {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #0c0a09;
+  color: #fafaf9;
+  font: 700 84px/110px monospace;
+}
+
+.d {
+  position: relative;
+  width: 70px;
+  height: 110px;
+  perspective: 300px;
+  text-align: center;
+}
+
+/* 4 halves: new top, old bottom, flap */
+.d::before, .d::after,
+.d i::before, .d i::after {
+  position: absolute;
+  inset: 0;
+  height: calc(50% - 1px);
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  background: #27272a;
+}
+
+.d::before { content: var(--b); }
+
+/* line-height 0 shows the lower half */
+.d::after, .d i::after {
+  border-radius: 0 0 8px 8px;
+  line-height: 0;
+}
+
+.d::after {
+  content: var(--a);
+  top: auto;
+}
+
+/* the flap folds on its bottom edge */
+.d i {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 50%;
+  transform-origin: bottom;
+  transform-style: preserve-3d;
+}
+
+.d i::before, .d i::after {
+  height: calc(100% - 1px);
+}
+
+.d i::before {
+  content: var(--a);
+  backface-visibility: hidden;
+}
+
+/* back face: next digit, lower half */
+.d i::after {
+  content: var(--b);
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+}
+
+:has(#go:checked) .d i {
+  animation: flip .8s var(--d)
+    ease-in forwards;
+}
+
+@keyframes flip {
+  to { transform: rotateX(-180deg); }
+}
+
+.clock span { margin-top: -6px; }
+
+.btn {
+  padding: 12px 34px;
+  border-radius: 12px;
+  background: #f59e0b;
+  color: #1c1917;
+  font-size: 26px;
+  font-weight: 800;
+  cursor: pointer;
+}

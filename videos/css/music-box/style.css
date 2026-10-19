@@ -1,0 +1,132 @@
+@keyframes turn { to { rotate: 1turn; } }
+@keyframes twirl { to { rotate: y 1turn; } }
+@keyframes roll { to { background-position-y:
+  96px, 96px; } }
+@keyframes float {
+  20%, 60% { opacity: 1; }
+  to { translate: calc(var(--x) / 3) -160px;
+    rotate: 25deg; }
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1e0b36;
+}
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 420px;
+  height: 400px;
+}
+.scene * { position: absolute; }
+
+/* open lid behind: velvet + mirror */
+.lid {
+  inset: 30px 80px 210px 60px;
+  border-radius: 10px;
+  background: radial-gradient(34% 36%,
+    #e0f2fe99 96%, #0000) #9f1239;
+  box-shadow: inset 0 0 0 10px #78350f;
+}
+
+.box {
+  inset: 190px 70px 50px 50px;
+  border-top: 14px solid #d97706;
+  border-radius: 6px 6px 12px 12px;
+  background: linear-gradient(#b45309, #78350f);
+}
+
+/* the pin cylinder, seen through a window */
+.drum {
+  inset: 24px 50px 30px;
+  border: 4px solid #fbbf24;
+  border-radius: 6px;
+  animation: roll 1.2s linear infinite paused;
+  background:
+    radial-gradient(circle at 30% 40%, #fef9c3
+      2px, #0000 3px) 0 0 / 23px 24px,
+    radial-gradient(circle at 70% 60%, #fef9c3
+      2px, #0000 3px) 0 0 / 31px 32px,
+    #a16207;
+}
+.drum::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#000a, #0000 40%,
+    #fff3 50%, #0000 60%, #000a),
+    repeating-linear-gradient(90deg, #cbd5e1
+      0 5px, #0000 0 9px) 0 0 / 100% 14px
+      no-repeat;
+}
+
+/* torso + leg */
+.dancer {
+  inset: 70px 180px 210px;
+  background:
+    linear-gradient(#fde7cf 0 0)
+      50% 100% / 4px 50px no-repeat,
+    linear-gradient(#f472b6 0 0)
+      50% 38px / 12px 30px no-repeat;
+  transform-style: preserve-3d;
+  animation: twirl 1.6s linear infinite paused;
+}
+/* arms up in a ring */
+.dancer::after {
+  content: '';
+  position: absolute;
+  inset: 0 6px 76px;
+  border: 3px solid #fde7cf;
+  border-bottom-color: #0000;
+  border-radius: 50%;
+}
+/* counter-spin: head + tutu always face us */
+.dancer i {
+  inset: 17px 0 46px;
+  background:
+    radial-gradient(circle 9px at 50% 9px,
+      #fde7cf 98%, #0000),
+    radial-gradient(50% 7px at 50% 36px,
+      #f9a8d4 80%, #ec4899 0 98%, #0000);
+  animation: twirl 1.6s linear infinite reverse
+    paused;
+}
+
+/* eighth notes: stem + round head */
+.note {
+  left: calc(200px + var(--x));
+  top: 150px;
+  width: 10px;
+  height: 30px;
+  border-right: 3px solid #fde047;
+  background: radial-gradient(7px 5px at 6px 25px,
+    #fde047 98%, #0000);
+  opacity: 0;
+  animation: float 2.4s var(--d) infinite paused;
+}
+
+label {
+  inset: 236px 24px 108px 340px;
+  border-radius: 50%;
+  background: radial-gradient(#fbbf24 9px,
+    #0000 10px), #57534e;
+  cursor: pointer;
+}
+/* crank arm + knob */
+label i {
+  inset: -14px 24px 28px;
+  border-radius: 4px;
+  background: #fbbf24;
+  transform-origin: 50% 42px;
+  box-shadow: 0 -10px 0 4px #fde68a;
+  animation: turn 1.2s linear infinite paused;
+}
+
+/* everything is paused: one click plays all */
+#go:checked + .scene * {
+  animation-play-state: running;
+}

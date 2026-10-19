@@ -1,0 +1,113 @@
+@property --l {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #0c0a09;
+}
+
+#go { display: none; }
+
+.scene {
+  position: relative;
+  width: 360px;
+  height: 460px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #7dd3fc;
+  transition: background 1.5s;
+}
+
+.scene > * { position: absolute; }
+
+.volcano {
+  bottom: 0;
+  left: 20px;
+  width: 320px;
+  height: 220px;
+  clip-path: polygon(40% 0, 60% 0, 100% 100%,
+    0 100%);
+  background: #57534e;
+  cursor: pointer;
+}
+
+/* lava: a streak that fills from the top */
+.lava {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(41% 0, 59% 0, 63% 30%,
+    55% 55%, 61% 82%, 50% 100%, 42% 72%,
+    38% 42%);
+  background: linear-gradient(#fb923c var(--l),
+    #0000 0);
+}
+
+.rocks { top: 250px; left: 180px; }
+
+.rocks i {
+  position: absolute;
+  width: 18px;
+  height: 14px;
+  border-radius: 40%;
+  background: #ea580c;
+  box-shadow: 0 0 10px #fb923c;
+  scale: 0;
+}
+
+.smoke { top: 210px; left: 150px; }
+
+.smoke i {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #a8a29e;
+  scale: 0;
+}
+
+/* erupt! */
+#go:checked + .scene { background: #7f1d1d; }
+
+#go:checked + .scene .volcano {
+  animation: shake .08s 25 alternate;
+}
+
+@keyframes shake { to { translate: 3px 0; } }
+
+#go:checked + .scene .lava {
+  animation: flow 3s .4s ease-out forwards;
+}
+
+@keyframes flow { to { --l: 100%; } }
+
+#go:checked + .scene .rocks i {
+  animation: fly 1.5s var(--d) forwards;
+}
+
+@keyframes fly {
+  45% {
+    scale: 1;
+    translate: calc(var(--x) * .5) var(--h);
+    animation-timing-function: ease-in;
+  }
+  to { scale: 1; translate: var(--x) 240px; }
+}
+
+#go:checked + .scene .smoke i {
+  animation: puff 3s ease-out infinite;
+}
+
+.smoke i:nth-child(2) { animation-delay: 1s; }
+.smoke i:nth-child(3) { animation-delay: 2s; }
+
+@keyframes puff {
+  from { scale: .3; opacity: .9; }
+  to { scale: 2.5; opacity: 0;
+    translate: 20px -200px; }
+}
