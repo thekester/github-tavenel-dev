@@ -12,3 +12,8 @@
 a[href^="https://www.youtube.com/"], .filters button[data-filter="video"] { display:inline-flex; align-items:center; gap:8px; }
 a[href^="https://www.youtube.com/"]::before, .filters button[data-filter="video"]::before { content:""; display:inline-block; width:24px; height:24px; flex:0 0 24px; background:url("youtube.svg") center / contain no-repeat; }
 .card-actions a[href^="https://www.youtube.com/"]::before, .filters button[data-filter="video"]::before { width:20px; height:20px; flex-basis:20px; }
+
+/* Use the link color to keep the GitHub mark visible on light and dark buttons. */
+a[href^="https://github.com/"]:not([href$="/LICENSE"]) { display:inline-flex; align-items:center; gap:8px; }
+a[href^="https://github.com/"]:not([href$="/LICENSE"])::before { content:""; display:inline-block; width:20px; height:20px; flex:0 0 20px; background-color:currentColor; -webkit-mask:url("github.svg") center / contain no-repeat; mask:url("github.svg") center / contain no-repeat; }
+.card-actions a[href^="https://github.com/"]::before { width:18px; height:18px; flex-basis:18px; }
