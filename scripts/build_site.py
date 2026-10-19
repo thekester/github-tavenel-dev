@@ -1,5 +1,6 @@
 """Validate the catalogue and build a portable GitHub Pages site (stdlib only)."""
 import json
+import hashlib
 import re
 import shutil
 from html import escape
@@ -89,13 +90,29 @@ def build():
         shutil.rmtree(OUTPUT)
     OUTPUT.mkdir()
     shutil.copytree(ROOT / 'site/assets', OUTPUT / 'assets')
+    # New asset URLs prevent a cached script from being paired with newer HTML.
+    asset_names = {}
+    for asset in (ROOT / 'site/assets').iterdir():
+        if asset.suffix not in {'.js', '.css'}:
+            continue
+        content = asset.read_bytes()
+        digest = hashlib.sha256(content).hexdigest()[:12]
+        versioned_name = f'{asset.stem}.{digest}{asset.suffix}'
+        (OUTPUT / 'assets' / versioned_name).write_bytes(content)
+        asset_names[asset.name] = versioned_name
+
+    def version_assets(template):
+        for original, versioned in asset_names.items():
+            template = template.replace(f'assets/{original}"', f'assets/{versioned}"')
+        return template
+
     shutil.copytree(ROOT / 'videos', OUTPUT / 'videos')
     shutil.copy2(ROOT / 'LICENSE', OUTPUT / 'LICENSE')
     shutil.copy2(ROOT / 'README.md', OUTPUT / 'README.md')
     (OUTPUT / '.nojekyll').touch()
     video_order = {video['id']: index for index, video in enumerate(catalog['videos'])}
     examples = sorted(catalog['examples'], key=lambda e: (video_order.get(e['youtubeId'], len(video_order)), e['slug']))
-    template = (ROOT / 'site/example.html').read_text(encoding='utf-8')
+    template = version_assets((ROOT / 'site/example.html').read_text(encoding='utf-8'))
     for example in examples:
         destination = OUTPUT / 'examples' / example['slug']
         destination.mkdir(parents=True)
@@ -113,7 +130,7 @@ def build():
         'CARDS': '\n'.join(card(example) for example in examples),
         'EXTRA_VIDEOS': '\n'.join(f'<a href="{escape(v["url"])}">{escape(v["title"].split("|")[0].strip())} ↗</a>' for v in catalog['videos'] if v['slug'] is None),
     }
-    page = (ROOT / 'site/index.html').read_text(encoding='utf-8')
+    page = version_assets((ROOT / 'site/index.html').read_text(encoding='utf-8'))
     for key, value in replacements.items():
         page = page.replace('{{' + key + '}}', value)
     assert not re.search(r'\{\{[A-Z_]+\}\}', page), 'Unresolved template marker'
